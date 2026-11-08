@@ -1,0 +1,225 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "emergencia_otra",
+  "title": "Otros eventos de excepción",
+  "description": "Eventos y personas afectadas en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2010-2025. Fuente: SNIS, formularios 302, 302a.",
+  "keywords": [
+    "vigilancia",
+    "emergencias",
+    "emergencia"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2025_302a.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 143
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "medida",
+            "type": "string",
+            "description": "Qué se cuenta: eventos, personas afectadas, fallecidas, damnificadas o pacientes atendidos.",
+            "categories": [
+              "eventos",
+              "personas_afectadas",
+              "personas_fallecidas",
+              "pacientes_atendidos",
+              "personas_damnificadas"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "emergencias",
+    "tema": "emergencia",
+    "filas": 488,
+    "totales": {
+      "2010": 5005,
+      "2011": 1816,
+      "2012": 1213,
+      "2013": 1828,
+      "2014": 2374,
+      "2015": 894,
+      "2016": 1647,
+      "2017": 2804,
+      "2018": 363,
+      "2019": 894,
+      "2020": 2136,
+      "2021": 313,
+      "2022": 570,
+      "2023": 4549,
+      "2024": 2025,
+      "2025": 273
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2010-2013",
+        "formulario": "302",
+        "variable": "Otros de excepción",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "302",
+        "variable": "Otros de excepción",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "302a",
+        "variable": "Otros de excepción",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "302a",
+        "variable": "Otros de excepción",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "302a",
+        "variable": "Otros de excepción",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "302a",
+        "variable": "Otros de excepción",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "302a",
+        "variable": "Otros de excepción",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "302a",
+        "variable": "Otros de excepción",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "302a",
+        "variable": "Otros de excepción",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2024",
+        "formulario": "302a",
+        "variable": "Otros de excepción",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2025",
+        "formulario": "302a",
+        "variable": "10. Otros de excepción",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

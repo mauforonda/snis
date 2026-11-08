@@ -1,0 +1,207 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "primer_control_post_parto",
+  "title": "Mujeres con primer control post parto",
+  "description": "Atenciones y nacimientos registrados en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2001-2014, 2021-2025. Fuente: SNIS, formularios 301, 301a.",
+  "keywords": [
+    "servicios",
+    "salud_materna_neonatal"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 344
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "lugar",
+            "type": "string",
+            "description": "Dónde ocurrió la atención o el evento: dentro o fuera del establecimiento; servicio o domicilio.",
+            "categories": [
+              "servicio",
+              "domicilio"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "salud_materna_neonatal",
+    "tema": null,
+    "filas": 84113,
+    "totales": {
+      "2001": 94329,
+      "2002": 103916,
+      "2003": 115750,
+      "2004": 124478,
+      "2005": 132010,
+      "2006": 133539,
+      "2007": 126334,
+      "2008": 125781,
+      "2009": 125245,
+      "2010": 120099,
+      "2011": 124530,
+      "2012": 123032,
+      "2013": 121820,
+      "2014": 108412,
+      "2021": 59412,
+      "2022": 76908,
+      "2023": 87239,
+      "2024": 96105,
+      "2025": 103949
+    },
+    "edades": [
+      {
+        "gestiones": "2024-2025",
+        "bandas": "<10, 10-14, 15-19, 20-34, 35-49, 50+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2001-2007",
+        "formulario": "301",
+        "variable": "Mujeres con primer control post parto",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2008-2013",
+        "formulario": "301",
+        "variable": "Mujeres con primer control post parto",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "11.7 Mujeres con primer control post parto",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "301a",
+        "variable": "Primer Control Post Parto",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "301a",
+        "variable": "Primer Control Post Parto",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "301a",
+        "variable": "Primer control Post Parto",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

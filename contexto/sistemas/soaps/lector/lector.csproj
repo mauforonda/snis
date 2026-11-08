@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Compila Program.cs con Mdf/ y Mtf/ de BAK-SHELL, copiados aquí por extraer.py. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>CS0675;CS8600;CS8602;CS8603;CS8604;CS8618</NoWarn>
+  </PropertyGroup>
+</Project>

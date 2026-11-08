@@ -1,0 +1,123 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "cai_de_sector_realizados",
+  "title": "CAI de sector realizados",
+  "description": "Actividades registradas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2004-2009. Fuente: SNIS, formularios 301.",
+  "keywords": [
+    "servicios",
+    "gestion_comunidad"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2009.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 325
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "gestion_comunidad",
+    "tema": null,
+    "filas": 11500,
+    "totales": {
+      "2004": 6085,
+      "2005": 5968,
+      "2006": 6390,
+      "2007": 6112,
+      "2008": 6388,
+      "2009": 6063
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/gestion_comunidad/cai_de_sector_realizados",
+          "servicios/gestion_comunidad/cai_de_establecimiento"
+        ],
+        "supuesto": "Hasta 2009 la variable es \"CAI de sector realizados\"; desde 2010, \"CAI de establecimiento\". Consultarlos juntos como una serie supone que las dos cuentan lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2004-2007",
+        "formulario": "301",
+        "variable": "Nº de CAI de sector realizados",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2008-2009",
+        "formulario": "301",
+        "variable": "Nº de CAI de sector realizados",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

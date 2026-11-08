@@ -1,0 +1,235 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "tratamiento_tuberculosis_lepra_2010_2023",
+  "title": "Tratamientos iniciados de tuberculosis y lepra (2010-2023)",
+  "description": "Registros en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2010-2023. Fuente: SNIS, formularios 301, 301a.",
+  "keywords": [
+    "servicios",
+    "control_enfermedades"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2023.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 327
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "esquema",
+            "type": "string",
+            "description": "Esquema de tratamiento.",
+            "categories": [
+              "I",
+              "II",
+              "III",
+              "multibacilar",
+              "paucibacilar"
+            ]
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "control_enfermedades",
+    "tema": null,
+    "filas": 30042,
+    "totales": {
+      "2010": 8578,
+      "2011": 8823,
+      "2012": 9199,
+      "2013": 9102,
+      "2014": 13767,
+      "2015": 8452,
+      "2016": 8823,
+      "2017": 8564,
+      "2018": 8604,
+      "2019": 7975,
+      "2020": 5809,
+      "2021": 7186,
+      "2022": 8061,
+      "2023": 9530
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/control_enfermedades/tratamiento_tuberculosis_lepra_2001_2009",
+          "servicios/control_enfermedades/tratamiento_tuberculosis_lepra_2010_2023",
+          "servicios/control_enfermedades/tratamiento_tuberculosis_lepra_2024_2025"
+        ],
+        "supuesto": "Las categorías de `esquema` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2010-2011",
+        "formulario": "301",
+        "variable": "Tratamientos iniciados con esquema l; Tratamientos iniciados con esquema ll; Tratamientos iniciados con esquema lll; Tratamientos iniciados con esquema multibacilar (P.Q.T.); Tratamientos iniciados con esquema pausibacilar (P.Q.T.)",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2012",
+        "formulario": "301",
+        "variable": "l 23.5 Tratamientos iniciados con esquema l; l 23.6 Tratamientos iniciados con esquema ll; l 23.7 Tratamientos iniciados con esquema lll; l 2310 Tratamientos iniciados con esquema pausibacilar (P.Q.T.); l 2311 Tratamientos iniciados con esquema multibacilar (P.Q.T.)",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2013",
+        "formulario": "301",
+        "variable": "Tratamientos iniciados con esquema l; Tratamientos iniciados con esquema ll; Tratamientos iniciados con esquema lll; Tratamientos iniciados con esquema multibacilar (P.Q.T.); Tratamientos iniciados con esquema pausibacilar (P.Q.T.)",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "23.5 Tratamientos iniciados con esquema l; 23.6 Tratamientos iniciados con esquema ll; 23.7 Tratamientos iniciados con esquema lll; 2310 Tratamientos iniciados con esquema pausibacilar (P.Q.T.); 2311 Tratamientos iniciados con esquema multibacilar (P.Q.T.)",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "301a",
+        "variable": "Total Tratamientos iniciados con esquema I; Total Tratamientos iniciados con esquema II; Total Tratamientos iniciados con esquema III; Total Tratamientos iniciados con esquema multibacilar; Total Tratamientos iniciados con esquema pausibacilar",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "301a",
+        "variable": "Tratamientos iniciados con esquema I; Tratamientos iniciados con esquema II; Tratamientos iniciados con esquema III; Tratamientos iniciados con esquema multibacilar; Tratamientos iniciados con esquema pausibacilar",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "301a",
+        "variable": "Tratamientos iniciados con esquema I; Tratamientos iniciados con esquema II; Tratamientos iniciados con esquema III; Tratamientos iniciados con esquema multibacilar; Tratamientos iniciados con esquema pausibacilar",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "301a",
+        "variable": "Tratamientos iniciados con esquema I; Tratamientos iniciados con esquema II; Tratamientos iniciados con esquema III; Tratamientos iniciados con esquema multibacilar; Tratamientos iniciados con esquema pausibacilar",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "301a",
+        "variable": "Tratamientos iniciados con esquema I; Tratamientos iniciados con esquema II; Tratamientos iniciados con esquema III; Tratamientos iniciados con esquema multibacilar; Tratamientos iniciados con esquema pausibacilar",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "301a",
+        "variable": "Tratamientos iniciados con esquema I; Tratamientos iniciados con esquema II; Tratamientos iniciados con esquema III; Tratamientos iniciados con esquema multibacilar; Tratamientos iniciados con esquema pausibacilar",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "301a",
+        "variable": "Tratamientos iniciados con esquema I; Tratamientos iniciados con esquema II; Tratamientos iniciados con esquema III; Tratamientos iniciados con esquema multibacilar; Tratamientos iniciados con esquema pausibacilar",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

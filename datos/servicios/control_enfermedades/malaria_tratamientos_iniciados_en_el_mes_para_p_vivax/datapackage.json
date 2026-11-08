@@ -1,0 +1,109 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "malaria_tratamientos_iniciados_en_el_mes_para_p_vivax",
+  "title": "Malaria: tratamientos iniciados en el mes para p.vivax",
+  "description": "Registros en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2004. Fuente: SNIS, formularios 301.",
+  "keywords": [
+    "servicios",
+    "control_enfermedades"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2001.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2004
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 133
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "control_enfermedades",
+    "tema": null,
+    "filas": 821,
+    "totales": {
+      "2004": 14184
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/control_enfermedades/malaria_tratamientos_iniciados_en_el_mes",
+          "servicios/control_enfermedades/malaria_tratamientos_iniciados_en_el_mes_para_p_falciparu",
+          "servicios/control_enfermedades/malaria_tratamientos_iniciados_en_el_mes_para_p_vivax",
+          "servicios/control_enfermedades/malaria_tratamientos_iniciados_en_el_mes_por_agente_comun",
+          "servicios/control_enfermedades/malaria_tratamientos_iniciados_en_el_mes_por_personal_de",
+          "servicios/control_enfermedades/malaria_tratamientos_iniciados_por_sospecha"
+        ],
+        "supuesto": "Los tratamientos de malaria iniciados cambian de categorías casi cada gestión: en total (2001-2003), por especie (2004), por quién trata (2005-2006) y por sospecha (2007-2014). En 2001-2003 el formulario cuenta también los tratamientos iniciados por sospecha, en otro dataset. Consultarlos juntos como una serie supone que las categorías de cada gestión suman todos los tratamientos iniciados.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2004",
+        "formulario": "301",
+        "variable": "Tratamientos iniciados en el mes para P.vivax",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "partos_atendidos_por_personal_de_salud",
+  "title": "Partos atendidos por personal de salud",
+  "description": "Atenciones y nacimientos registrados en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2001-2014. Fuente: SNIS, formularios 301.",
+  "keywords": [
+    "servicios",
+    "salud_materna_neonatal"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 340
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "lugar",
+            "type": "string",
+            "description": "Dónde ocurrió la atención o el evento: dentro o fuera del establecimiento; servicio o domicilio.",
+            "categories": [
+              "domicilio"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "salud_materna_neonatal",
+    "tema": null,
+    "filas": 39543,
+    "totales": {
+      "2001": 12380,
+      "2002": 14101,
+      "2003": 14922,
+      "2004": 14242,
+      "2005": 14529,
+      "2006": 15074,
+      "2007": 15060,
+      "2008": 15185,
+      "2009": 14172,
+      "2010": 14934,
+      "2011": 15596,
+      "2012": 15235,
+      "2013": 14491,
+      "2014": 13687
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/salud_materna_neonatal/partos_atendidos_por_personal_de_salud",
+          "servicios/salud_materna_neonatal/partos_atendidos_por_personal_de_salud_calificado",
+          "servicios/salud_materna_neonatal/partos_atendidos_por_proveedor_calificado"
+        ],
+        "supuesto": "Hasta 2014 el formulario 301 cuenta los partos atendidos por personal de salud; desde 2015 el 301a separa proveedor calificado (médicos) y personal de salud calificado (enfermería), según su instructivo. Consultarlos juntos como una serie supone que los dos grupos de 2015 suman lo mismo que \"personal de salud\".",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2001-2007",
+        "formulario": "301",
+        "variable": "Partos atendidos por personal de salud",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2008-2013",
+        "formulario": "301",
+        "variable": "Partos atendidos por personal de salud",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "12.1 Partos atendidos por personal de salud",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

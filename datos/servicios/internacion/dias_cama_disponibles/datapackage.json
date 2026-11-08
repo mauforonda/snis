@@ -1,0 +1,173 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "dias_cama_disponibles",
+  "title": "Dias cama disp",
+  "description": "Registros de internación en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2015-2025. Fuente: SNIS, formularios 301b.",
+  "keywords": [
+    "servicios",
+    "internacion"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301b",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301b_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 96
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "especialidad",
+            "type": "string",
+            "description": "Especialidad del hospital que atiende.",
+            "categories": [
+              "Anestesiologia",
+              "Cardiologia",
+              "Cirugia cardiovascular",
+              "Cirugia gastroenterologica",
+              "Cirugia general",
+              "Cirugia maxilo facial",
+              "Cirugia oncologica",
+              "Cirugia ortopedica y traumatologica",
+              "Cirugia pediatrica",
+              "Cirugia plastica",
+              "Cirugia toracica",
+              "Coloproctologia",
+              "Dermatologia",
+              "Endocrinologia",
+              "Gastroenterologia",
+              "Geriatria",
+              "Ginecologia",
+              "Ginecologia y obstetricia",
+              "Hematologia",
+              "Infectologia",
+              "Inmunologia",
+              "Medicina critica y terapia intensiva",
+              "Medicina general",
+              "Medicina interna",
+              "Nefrologia",
+              "Neonatologia",
+              "Neumologia",
+              "Neurocirugia",
+              "Neurologia",
+              "Nutricion",
+              "Obstetricia",
+              "Oftalmologia",
+              "Oncologia",
+              "Otorrinolaringologia",
+              "Otros especialidades",
+              "Pediatria",
+              "Perinatologia",
+              "Psicologia",
+              "Psiquiatria",
+              "Quemados",
+              "Reumatologia",
+              "Septico",
+              "Toxicologia",
+              "Traumatologia",
+              "Unidad de cuidados intermedios (uci)",
+              "Urologia",
+              "Cirugia oftalmologica",
+              "Angiologia",
+              "Otras especialidades",
+              "Alergologia"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "internacion",
+    "tema": null,
+    "filas": 68045,
+    "totales": {
+      "2015": 2920091,
+      "2016": 3363511,
+      "2017": 4109760,
+      "2018": 4698588,
+      "2019": 4929308,
+      "2020": 10413024,
+      "2021": 5609872,
+      "2022": 5880900,
+      "2023": 5986068,
+      "2024": 6167066,
+      "2025": 6322595
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2015-2025",
+        "formulario": "301b",
+        "variable": "Dias Cama Disp.",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

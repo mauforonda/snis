@@ -1,0 +1,281 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "consulta_externa",
+  "title": "Consulta externa",
+  "description": "Atenciones registradas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2001-2025. Fuente: SNIS, formularios 301, 301a.",
+  "keywords": [
+    "servicios",
+    "consultas"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 344
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "caso",
+            "type": "string",
+            "description": "nuevo, repetido, seguimiento o primera, como lo registra el formulario.",
+            "categories": [
+              "nuevo",
+              "repetido",
+              "primera"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "consultas",
+    "tema": null,
+    "filas": 2410356,
+    "totales": {
+      "2001": 8543731,
+      "2002": 10050834,
+      "2003": 11584449,
+      "2004": 12720992,
+      "2005": 13475257,
+      "2006": 14791759,
+      "2007": 15897972,
+      "2008": 15953168,
+      "2009": 17148318,
+      "2010": 17751964,
+      "2011": 18008081,
+      "2012": 17766317,
+      "2013": 19582319,
+      "2014": 20559091,
+      "2015": 22346148,
+      "2016": 23944647,
+      "2017": 24244734,
+      "2018": 25763962,
+      "2019": 26125042,
+      "2020": 18653938,
+      "2021": 24084874,
+      "2022": 28023146,
+      "2023": 31815453,
+      "2024": 33737086,
+      "2025": 34552067
+    },
+    "edades": [
+      {
+        "gestiones": "2001-2007",
+        "bandas": "<5, 5-14, 15-59, 60+"
+      },
+      {
+        "gestiones": "2008-2014",
+        "bandas": "<5, 5-9, 10-20, 21-59, 60+"
+      },
+      {
+        "gestiones": "2015-2025",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2001-2007",
+        "formulario": "301",
+        "variable": "Nuevas en menores de 5 años; Nuevas en personas de 15 a 59 años; Nuevas en personas de 5 a 14 años; Nuevas en personas de 60 años o más; Repetidas en menores de 5 años; Repetidas en personas de 15 a 59 años; Repetidas en personas de 5 a 14 años; Repetidas en personas de 60 años o más",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2008-2009",
+        "formulario": "301",
+        "variable": "Menores de 5 años; Personas de 10 a 20 años; Personas de 21 a 59 años; Personas de 5 a 9 años; Personas de 60 años y más",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2010-2013",
+        "formulario": "301",
+        "variable": "Menores de 5 años; Personas de 10 a 20 años; Personas de 21 a 59 años; Personas de 5 a 9 años; Personas de 60 años y más",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "1.1 Menores de 5 años; 1.2 Personas de 5 a 9 años; 1.3 Personas de 10 a 20 años; 1.4 Personas de 21 a 59 años; 1.5 Personas de 60 años y más",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "301a",
+        "variable": "Menores de 6 meses; Ninos de 6 meses a < 1 año; Niños de 1 a 4 años; Personas de 10 a 14 años; Personas de 15 a 19 años; Personas de 20 a 39 años; Personas de 40 a 49 años; Personas de 5 a 9 años; Personas de 50 a 59 años; Personas de 60 años y más",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "301a",
+        "variable": "Menores de 6 meses; Ninos de 6 meses a < 1 año; Niños de 1 a 4 años; Personas de 10 a 14 años; Personas de 15 a 19 años; Personas de 20 a 39 años; Personas de 40 a 49 años; Personas de 5 a 9 años; Personas de 50 a 59 años; Personas de 60 años y más",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "301a",
+        "variable": "Menores de 6 meses; Ninos de 6 meses a < 1 año; Niños de 1 a 4 años; Personas de 10 a 14 años; Personas de 15 a 19 años; Personas de 20 a 39 años; Personas de 40 a 49 años; Personas de 5 a 9 años; Personas de 50 a 59 años; Personas de 60 años y más",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "301a",
+        "variable": "Menores de 6 meses; Ninos de 6 meses a < 1 año; Niños de 1 a 4 años; Personas de 10 a 14 años; Personas de 15 a 19 años; Personas de 20 a 39 años; Personas de 40 a 49 años; Personas de 5 a 9 años; Personas de 50 a 59 años; Personas de 60 años y más",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "301a",
+        "variable": "Menores de 6 meses; Ninos de 6 meses a < 1 año; Niños de 1 a 4 años; Personas de 10 a 14 años; Personas de 15 a 19 años; Personas de 20 a 39 años; Personas de 40 a 49 años; Personas de 5 a 9 años; Personas de 50 a 59 años; Personas de 60 años y más",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "301a",
+        "variable": "Menores de 6 meses; Ninos de 6 meses a < 1 año; Niños de 1 a 4 años; Personas de 10 a 14 años; Personas de 15 a 19 años; Personas de 20 a 39 años; Personas de 40 a 49 años; Personas de 5 a 9 años; Personas de 50 a 59 años; Personas de 60 años y más",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "301a",
+        "variable": "Menores de 6 meses; Ninos de 6 meses a < 1 año; Niños de 1 a 4 años; Personas de 10 a 14 años; Personas de 15 a 19 años; Personas de 20 a 39 años; Personas de 40 a 49 años; Personas de 5 a 9 años; Personas de 50 a 59 años; Personas de 60 años y más",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "301a",
+        "variable": "Menores de 6 meses; Ninos de 6 meses a < 1 año; Niños de 1 a 4 años; Personas de 10 a 14 años; Personas de 15 a 19 años; Personas de 20 a 39 años; Personas de 40 a 49 años; Personas de 5 a 9 años; Personas de 50 a 59 años; Personas de 60 años y más",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

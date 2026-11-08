@@ -1,0 +1,148 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "egresos_por_diagnostico_2001_2007",
+  "title": "Egresos por diagnóstico (2001-2007)",
+  "description": "Registros de internación en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2001-2007. Fuente: SNIS, formularios 301.",
+  "keywords": [
+    "servicios",
+    "internacion"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2007.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 283
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "diagnostico",
+            "type": "string",
+            "description": "Diagnóstico de egreso.",
+            "categories": [
+              "diarreas",
+              "neumonias",
+              "otros"
+            ]
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "internacion",
+    "tema": null,
+    "filas": 24314,
+    "totales": {
+      "2001": 54506,
+      "2002": 61951,
+      "2003": 68734,
+      "2004": 73240,
+      "2005": 73078,
+      "2006": 96194,
+      "2007": 87914
+    },
+    "edades": [
+      {
+        "gestiones": "2001-2007",
+        "bandas": "<5"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/internacion/egresos_por_diagnostico_2001_2007",
+          "servicios/internacion/egresos_por_diagnostico_2008_2009",
+          "servicios/internacion/egresos_por_diagnostico_2010_2014"
+        ],
+        "supuesto": "Las categorías de `diagnostico` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2001-2007",
+        "formulario": "301",
+        "variable": "Diarreas; Neumonías; Otros",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

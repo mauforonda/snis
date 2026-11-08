@@ -1,0 +1,253 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "dias_camas_disponibles_otros_servicios",
+  "title": "Días camas disponibles otros servicios",
+  "description": "Registros de internación en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2001-2025. Fuente: SNIS, formularios 301, 301a.",
+  "keywords": [
+    "servicios",
+    "internacion"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 340
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "internacion",
+    "tema": null,
+    "filas": 70252,
+    "totales": {
+      "2001": 2651327,
+      "2002": 3204596,
+      "2003": 3322664,
+      "2004": 3494798,
+      "2005": 3657697,
+      "2006": 3829940,
+      "2007": 3897023,
+      "2008": 3936788,
+      "2009": 4002997,
+      "2010": 4149019,
+      "2011": 4228315,
+      "2012": 4251533,
+      "2013": 4387353,
+      "2014": 4248992,
+      "2015": 15918114,
+      "2016": 4326718,
+      "2017": 4830970,
+      "2018": 4882653,
+      "2019": 5307569,
+      "2020": 5368439,
+      "2021": 5697740,
+      "2022": 5978269,
+      "2023": 6108822,
+      "2024": 6168126,
+      "2025": 6207392
+    },
+    "edades": [],
+    "advertencias": [
+      "Carapari registra 11.545.414 días cama en diciembre de 2015, casi tres veces el total nacional de otras gestiones (unos 4,3 millones). Se publica tal como se registró; probablemente es un error de registro."
+    ],
+    "correcciones": [
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2001-2009",
+        "formulario": "301",
+        "variable": "Días camas disponibles otros servicios",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2010-2011",
+        "formulario": "301",
+        "variable": "Días camas disponibles otros servicios",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2012",
+        "formulario": "301",
+        "variable": "l 1310 Días camas disponibles otros servicios",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2013",
+        "formulario": "301",
+        "variable": "Días camas disponibles otros servicios",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "1310 Días camas disponibles otros servicios",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "301a",
+        "variable": "Total Días camas disponibles otros servicios",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "301a",
+        "variable": "Días camas disponibles otros servicios",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "301a",
+        "variable": "Días camas disponibles otros servicios",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "301a",
+        "variable": "Días camas disponibles otros servicios",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "301a",
+        "variable": "Días camas disponibles otros servicios",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "301a",
+        "variable": "Días camas disponibles otros servicios",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "301a",
+        "variable": "Días camas disponibles otros servicios",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "301a",
+        "variable": "10. Días camas disponibles otros servicios",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

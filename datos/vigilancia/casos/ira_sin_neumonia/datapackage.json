@@ -1,0 +1,282 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "ira_sin_neumonia",
+  "title": "Infección respiratoria aguda sin neumonía",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2004-2025. Fuente: SNIS, formularios 302, 302a.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "respiratoria"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2025_302a.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 344
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "respiratoria",
+    "filas": 4675482,
+    "totales": {
+      "2004": 2063789,
+      "2005": 2219463,
+      "2006": 2393448,
+      "2007": 2615960,
+      "2008": 2717382,
+      "2009": 3141499,
+      "2010": 3181723,
+      "2011": 3232775,
+      "2012": 3417120,
+      "2013": 3654049,
+      "2014": 3769955,
+      "2015": 3923885,
+      "2016": 4139378,
+      "2017": 4075321,
+      "2018": 4241647,
+      "2019": 4051999,
+      "2020": 2262189,
+      "2021": 2689624,
+      "2022": 4091458,
+      "2023": 4830981,
+      "2024": 4635592,
+      "2025": 4789903
+    },
+    "edades": [
+      {
+        "gestiones": "2004-2007",
+        "bandas": "<1, 1-4, 5-14, 15-59, 60+"
+      },
+      {
+        "gestiones": "2008-2014",
+        "bandas": "<1, 1-4, 5-9, 10-20, 21-59, 60+"
+      },
+      {
+        "gestiones": "2015-2025",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [
+      "302, 2001-2007: en las variables cuyas columnas \"-M\" siempre valen 0, \"TOTAL-H\" es igual a \"TOTAL\": \"-H\" contiene a ambos sexos. Esas variables no tienen sexo. En 2004 el grupo 09 (mortalidad) tampoco tiene sexo: hay 79 muertes maternas en \"-H\" y 94 en \"-M\"."
+    ],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2004",
+        "formulario": "302",
+        "variable": "27 IRA sin neumonía",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "J00 J01 J02 J03 J04 J05 J06 J10 J11 J20",
+        "cie10_codigos": "J00 J01 J01.0 J01.1 J01.2 J01.3 J01.4 J01.8 J01.9 J02 J02.0 J02.8 J02.9 J03 J03.0 J03.8 J03.9 J04 J04.0 J04.1 J04.2 J05 J05.0 J05.1 J06 J06.0 J06.8 J06.9 J10 J10.0 J10.1 J10.8 J11 J11.0 J11.1 J11.8 J20 J20.0 J20.1 J20.2 J20.3 J20.4 J20.5 J20.6 J20.7 J20.8 J20.9"
+      },
+      {
+        "gestiones": "2005-2006",
+        "formulario": "302",
+        "variable": "24 IRA sin neumonía",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "J00 J01 J02 J03 J04 J05 J06 J10 J11 J20",
+        "cie10_codigos": "J00 J01 J01.0 J01.1 J01.2 J01.3 J01.4 J01.8 J01.9 J02 J02.0 J02.8 J02.9 J03 J03.0 J03.8 J03.9 J04 J04.0 J04.1 J04.2 J05 J05.0 J05.1 J06 J06.0 J06.8 J06.9 J10 J10.0 J10.1 J10.8 J11 J11.0 J11.1 J11.8 J20 J20.0 J20.1 J20.2 J20.3 J20.4 J20.5 J20.6 J20.7 J20.8 J20.9"
+      },
+      {
+        "gestiones": "2007",
+        "formulario": "302",
+        "variable": "23 IRA sin neumonía",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "J00 J01 J02 J03 J04 J05 J06 J10 J11 J20",
+        "cie10_codigos": "J00 J01 J01.0 J01.1 J01.2 J01.3 J01.4 J01.8 J01.9 J02 J02.0 J02.8 J02.9 J03 J03.0 J03.8 J03.9 J04 J04.0 J04.1 J04.2 J05 J05.0 J05.1 J06 J06.0 J06.8 J06.9 J10 J10.0 J10.1 J10.8 J11 J11.0 J11.1 J11.8 J20 J20.0 J20.1 J20.2 J20.3 J20.4 J20.5 J20.6 J20.7 J20.8 J20.9"
+      },
+      {
+        "gestiones": "2008-2009",
+        "formulario": "302",
+        "variable": "24 IRA sin neumonía",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "J00 J01 J02 J03 J04 J05 J06 J10 J11 J20",
+        "cie10_codigos": "J00 J01 J01.0 J01.1 J01.2 J01.3 J01.4 J01.8 J01.9 J02 J02.0 J02.8 J02.9 J03 J03.0 J03.8 J03.9 J04 J04.0 J04.1 J04.2 J05 J05.0 J05.1 J06 J06.0 J06.8 J06.9 J10 J10.0 J10.1 J10.8 J11 J11.0 J11.1 J11.8 J20 J20.0 J20.1 J20.2 J20.3 J20.4 J20.5 J20.6 J20.7 J20.8 J20.9"
+      },
+      {
+        "gestiones": "2010-2013",
+        "formulario": "302",
+        "variable": "IRA sin neumonía",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "J00 J01 J02 J03 J04 J05 J06 J10 J11 J20",
+        "cie10_codigos": "J00 J01 J01.0 J01.1 J01.2 J01.3 J01.4 J01.8 J01.9 J02 J02.0 J02.8 J02.9 J03 J03.0 J03.8 J03.9 J04 J04.0 J04.1 J04.2 J05 J05.0 J05.1 J06 J06.0 J06.8 J06.9 J10 J10.0 J10.1 J10.8 J11 J11.0 J11.1 J11.8 J20 J20.0 J20.1 J20.2 J20.3 J20.4 J20.5 J20.6 J20.7 J20.8 J20.9"
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "302",
+        "variable": "IRA sin neumonía",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "J00 J01 J02 J03 J04 J05 J06 J10 J11 J20",
+        "cie10_codigos": "J00 J01 J01.0 J01.1 J01.2 J01.3 J01.4 J01.8 J01.9 J02 J02.0 J02.8 J02.9 J03 J03.0 J03.8 J03.9 J04 J04.0 J04.1 J04.2 J05 J05.0 J05.1 J06 J06.0 J06.8 J06.9 J10 J10.0 J10.1 J10.8 J11 J11.0 J11.1 J11.8 J20 J20.0 J20.1 J20.2 J20.3 J20.4 J20.5 J20.6 J20.7 J20.8 J20.9"
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "302a",
+        "variable": "IRA sin neumonía",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "J00 J01 J02 J03 J04 J05 J06 J20",
+        "cie10_codigos": "J00 J01 J01.0 J01.1 J01.2 J01.3 J01.4 J01.8 J01.9 J02 J02.0 J02.8 J02.9 J03 J03.0 J03.8 J03.9 J04 J04.0 J04.1 J04.2 J05 J05.0 J05.1 J06 J06.0 J06.8 J06.9 J20 J20.0 J20.1 J20.2 J20.3 J20.4 J20.5 J20.6 J20.7 J20.8 J20.9"
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "302a",
+        "variable": "IRA sin neumonía",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "J00 J01 J02 J03 J04 J05 J06 J20",
+        "cie10_codigos": "J00 J01 J01.0 J01.1 J01.2 J01.3 J01.4 J01.8 J01.9 J02 J02.0 J02.8 J02.9 J03 J03.0 J03.8 J03.9 J04 J04.0 J04.1 J04.2 J05 J05.0 J05.1 J06 J06.0 J06.8 J06.9 J20 J20.0 J20.1 J20.2 J20.3 J20.4 J20.5 J20.6 J20.7 J20.8 J20.9"
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "302a",
+        "variable": "IRA sin neumonía",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "H67 J00 J01 J02 J03 J04 J05 J06 J20",
+        "cie10_codigos": "H67 H67.0 H67.1 H67.8 J00 J01 J01.0 J01.1 J01.2 J01.3 J01.4 J01.8 J01.9 J02 J02.0 J02.8 J02.9 J03 J03.0 J03.8 J03.9 J04 J04.0 J04.1 J04.2 J05 J05.0 J05.1 J06 J06.0 J06.8 J06.9 J20 J20.0 J20.1 J20.2 J20.3 J20.4 J20.5 J20.6 J20.7 J20.8 J20.9"
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "302a",
+        "variable": "IRA sin neumonía",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "H67 J00 J01 J02 J03 J04 J05 J06 J20",
+        "cie10_codigos": "H67 H67.0 H67.1 H67.8 J00 J01 J01.0 J01.1 J01.2 J01.3 J01.4 J01.8 J01.9 J02 J02.0 J02.8 J02.9 J03 J03.0 J03.8 J03.9 J04 J04.0 J04.1 J04.2 J05 J05.0 J05.1 J06 J06.0 J06.8 J06.9 J20 J20.0 J20.1 J20.2 J20.3 J20.4 J20.5 J20.6 J20.7 J20.8 J20.9"
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "302a",
+        "variable": "IRA sin neumonía",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "H67 J00 J01 J02 J03 J04 J05 J06 J20",
+        "cie10_codigos": "H67 H67.0 H67.1 H67.8 J00 J01 J01.0 J01.1 J01.2 J01.3 J01.4 J01.8 J01.9 J02 J02.0 J02.8 J02.9 J03 J03.0 J03.8 J03.9 J04 J04.0 J04.1 J04.2 J05 J05.0 J05.1 J06 J06.0 J06.8 J06.9 J20 J20.0 J20.1 J20.2 J20.3 J20.4 J20.5 J20.6 J20.7 J20.8 J20.9"
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "302a",
+        "variable": "IRA sin neumonía",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "H67 J00 J01 J02 J03 J04 J05 J06 J20",
+        "cie10_codigos": "H67 H67.0 H67.1 H67.8 J00 J01 J01.0 J01.1 J01.2 J01.3 J01.4 J01.8 J01.9 J02 J02.0 J02.8 J02.9 J03 J03.0 J03.8 J03.9 J04 J04.0 J04.1 J04.2 J05 J05.0 J05.1 J06 J06.0 J06.8 J06.9 J20 J20.0 J20.1 J20.2 J20.3 J20.4 J20.5 J20.6 J20.7 J20.8 J20.9"
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "302a",
+        "variable": "IRA sin neumonía",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "H67 J00 J01 J02 J03 J04 J05 J06 J20",
+        "cie10_codigos": "H67 H67.0 H67.1 H67.8 J00 J01 J01.0 J01.1 J01.2 J01.3 J01.4 J01.8 J01.9 J02 J02.0 J02.8 J02.9 J03 J03.0 J03.8 J03.9 J04 J04.0 J04.1 J04.2 J05 J05.0 J05.1 J06 J06.0 J06.8 J06.9 J20 J20.0 J20.1 J20.2 J20.3 J20.4 J20.5 J20.6 J20.7 J20.8 J20.9"
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "302a",
+        "variable": "2. IRA sin neumonía",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "H67 J00 J01 J02 J03 J04 J05 J06 J20",
+        "cie10_codigos": "H67 H67.0 H67.1 H67.8 J00 J01 J01.0 J01.1 J01.2 J01.3 J01.4 J01.8 J01.9 J02 J02.0 J02.8 J02.9 J03 J03.0 J03.8 J03.9 J04 J04.0 J04.1 J04.2 J05 J05.0 J05.1 J06 J06.0 J06.8 J06.9 J20 J20.0 J20.1 J20.2 J20.3 J20.4 J20.5 J20.6 J20.7 J20.8 J20.9"
+      }
+    ]
+  }
+}

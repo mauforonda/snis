@@ -1,0 +1,131 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "cirugias_mayores",
+  "title": "Cirugias mayores",
+  "description": "Registros en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2015-2025. Fuente: SNIS, formularios 301b.",
+  "keywords": [
+    "servicios",
+    "cirugia"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301b",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301b_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 78
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "cirugia",
+    "tema": null,
+    "filas": 13885,
+    "totales": {
+      "2015": 95682,
+      "2016": 99885,
+      "2017": 119834,
+      "2018": 143399,
+      "2019": 145935,
+      "2020": 108748,
+      "2021": 134691,
+      "2022": 163522,
+      "2023": 184471,
+      "2024": 185521,
+      "2025": 192561
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/cirugia/cirugias_medianas_y_mayores",
+          "servicios/cirugia/cirugias_mayores",
+          "servicios/cirugia/cirugias_medianas"
+        ],
+        "supuesto": "Hasta 2014 el formulario 301 cuenta juntas las cirugías medianas y mayores; desde 2015 el 301b las cuenta por separado. Consultarlos juntos como una serie supone que las dos suman lo mismo que el total anterior.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2015-2025",
+        "formulario": "301b",
+        "variable": "N° de Cirugias mayores",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

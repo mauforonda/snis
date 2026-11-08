@@ -1,0 +1,112 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "tuberculosis_tb_pulmonar_clinicamente_diagnosticados_nuevos_",
+  "title": "Tuberculosis: TB pulmonar clinicamente diagnosticados (nuevos y recaidas)",
+  "description": "Registros en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2024-2025. Fuente: SNIS, formularios 301a.",
+  "keywords": [
+    "servicios",
+    "control_enfermedades"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 124
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "control_enfermedades",
+    "tema": null,
+    "filas": 596,
+    "totales": {
+      "2024": 1123,
+      "2025": 764
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/control_enfermedades/tuberculosis_tb_pulmonar_baar_negativo_nuevos",
+          "servicios/control_enfermedades/tuberculosis_tb_pulmonar_clinicamente_diagnosticados_nuevos_"
+        ],
+        "supuesto": "Hasta 2023 el formulario cuenta los casos nuevos de tuberculosis pulmonar con baciloscopía (BAAR) negativa; desde 2024, los casos nuevos y recaídas diagnosticados clínicamente. La definición nueva es más amplia. Consultarlos juntos como una serie supone que las dos definiciones cuentan lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2024-2025",
+        "formulario": "301a",
+        "variable": "N° de TB Pulmonar Clinicamente diagnosticados (nuevos y recaidas)",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

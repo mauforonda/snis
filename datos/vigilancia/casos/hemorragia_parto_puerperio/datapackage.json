@@ -1,0 +1,114 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "hemorragia_parto_puerperio",
+  "title": "Hemorragia del parto o puerperio",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2004-2006. Fuente: SNIS, formularios 302.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "salud materna"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2007.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2004,
+      2005,
+      2006
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 246
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "salud materna",
+    "filas": 3177,
+    "totales": {
+      "2004": 2675,
+      "2005": 1924,
+      "2006": 1641
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2004",
+        "formulario": "302",
+        "variable": "50 Hemorragia del parto o puerperio",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2005-2006",
+        "formulario": "302",
+        "variable": "46 Hemorragia del parto o puerperio",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

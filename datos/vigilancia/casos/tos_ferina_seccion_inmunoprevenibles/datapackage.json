@@ -1,0 +1,136 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "tos_ferina_seccion_inmunoprevenibles",
+  "title": "Tos ferina (sección inmunoprevenibles, 2001-2003)",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2001-2003. Fuente: SNIS, formularios 302.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "inmunoprevenible"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2001.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 42
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "inmunoprevenible",
+    "filas": 257,
+    "totales": {
+      "2001": 169,
+      "2002": 164,
+      "2003": 56
+    },
+    "edades": [
+      {
+        "gestiones": "2001",
+        "bandas": "<1, 1-4, 5-14, 15-59, 60+"
+      },
+      {
+        "gestiones": "2002-2003",
+        "bandas": "<1, 1-4, 5-14, 15-59"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [
+      "302, 2001-2007: en las variables cuyas columnas \"-M\" siempre valen 0, \"TOTAL-H\" es igual a \"TOTAL\": \"-H\" contiene a ambos sexos. Esas variables no tienen sexo. En 2004 el grupo 09 (mortalidad) tampoco tiene sexo: hay 79 muertes maternas en \"-H\" y 94 en \"-M\"."
+    ],
+    "relacionados": [
+      {
+        "datasets": [
+          "vigilancia/casos/tos_ferina",
+          "vigilancia/casos/tos_ferina_seccion_inmunoprevenibles"
+        ],
+        "supuesto": "En 2001-2003 el formulario registra esta enfermedad en dos secciones, con cifras distintas: \"Sospecha diagnóstica\" y otra sección. No sabemos qué cuenta cada una. La de sospecha continúa desde 2004: para una serie larga, use esa. No las sume: un caso puede estar en ambas.",
+        "unir": false
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2001-2003",
+        "formulario": "302",
+        "variable": "43.- Tosferina (3*)",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

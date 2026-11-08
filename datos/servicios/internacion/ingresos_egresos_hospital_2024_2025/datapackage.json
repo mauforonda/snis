@@ -1,0 +1,184 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "ingresos_egresos_hospital_2024_2025",
+  "title": "Ingresos y egresos por servicio de internación (2024-2025)",
+  "description": "Registros de internación en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2024-2025. Fuente: SNIS, formularios 301b.",
+  "keywords": [
+    "servicios",
+    "internacion"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301b",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301b_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 96
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "movimiento",
+            "type": "string",
+            "description": "Ingreso o egreso y su tipo.",
+            "categories": [
+              "egreso: alta médica",
+              "egreso: alta solicitada",
+              "egreso: contrarreferido",
+              "egreso: defunción a partir de 48 horas",
+              "egreso: defunción antes de 48 horas",
+              "egreso: fuga",
+              "egreso: traslado interno",
+              "ingreso y egreso el mismo día",
+              "ingreso: existencia al inicio",
+              "ingreso: nuevo",
+              "ingreso: referido",
+              "ingreso: traslado interno"
+            ]
+          },
+          {
+            "name": "especialidad",
+            "type": "string",
+            "description": "Especialidad del hospital que atiende.",
+            "categories": [
+              "Alergologia",
+              "Anestesiologia",
+              "Angiologia",
+              "Cardiologia",
+              "Cirugia cardiovascular",
+              "Cirugia gastroenterologica",
+              "Cirugia general",
+              "Cirugia maxilo facial",
+              "Cirugia oftalmologica",
+              "Cirugia oncologica",
+              "Cirugia ortopedica y traumatologica",
+              "Cirugia pediatrica",
+              "Cirugia plastica",
+              "Cirugia toracica",
+              "Coloproctologia",
+              "Dermatologia",
+              "Endocrinologia",
+              "Gastroenterologia",
+              "Geriatria",
+              "Ginecologia",
+              "Ginecologia y obstetricia",
+              "Hematologia",
+              "Infectologia",
+              "Inmunologia",
+              "Medicina critica y terapia intensiva",
+              "Medicina general",
+              "Medicina interna",
+              "Nefrologia",
+              "Neonatologia",
+              "Neumologia",
+              "Neurocirugia",
+              "Neurologia",
+              "Nutricion",
+              "Obstetricia",
+              "Oftalmologia",
+              "Oncologia",
+              "Otorrinolaringologia",
+              "Otras especialidades",
+              "Otros especialidades",
+              "Pediatria",
+              "Perinatologia",
+              "Psicologia",
+              "Psiquiatria",
+              "Quemados",
+              "Reumatologia",
+              "Septico",
+              "Toxicologia",
+              "Traumatologia",
+              "Unidad de cuidados intermedios (uci)",
+              "Urologia"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "internacion",
+    "tema": null,
+    "filas": 84484,
+    "totales": {
+      "2024": 1713691,
+      "2025": 1782681
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/internacion/ingresos_egresos_hospital_2015",
+          "servicios/internacion/ingresos_egresos_hospital_2016_2023",
+          "servicios/internacion/ingresos_egresos_hospital_2024_2025"
+        ],
+        "supuesto": "Las categorías de `movimiento` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2024-2025",
+        "formulario": "301b",
+        "variable": "Contrareferidos; Egresos-Alta Fuga; Egresos-Alta Medica; Egresos-Alta Solicitada; Egresos-Defunción a partir de 48 Hrs.; Egresos-Defunción antes de 48 Hrs.; Egresos-Traslado Interno; Ingresos y egresos del mismo dia; Ingresos-Existencia; Ingresos-Nuevos; Ingresos-Traslado Interno; Referidos",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "pacientes_derivados_de_la_comunidad_o_medicina_tradicional",
+  "title": "Pacientes referidos de la comunidad o medicina tradicional",
+  "description": "Pacientes o referencias registrados en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2010-2025. Fuente: SNIS, formularios 301, 301a.",
+  "keywords": [
+    "servicios",
+    "referencias"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 257
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "referencias",
+    "tema": null,
+    "filas": 5440,
+    "totales": {
+      "2010": 1816,
+      "2011": 1598,
+      "2012": 2171,
+      "2013": 1969,
+      "2014": 2052,
+      "2015": 1779,
+      "2016": 8211,
+      "2017": 5492,
+      "2018": 11185,
+      "2019": 8700,
+      "2020": 2933,
+      "2021": 2031,
+      "2022": 1767,
+      "2023": 1375,
+      "2024": 1263,
+      "2025": 1124
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2010-2013",
+        "formulario": "301",
+        "variable": "Pacientes derivados de la comunidad o medicina tradicional",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "2.2 Pacientes derivados de la comunidad o medicina tradicional",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "301a",
+        "variable": "Pacientes derivados de la comunidad o medicina tradicional",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "301a",
+        "variable": "Pacientes derivados de la comunidad o medicina tradicional",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "301a",
+        "variable": "Pacientes derivados de la comunidad o medicina tradicional",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "301a",
+        "variable": "Pacientes derivados de la comunidad o medicina tradicional",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "301a",
+        "variable": "Pacientes derivados de la comunidad o medicina tradicional",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "301a",
+        "variable": "Pacientes derivados de la comunidad o medicina tradicional",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "301a",
+        "variable": "Pacientes derivados de la comunidad o medicina tradicional",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "301a",
+        "variable": "Pacientes referidos de la comunidad o medicina tradicional",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

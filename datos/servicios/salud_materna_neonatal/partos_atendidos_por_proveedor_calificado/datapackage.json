@@ -1,0 +1,211 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "partos_atendidos_por_proveedor_calificado",
+  "title": "Partos atendidos por proveedor calificado",
+  "description": "Atenciones y nacimientos registrados en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2015-2025. Fuente: SNIS, formularios 301a.",
+  "keywords": [
+    "servicios",
+    "salud_materna_neonatal"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 341
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "lugar",
+            "type": "string",
+            "description": "Dónde ocurrió la atención o el evento: dentro o fuera del establecimiento; servicio o domicilio.",
+            "categories": [
+              "domicilio",
+              "servicio"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "salud_materna_neonatal",
+    "tema": null,
+    "filas": 53411,
+    "totales": {
+      "2015": 126541,
+      "2016": 144734,
+      "2017": 157314,
+      "2018": 172763,
+      "2019": 165911,
+      "2020": 149272,
+      "2021": 134767,
+      "2022": 139877,
+      "2023": 136718,
+      "2024": 117549,
+      "2025": 114039
+    },
+    "edades": [
+      {
+        "gestiones": "2024-2025",
+        "bandas": "<10, 10-14, 15-19, 20-34, 35-49, 50+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/salud_materna_neonatal/partos_atendidos_por_personal_de_salud",
+          "servicios/salud_materna_neonatal/partos_atendidos_por_personal_de_salud_calificado",
+          "servicios/salud_materna_neonatal/partos_atendidos_por_proveedor_calificado"
+        ],
+        "supuesto": "Hasta 2014 el formulario 301 cuenta los partos atendidos por personal de salud; desde 2015 el 301a separa proveedor calificado (médicos) y personal de salud calificado (enfermería), según su instructivo. Consultarlos juntos como una serie supone que los dos grupos de 2015 suman lo mismo que \"personal de salud\".",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2015",
+        "formulario": "301a",
+        "variable": "Partos atendidos por proveedor calificado",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "301a",
+        "variable": "Partos atendidos por proveedor calificado",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "301a",
+        "variable": "Partos atendidos por proveedor calificado",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "301a",
+        "variable": "Partos atendidos por proveedor calificado",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "301a",
+        "variable": "Partos atendidos por proveedor calificado",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "301a",
+        "variable": "Partos atendidos por proveedor calificado",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "301a",
+        "variable": "Partos atendidos por proveedor calificado",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "301a",
+        "variable": "Partos atendidos por proveedor calificado",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

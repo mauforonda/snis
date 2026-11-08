@@ -1,0 +1,226 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "tuberculosis_tb_pulmonar_baar_positivo_nuevos",
+  "title": "Tuberculosis: TBP BAAR (+) nuevos",
+  "description": "Registros en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2008-2023. Fuente: SNIS, formularios 301, 301a.",
+  "keywords": [
+    "servicios",
+    "control_enfermedades"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2023.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 327
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "control_enfermedades",
+    "tema": null,
+    "filas": 24803,
+    "totales": {
+      "2008": 5362,
+      "2009": 5870,
+      "2010": 5608,
+      "2011": 6087,
+      "2012": 5876,
+      "2013": 5875,
+      "2014": 5657,
+      "2015": 5416,
+      "2016": 5453,
+      "2017": 5185,
+      "2018": 5759,
+      "2019": 5648,
+      "2020": 4446,
+      "2021": 5609,
+      "2022": 6325,
+      "2023": 7517
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/control_enfermedades/tuberculosis_tb_pulmonar_baar_positivo_nuevos",
+          "servicios/control_enfermedades/tuberculosis_tb_pulmonar_bacteriologicamente_confirmados_nue"
+        ],
+        "supuesto": "Hasta 2023 el formulario cuenta los casos nuevos de tuberculosis pulmonar con baciloscopía (BAAR) positiva; desde 2024, los casos nuevos y recaídas confirmados por cualquier prueba bacteriológica. La definición nueva es más amplia. Consultarlos juntos como una serie supone que las dos definiciones cuentan lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2008-2011",
+        "formulario": "301",
+        "variable": "N° de TBP BAAR (+) nuevos",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2012",
+        "formulario": "301",
+        "variable": "l 23.2 N° de TBP BAAR (+) nuevos",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2013",
+        "formulario": "301",
+        "variable": "N° de TBP BAAR (+) nuevos",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "23.2 N° de TBP BAAR (+) nuevos",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "301a",
+        "variable": "Total N° de TBP BAAR (+) nuevos",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "301a",
+        "variable": "N° de TBP BAAR (+) nuevos",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "301a",
+        "variable": "N° de TBP BAAR (+) nuevos",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "301a",
+        "variable": "N° de TBP BAAR (+) nuevos",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "301a",
+        "variable": "N° de TBP BAAR (+) nuevos",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "301a",
+        "variable": "N° de TBP BAAR (+) nuevos",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "301a",
+        "variable": "N° de TBP BAAR (+) nuevos",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

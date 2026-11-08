@@ -1,0 +1,230 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "peste",
+  "title": "Peste",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2008, 2010, 2012-2014, 2016, 2018-2019, 2024. Fuente: SNIS, formularios 302, 302a.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "zoonosis"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2024_302a.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2008,
+      2010,
+      2012,
+      2013,
+      2014,
+      2016,
+      2018,
+      2019,
+      2024
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 7
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "zoonosis",
+    "filas": 23,
+    "totales": {
+      "2008": 3,
+      "2010": 3,
+      "2012": 1,
+      "2013": 3,
+      "2014": 1,
+      "2016": 2,
+      "2018": 4,
+      "2019": 4,
+      "2024": 2
+    },
+    "edades": [
+      {
+        "gestiones": "2008",
+        "bandas": "<1, 1-4"
+      },
+      {
+        "gestiones": "2010",
+        "bandas": "10-20"
+      },
+      {
+        "gestiones": "2012",
+        "bandas": "21-59"
+      },
+      {
+        "gestiones": "2013",
+        "bandas": "<1"
+      },
+      {
+        "gestiones": "2014",
+        "bandas": "10-20"
+      },
+      {
+        "gestiones": "2016",
+        "bandas": "20-39, 40-49"
+      },
+      {
+        "gestiones": "2018",
+        "bandas": "20-39, 60+"
+      },
+      {
+        "gestiones": "2019",
+        "bandas": "1-4, 5-9"
+      },
+      {
+        "gestiones": "2024",
+        "bandas": "20-39, 40-49"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2008",
+        "formulario": "302",
+        "variable": "9 Peste",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2010",
+        "formulario": "302",
+        "variable": "Peste",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "A20",
+        "cie10_codigos": "A20 A20.0 A20.1 A20.2 A20.3 A20.7 A20.8 A20.9"
+      },
+      {
+        "gestiones": "2012-2013",
+        "formulario": "302",
+        "variable": "Peste",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "A20",
+        "cie10_codigos": "A20 A20.0 A20.1 A20.2 A20.3 A20.7 A20.8 A20.9"
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "302",
+        "variable": "Peste",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "A20",
+        "cie10_codigos": "A20 A20.0 A20.1 A20.2 A20.3 A20.7 A20.8 A20.9"
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "302a",
+        "variable": "Peste",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "A20",
+        "cie10_codigos": "A20 A20.0 A20.1 A20.2 A20.3 A20.7 A20.8 A20.9"
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "302a",
+        "variable": "Peste",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "A20",
+        "cie10_codigos": "A20 A20.0 A20.1 A20.2 A20.3 A20.7 A20.8 A20.9"
+      },
+      {
+        "gestiones": "2019",
+        "formulario": "302a",
+        "variable": "Peste",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "A20",
+        "cie10_codigos": "A20 A20.0 A20.1 A20.2 A20.3 A20.7 A20.8 A20.9"
+      },
+      {
+        "gestiones": "2024",
+        "formulario": "302a",
+        "variable": "Peste",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "A20",
+        "cie10_codigos": "A20 A20.0 A20.1 A20.2 A20.3 A20.7 A20.8 A20.9"
+      }
+    ]
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "flujo_uretral_vaginal_2007_2010",
+  "title": "Flujo uretral o vaginal (2007-2010)",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2007-2010. Fuente: SNIS, formularios 302.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "transmisión sexual"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2010.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2007,
+      2008,
+      2009,
+      2010
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 263
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "transmisión sexual",
+    "filas": 9240,
+    "totales": {
+      "2007": 2984,
+      "2008": 2945,
+      "2009": 2467,
+      "2010": 42182
+    },
+    "edades": [
+      {
+        "gestiones": "2007",
+        "bandas": "5-14, 15-59, 60+"
+      },
+      {
+        "gestiones": "2008-2010",
+        "bandas": "5-9, 10-20, 21-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [
+      "302, 2001-2007: en las variables cuyas columnas \"-M\" siempre valen 0, \"TOTAL-H\" es igual a \"TOTAL\": \"-H\" contiene a ambos sexos. Esas variables no tienen sexo. En 2004 el grupo 09 (mortalidad) tampoco tiene sexo: hay 79 muertes maternas en \"-H\" y 94 en \"-M\"."
+    ],
+    "relacionados": [
+      {
+        "datasets": [
+          "vigilancia/casos/flujo_uretral_vaginal_2001_2006",
+          "vigilancia/casos/flujo_uretral_vaginal_2007_2010",
+          "vigilancia/casos/flujo_uretral_vaginal_2011_2025"
+        ],
+        "supuesto": "La variable cuenta hombres con flujo uretral (2001-2006), flujo uretral o uretritis sin restringir el sexo (2007-2010) y flujo uretral o vaginal (desde 2011). Consultarlos juntos como una serie supone que las definiciones cuentan lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2007",
+        "formulario": "302",
+        "variable": "20 Flujo uretral (uretritis)",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2008-2009",
+        "formulario": "302",
+        "variable": "21 Flujo uretral (uretritis)",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "A54 A56 A59 B37 N76 O98",
+        "cie10_codigos": "A54 A54.0 A56.0 A56.2 A59.0 B37.3 N76.0 O98.2"
+      },
+      {
+        "gestiones": "2010",
+        "formulario": "302",
+        "variable": "Flujo uretral (uretritis)",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "A54 A56 A59 B37 N76 O98",
+        "cie10_codigos": "A54 A54.0 A56.0 A56.2 A59.0 B37.3 N76.0 O98.2"
+      }
+    ]
+  }
+}

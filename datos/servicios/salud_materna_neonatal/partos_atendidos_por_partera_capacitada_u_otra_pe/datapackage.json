@@ -1,0 +1,141 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "partos_atendidos_por_partera_capacitada_u_otra_pe",
+  "title": "Partos atendidos por partera capacitada u otra pe",
+  "description": "Atenciones y nacimientos registrados en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2001-2007. Fuente: SNIS, formularios 301.",
+  "keywords": [
+    "servicios",
+    "salud_materna_neonatal"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2007.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 318
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "lugar",
+            "type": "string",
+            "description": "Dónde ocurrió la atención o el evento: dentro o fuera del establecimiento; servicio o domicilio.",
+            "categories": [
+              "domicilio"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "salud_materna_neonatal",
+    "tema": null,
+    "filas": 12230,
+    "totales": {
+      "2001": 8758,
+      "2002": 7941,
+      "2003": 6633,
+      "2004": 6224,
+      "2005": 6419,
+      "2006": 5750,
+      "2007": 4986
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/salud_materna_neonatal/partos_atendidos_por_partera_capacitada_u_otra_pe",
+          "servicios/salud_materna_neonatal/partos_atendidos_por_partera_capacitada"
+        ],
+        "supuesto": "Hasta 2007 la variable es \"partos atendidos por partera capacitada u otra pe…\" (el tablero corta el nombre); desde 2008, \"por partera capacitada\". Consultarlos juntos como una serie supone que la variable no cambió de contenido.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2001-2003",
+        "formulario": "301",
+        "variable": "Partos atendidos por partera capacitada u otr",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2004",
+        "formulario": "301",
+        "variable": "Partos atendidos por partera capacitada u otra pe",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2005-2007",
+        "formulario": "301",
+        "variable": "Partos atendidos por partera capacitada u otr",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

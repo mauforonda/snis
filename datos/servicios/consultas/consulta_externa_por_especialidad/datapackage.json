@@ -1,0 +1,225 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "consulta_externa_por_especialidad",
+  "title": "Consulta externa por especialidad",
+  "description": "Atenciones registradas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2015-2025. Fuente: SNIS, formularios 301b.",
+  "keywords": [
+    "servicios",
+    "consultas"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301b",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301b_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 106
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "caso",
+            "type": "string",
+            "description": "nuevo, repetido, seguimiento o primera, como lo registra el formulario.",
+            "categories": [
+              "nuevo",
+              "repetido"
+            ]
+          },
+          {
+            "name": "especialidad",
+            "type": "string",
+            "description": "Especialidad del hospital que atiende.",
+            "categories": [
+              "Alergologia",
+              "Anestesiologia",
+              "Angiologia",
+              "Cardiologia",
+              "Cirugia cardiovascular",
+              "Cirugia gastroenterologica",
+              "Cirugia general",
+              "Cirugia maxilo facial",
+              "Cirugia oftalmologica",
+              "Cirugia oncologica",
+              "Cirugia ortopedica y traumatologica",
+              "Cirugia pediatrica",
+              "Cirugia plastica",
+              "Cirugia toracica",
+              "Coloproctologia",
+              "Colposcopia",
+              "Dermatologia",
+              "Endocrinologia",
+              "Estomatologia",
+              "Foniatria",
+              "Gastroenterologia",
+              "Geriatria",
+              "Ginecologia",
+              "Ginecologia y obstetricia",
+              "Hematologia",
+              "Infectologia",
+              "Inmunologia",
+              "Mastologia",
+              "Medicina critica y terapia intensiva",
+              "Medicina del trabajo",
+              "Medicina familiar",
+              "Medicina familiar y comunitaria (safci)",
+              "Medicina fisica y rehabilitacion (fisioterapia)",
+              "Medicina general",
+              "Medicina interna",
+              "Medicina tradicional",
+              "Medicina tropical",
+              "Nefrologia",
+              "Neonatologia",
+              "Neumologia",
+              "Neurocirugia",
+              "Neurologia",
+              "Nutricion",
+              "Obstetricia",
+              "Odontologia",
+              "Odontologia - endodoncia",
+              "Odontologia pediatrica",
+              "Oftalmologia",
+              "Oncologia",
+              "Otorrinolaringologia",
+              "Otros especialidades",
+              "Pediatria",
+              "Proctologia",
+              "Psicologia",
+              "Psiquiatria",
+              "Quemados",
+              "Radioterapia",
+              "Reumatologia",
+              "Traumatologia",
+              "Traumatologia y ortopedia infantil",
+              "Urologia",
+              "Perinatologia",
+              "Cirugia toraxica",
+              "Genetica",
+              "Medicina natural/medicina alternativa",
+              "Medicina nuclear",
+              "Toxicologia",
+              "Cirugia de transplante"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "consultas",
+    "tema": null,
+    "filas": 1904265,
+    "totales": {
+      "2015": 4335180,
+      "2016": 5429750,
+      "2017": 6079053,
+      "2018": 6943381,
+      "2019": 6545341,
+      "2020": 7263706,
+      "2021": 5498108,
+      "2022": 7214155,
+      "2023": 8560460,
+      "2024": 9291712,
+      "2025": 9706612
+    },
+    "edades": [
+      {
+        "gestiones": "2015-2025",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2015-2025",
+        "formulario": "301b",
+        "variable": "1 a 4 años; 10 a 14 años; 15 a 19 años; 20 a 39 años; 40 a 49 años; 5 a 9 años; 50 a 59 años; 6 meses a menor de 1 año; 60 y más; Menor de 6 meses",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

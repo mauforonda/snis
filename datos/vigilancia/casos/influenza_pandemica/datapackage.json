@@ -1,0 +1,149 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "influenza_pandemica",
+  "title": "Influenza pandémica",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2008-2014. Fuente: SNIS, formularios 302.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "respiratoria"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2014_2.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 90
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "respiratoria",
+    "filas": 4628,
+    "totales": {
+      "2008": 35,
+      "2009": 14118,
+      "2010": 3102,
+      "2011": 5581,
+      "2012": 2247,
+      "2013": 2812,
+      "2014": 2465
+    },
+    "edades": [
+      {
+        "gestiones": "2008",
+        "bandas": "1-4, 5-9, 10-20, 21-59, 60+"
+      },
+      {
+        "gestiones": "2009-2014",
+        "bandas": "<1, 1-4, 5-9, 10-20, 21-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2008-2009",
+        "formulario": "302",
+        "variable": "15 Influenza Aviar - Pandemica",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "J11",
+        "cie10_codigos": "J11 J11.0 J11.1 J11.8"
+      },
+      {
+        "gestiones": "2010-2013",
+        "formulario": "302",
+        "variable": "Influenza / Pandémica",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "J11",
+        "cie10_codigos": "J11 J11.0 J11.1 J11.8"
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "302",
+        "variable": "Influenza / Pandémica",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "J11",
+        "cie10_codigos": "J11 J11.0 J11.1 J11.8"
+      }
+    ]
+  }
+}

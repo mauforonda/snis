@@ -1,0 +1,235 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "personas_que_recibieron_orientacion_en_anticoncepcion",
+  "title": "Personas que recibieron orientación en anticoncepción",
+  "description": "Atenciones registradas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2001-2020. Fuente: SNIS, formularios 301, 301a.",
+  "keywords": [
+    "servicios",
+    "anticoncepcion_prevencion_cancer"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2020.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 341
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "anticoncepcion_prevencion_cancer",
+    "tema": null,
+    "filas": 134725,
+    "totales": {
+      "2001": 447389,
+      "2002": 517283,
+      "2003": 554102,
+      "2004": 574882,
+      "2005": 633076,
+      "2006": 648496,
+      "2007": 716564,
+      "2008": 754793,
+      "2009": 725258,
+      "2010": 663638,
+      "2011": 693183,
+      "2012": 731091,
+      "2013": 787830,
+      "2014": 703752,
+      "2015": 626307,
+      "2016": 699566,
+      "2017": 640181,
+      "2018": 648541,
+      "2019": 612551,
+      "2020": 399742
+    },
+    "edades": [
+      {
+        "gestiones": "2015-2020",
+        "bandas": "<15, 15-19, 20-34, 35-49, 50+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [
+      "301a, anticoncepción y prevención del cáncer (2015-2016) e interrupción legal del embarazo (2021): las variables tienen cinco columnas sin rótulo (\"Número de condones entregados\", \"...1\" a \"...4\"). Son las bandas de edad <15, 15-19, 20-34, 35-49 y 50+, en ese orden. En anticoncepción las proporciones coinciden con las de 2017 (muestras de PAP 2016: 0,3 %, 7,1 %, 48,5 %, 32,0 % y 12,2 %; 2017: 0,3 %, 7,1 %, 48,4 %, 31,7 % y 12,5 %). En la interrupción legal del embarazo, el encabezado de 2022 une cada columna numerada con su banda (\"A. < 15\", \"B. 15 A 19 ... 1\"). En 2022 la segunda banda de las causales riesgo de salud de la madre y malformación dice \"15 A 49\"; es 15-19.",
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/anticoncepcion_prevencion_cancer/personas_que_recibieron_orientacion_en_anticoncepcion",
+          "servicios/anticoncepcion_prevencion_cancer/mujeres_que_recibieron_orientacion_en_anticoncepcion",
+          "servicios/anticoncepcion_prevencion_cancer/varones_que_recibieron_orientacion_en_anticoncepcion"
+        ],
+        "supuesto": "Hasta 2020 el formulario cuenta personas que recibieron orientación en anticoncepción; desde 2021, mujeres y varones por separado. Consultarlos juntos como una serie supone que mujeres y varones suman lo mismo que \"personas\".",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2001-2004",
+        "formulario": "301",
+        "variable": "Número de personas que recibieron orientación en",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2005-2007",
+        "formulario": "301",
+        "variable": "Número de personas que recibieron orientación",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2008",
+        "formulario": "301",
+        "variable": "Número de personas que recibieron orientación en",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2009-2013",
+        "formulario": "301",
+        "variable": "Número de personas que recibieron orientación en Anticoncepción",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "5.17 Número de personas que recibieron orientación en Anticoncepción",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2015-2016",
+        "formulario": "301a",
+        "variable": "Número de personas que recibieron orientación en Anticoncepción",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "301a",
+        "variable": "Número de personas que recibieron orientación en Anticoncepción",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "301a",
+        "variable": "Número de personas que recibieron orientación en Anticoncepción",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "301a",
+        "variable": "Número de personas que recibieron orientación en Anticoncepción",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

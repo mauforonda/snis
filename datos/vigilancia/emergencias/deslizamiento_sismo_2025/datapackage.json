@@ -1,0 +1,129 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "deslizamiento_sismo_2025",
+  "title": "Deslizamiento y sismo (2025)",
+  "description": "Eventos y personas afectadas en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2025. Fuente: SNIS, formularios 302a.",
+  "keywords": [
+    "vigilancia",
+    "emergencias",
+    "emergencia"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2025_302a.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2025
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 23
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "evento",
+            "type": "string",
+            "description": "Tipo de evento.",
+            "categories": [
+              "deslizamiento",
+              "sismo o terremoto"
+            ]
+          },
+          {
+            "name": "medida",
+            "type": "string",
+            "description": "Qué se cuenta: eventos, personas afectadas, fallecidas, damnificadas o pacientes atendidos.",
+            "categories": [
+              "eventos",
+              "pacientes_atendidos",
+              "personas_afectadas",
+              "personas_damnificadas",
+              "personas_fallecidas"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "emergencias",
+    "tema": "emergencia",
+    "filas": 75,
+    "totales": {
+      "2025": 2867
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "vigilancia/emergencias/deslizamiento_sismo_2010_2014",
+          "vigilancia/emergencias/deslizamiento_sismo_2015_2023",
+          "vigilancia/emergencias/deslizamiento_sismo_2024",
+          "vigilancia/emergencias/deslizamiento_sismo_2025"
+        ],
+        "supuesto": "Las categorías de `evento` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2025",
+        "formulario": "302a",
+        "variable": "06. Deslizamiento; 07. Sismo/Terremoto",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

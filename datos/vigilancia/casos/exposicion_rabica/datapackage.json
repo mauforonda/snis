@@ -1,0 +1,268 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "exposicion_rabica",
+  "title": "Personas expuestas al virus rábico (mordeduras)",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2004-2025. Fuente: SNIS, formularios 302, 302a.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "lesiones por animales"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2025_302a.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 342
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "lesiones por animales",
+    "filas": 348115,
+    "totales": {
+      "2004": 19680,
+      "2005": 28499,
+      "2006": 31700,
+      "2007": 31032,
+      "2008": 38426,
+      "2009": 34131,
+      "2010": 29035,
+      "2011": 35347,
+      "2012": 38988,
+      "2013": 41233,
+      "2014": 42389,
+      "2015": 51334,
+      "2016": 51530,
+      "2017": 66201,
+      "2018": 73277,
+      "2019": 64387,
+      "2020": 41750,
+      "2021": 48365,
+      "2022": 56717,
+      "2023": 68397,
+      "2024": 69550,
+      "2025": 76347
+    },
+    "edades": [
+      {
+        "gestiones": "2008-2014",
+        "bandas": "<1, 1-4, 5-9, 10-20, 21-59, 60+"
+      },
+      {
+        "gestiones": "2015-2025",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2004",
+        "formulario": "302",
+        "variable": "14 Número de personas mordidas por can sospechoso de rabia",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2005-2007",
+        "formulario": "302",
+        "variable": "14 Número de personas mordidas por animal sospechoso de rabia",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2008-2009",
+        "formulario": "302",
+        "variable": "14 No de personas mordidas por animal",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2010-2013",
+        "formulario": "302",
+        "variable": "Nº de personas expuestas al virus rábico(mordida,",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "A82",
+        "cie10_codigos": "A82 A82.0 A82.1 A82.9"
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "302",
+        "variable": "Nº de personas expuestas al virus rábico(mordida,",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "A82 W53 W54",
+        "cie10_codigos": "A82 A82.0 A82.1 A82.9 W53.2 W53.3 W53.4 W53.5 W53.6 W53.7 W53.8 W53.9 W54 W54.0 W54.1 W54.2 W54.3 W54.4 W54.5 W54.6 W54.7 W54.8 W54.9"
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "302a",
+        "variable": "Nº de personas expuestas al virus rábico",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "W54 W55",
+        "cie10_codigos": "W54 W54.0 W54.1 W54.2 W54.3 W54.4 W54.5 W54.6 W54.7 W54.8 W54.9 W55 W55.0 W55.1 W55.2 W55.3 W55.4 W55.5 W55.6 W55.7 W55.8 W55.9"
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "302a",
+        "variable": "Nº de personas expuestas al virus rábico",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "W54 W55",
+        "cie10_codigos": "W54 W54.0 W54.1 W54.2 W54.3 W54.4 W54.5 W54.6 W54.7 W54.8 W54.9 W55 W55.0 W55.1 W55.2 W55.3 W55.4 W55.5 W55.6 W55.7 W55.8 W55.9"
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "302a",
+        "variable": "Nº de personas expuestas al virus rábico",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "W54 W55",
+        "cie10_codigos": "W54 W54.0 W54.1 W54.2 W54.3 W54.4 W54.5 W54.6 W54.7 W54.8 W54.9 W55 W55.0 W55.1 W55.2 W55.3 W55.4 W55.5 W55.6 W55.7 W55.8 W55.9"
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "302a",
+        "variable": "Nº de personas expuestas al virus rábico",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "W54 W55",
+        "cie10_codigos": "W54 W54.0 W54.1 W54.2 W54.3 W54.4 W54.5 W54.6 W54.7 W54.8 W54.9 W55 W55.0 W55.1 W55.2 W55.3 W55.4 W55.5 W55.6 W55.7 W55.8 W55.9"
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "302a",
+        "variable": "Nº de personas expuestas al virus rábico",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "W54 W55",
+        "cie10_codigos": "W54 W54.0 W54.1 W54.2 W54.3 W54.4 W54.5 W54.6 W54.7 W54.8 W54.9 W55 W55.0 W55.1 W55.2 W55.3 W55.4 W55.5 W55.6 W55.7 W55.8 W55.9"
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "302a",
+        "variable": "Nº de personas expuestas al virus rábico",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "W54 W55",
+        "cie10_codigos": "W54 W54.0 W54.1 W54.2 W54.3 W54.4 W54.5 W54.6 W54.7 W54.8 W54.9 W55 W55.0 W55.1 W55.2 W55.3 W55.4 W55.5 W55.6 W55.7 W55.8 W55.9"
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "302a",
+        "variable": "Nº de personas expuestas al virus rábico",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "W54 W55",
+        "cie10_codigos": "W54 W54.0 W54.1 W54.2 W54.3 W54.4 W54.5 W54.6 W54.7 W54.8 W54.9 W55 W55.0 W55.1 W55.2 W55.3 W55.4 W55.5 W55.6 W55.7 W55.8 W55.9"
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "302a",
+        "variable": "4. Nº de personas expuestas al virus rábico",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "W54 W55",
+        "cie10_codigos": "W54 W54.0 W54.1 W54.2 W54.3 W54.4 W54.5 W54.6 W54.7 W54.8 W54.9 W55 W55.0 W55.1 W55.2 W55.3 W55.4 W55.5 W55.6 W55.7 W55.8 W55.9"
+      }
+    ]
+  }
+}

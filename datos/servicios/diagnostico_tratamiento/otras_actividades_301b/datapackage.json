@@ -1,0 +1,119 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "otras_actividades_301b",
+  "title": "Otras actividades (formulario 301b)",
+  "description": "Estudios y procedimientos realizados en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2024-2025. Fuente: SNIS, formularios 301b.",
+  "keywords": [
+    "servicios",
+    "diagnostico_tratamiento"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301b",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301b_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 83
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "servicio",
+            "type": "string",
+            "description": "Servicio que atiende o pide el estudio.",
+            "categories": [
+              "consulta externa",
+              "emergencia",
+              "internación"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "diagnostico_tratamiento",
+    "tema": null,
+    "filas": 3651,
+    "totales": {
+      "2024": 37539932,
+      "2025": 64548169
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [
+      "301b, actividades de enfermería, 2024-2025: cada variable tiene tres columnas sin rótulo (\"Sueros\", \"Sueros1\", \"Sueros2\") que suman el total. El formulario 301b de 2024 tiene, en ese orden, las columnas emergencias, consulta externa e internación, y el instructivo de 2024 nombra los mismos servicios: se publican como esos servicios."
+    ],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/diagnostico_tratamiento/otras_actividades",
+          "servicios/diagnostico_tratamiento/otras_actividades_301b"
+        ],
+        "supuesto": "El formulario 301a registra los servicios de primer nivel y el 301b, los de segundo y tercer nivel: son registros complementarios, no partes de un total. Sumarlos supone que ninguna atención se registra en los dos.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2024-2025",
+        "formulario": "301b",
+        "variable": "Otras Actividades",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

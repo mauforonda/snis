@@ -1,0 +1,189 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "nacidos_muertos_atendidos_por_partera_capacitada",
+  "title": "Nacidos muertos atendidos por partera capacitada",
+  "description": "Atenciones y nacimientos registrados en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2001-2014. Fuente: SNIS, formularios 301.",
+  "keywords": [
+    "servicios",
+    "salud_materna_neonatal"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 278
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "lugar",
+            "type": "string",
+            "description": "Dónde ocurrió la atención o el evento: dentro o fuera del establecimiento; servicio o domicilio.",
+            "categories": [
+              "domicilio"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "salud_materna_neonatal",
+    "tema": null,
+    "filas": 2065,
+    "totales": {
+      "2001": 345,
+      "2002": 266,
+      "2003": 233,
+      "2004": 226,
+      "2005": 282,
+      "2006": 194,
+      "2007": 174,
+      "2008": 158,
+      "2009": 136,
+      "2010": 215,
+      "2011": 142,
+      "2012": 123,
+      "2013": 169,
+      "2014": 165
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/salud_materna_neonatal/nacidos_muertos_atendidos_por_partera_capacitada",
+          "servicios/salud_materna_neonatal/nacidos_muertos_atendidos_por_partera"
+        ],
+        "supuesto": "La variable cambia de nombre: \"por partera capacitada\" (2001-2014) y \"por partera\" (desde 2015). Consultarlos juntos como una serie supone que las dos cuentan lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2001-2003",
+        "formulario": "301",
+        "variable": "Nacidos muertos atendidos por partera capacit",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2004",
+        "formulario": "301",
+        "variable": "Nacidos muertos atendidos por partera capacitada",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2005-2007",
+        "formulario": "301",
+        "variable": "Nacidos muertos atendidos por partera capacit",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2008-2011",
+        "formulario": "301",
+        "variable": "Nacidos muertos atendidos por partera capacitada",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2012",
+        "formulario": "301",
+        "variable": "l 12.8 Nacidos muertos atendidos por partera capacitada",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2013",
+        "formulario": "301",
+        "variable": "Nacidos muertos atendidos por partera capacitada",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "12.8 Nacidos muertos atendidos por partera capacitada",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

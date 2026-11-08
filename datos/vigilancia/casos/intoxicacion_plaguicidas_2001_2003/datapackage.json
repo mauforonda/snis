@@ -1,0 +1,121 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "intoxicacion_plaguicidas_2001_2003",
+  "title": "Intoxicación por organofosforados y carbamatos (2001-2003)",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2001-2003. Fuente: SNIS, formularios 302.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "intoxicación"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2001.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 215
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "agente",
+            "type": "string",
+            "description": "Agente de la intoxicación.",
+            "categories": [
+              "organofosforados y carbamatos"
+            ]
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "intoxicación",
+    "filas": 2466,
+    "totales": {
+      "2001": 2208,
+      "2002": 1903,
+      "2003": 1700
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [
+      "302, grupo 13 (intoxicaciones), 2001-2003: la variable tiene una sola columna, \"TOTAL-M\". Se publica sin sexo, como total. Evidencia: la magnitud es la de un total de ambos sexos. Organofosforados suma de 1.700 a 2.208 por gestión en 2001-2003, y plaguicidas, sin sexo, suma 2.170 en 2004 y 2.077 en 2005."
+    ],
+    "relacionados": [
+      {
+        "datasets": [
+          "vigilancia/casos/intoxicacion_plaguicidas_2001_2003",
+          "vigilancia/casos/intoxicacion_plaguicidas_2004_2020",
+          "vigilancia/casos/intoxicacion_plaguicidas_2021_2025"
+        ],
+        "supuesto": "Las categorías de `agente` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2001-2003",
+        "formulario": "302",
+        "variable": "90.- Organosfosforados",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

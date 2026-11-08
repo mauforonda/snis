@@ -1,0 +1,180 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "muerte_neonatal_temprana",
+  "title": "Muerte neonatal temprana (menos de 7 días)",
+  "description": "Muertes por esta causa en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2001-2014. Fuente: SNIS, formularios 302.",
+  "keywords": [
+    "vigilancia",
+    "defunciones",
+    "perinatal e infantil"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2014_2.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 312
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "lugar",
+            "type": "string",
+            "description": "Dónde ocurrió la atención o el evento: dentro o fuera del establecimiento; servicio o domicilio.",
+            "categories": [
+              "dentro",
+              "fuera"
+            ]
+          },
+          {
+            "name": "defunciones",
+            "type": "integer",
+            "description": "Número de defunciones en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "defunciones",
+    "tema": "perinatal e infantil",
+    "filas": 11833,
+    "totales": {
+      "2001": 920,
+      "2002": 893,
+      "2003": 975,
+      "2004": 1481,
+      "2005": 1428,
+      "2006": 1330,
+      "2007": 1293,
+      "2008": 1299,
+      "2009": 1309,
+      "2010": 1300,
+      "2011": 1374,
+      "2012": 1374,
+      "2013": 1372,
+      "2014": 1143
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [
+      "302, 2001-2007: en las variables cuyas columnas \"-M\" siempre valen 0, \"TOTAL-H\" es igual a \"TOTAL\": \"-H\" contiene a ambos sexos. Esas variables no tienen sexo. En 2004 el grupo 09 (mortalidad) tampoco tiene sexo: hay 79 muertes maternas en \"-H\" y 94 en \"-M\".",
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2001-2003",
+        "formulario": "302",
+        "variable": "71.- Muerte RN menor de 7 días",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2004",
+        "formulario": "302",
+        "variable": "38 Muerte RN menor de 7 días",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2005-2007",
+        "formulario": "302",
+        "variable": "39 Muerte RN menor de 7 días",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2008-2009",
+        "formulario": "302",
+        "variable": "38 Muerte RN menor de 7 días",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2010-2013",
+        "formulario": "302",
+        "variable": "Muerte RN menor de 7 días",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "302",
+        "variable": "Muerte RN menor de 7 días",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,213 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "diabetes_tipo_2",
+  "title": "Diabetes tipo 2",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2015-2018, 2020-2025. Fuente: SNIS, formularios 302b.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "enfermedad no transmisible"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302b",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2025_302b.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 341
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "caso",
+            "type": "string",
+            "description": "nuevo, repetido, seguimiento o primera, como lo registra el formulario.",
+            "categories": [
+              "nuevo",
+              "repetido"
+            ]
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "enfermedad no transmisible",
+    "filas": 257419,
+    "totales": {
+      "2015": 178839,
+      "2016": 255705,
+      "2017": 324354,
+      "2018": 402038,
+      "2020": 304877,
+      "2021": 449005,
+      "2022": 576716,
+      "2023": 709612,
+      "2024": 732896,
+      "2025": 774528
+    },
+    "edades": [
+      {
+        "gestiones": "2015-2018",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      },
+      {
+        "gestiones": "2020-2024",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      },
+      {
+        "gestiones": "2025",
+        "bandas": "1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2015",
+        "formulario": "302b",
+        "variable": "Diabetes Tipo 2",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "E10 E11 E12 E13 E14 E15",
+        "cie10_codigos": "E10 E10.0 E10.1 E10.2 E10.3 E10.4 E10.5 E10.6 E10.7 E10.8 E10.9 E11 E11.0 E11.1 E11.2 E11.3 E11.4 E11.5 E11.6 E11.7 E11.8 E11.9 E12 E12.0 E12.1 E12.2 E12.3 E12.4 E12.5 E12.6 E12.7 E12.8 E12.9 E13 E13.0 E13.1 E13.2 E13.3 E13.4 E13.5 E13.6 E13.7 E13.8 E13.9 E14 E14.0 E14.1 E14.2 E14.3 E14.4 E14.5 E14.6 E14.7 E14.8 E14.9 E15"
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "302b",
+        "variable": "Diabetes Tipo 2",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "E10 E11 E12 E13 E14 E15",
+        "cie10_codigos": "E10 E10.0 E10.1 E10.2 E10.3 E10.4 E10.5 E10.6 E10.7 E10.8 E10.9 E11 E11.0 E11.1 E11.2 E11.3 E11.4 E11.5 E11.6 E11.7 E11.8 E11.9 E12 E12.0 E12.1 E12.2 E12.3 E12.4 E12.5 E12.6 E12.7 E12.8 E12.9 E13 E13.0 E13.1 E13.2 E13.3 E13.4 E13.5 E13.6 E13.7 E13.8 E13.9 E14 E14.0 E14.1 E14.2 E14.3 E14.4 E14.5 E14.6 E14.7 E14.8 E14.9 E15"
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "302b",
+        "variable": "Diabetes Tipo 2",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "E10 E11 E12 E13 E14 E15",
+        "cie10_codigos": "E10 E10.0 E10.1 E10.2 E10.3 E10.4 E10.5 E10.6 E10.7 E10.8 E10.9 E11 E11.0 E11.1 E11.2 E11.3 E11.4 E11.5 E11.6 E11.7 E11.8 E11.9 E12 E12.0 E12.1 E12.2 E12.3 E12.4 E12.5 E12.6 E12.7 E12.8 E12.9 E13 E13.0 E13.1 E13.2 E13.3 E13.4 E13.5 E13.6 E13.7 E13.8 E13.9 E14 E14.0 E14.1 E14.2 E14.3 E14.4 E14.5 E14.6 E14.7 E14.8 E14.9 E15"
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "302b",
+        "variable": "Diabetes Tipo 2",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "E10 E11 E12 E13 E14 E15",
+        "cie10_codigos": "E10 E10.0 E10.1 E10.2 E10.3 E10.4 E10.5 E10.6 E10.7 E10.8 E10.9 E11 E11.0 E11.1 E11.2 E11.3 E11.4 E11.5 E11.6 E11.7 E11.8 E11.9 E12 E12.0 E12.1 E12.2 E12.3 E12.4 E12.5 E12.6 E12.7 E12.8 E12.9 E13 E13.0 E13.1 E13.2 E13.3 E13.4 E13.5 E13.6 E13.7 E13.8 E13.9 E14 E14.0 E14.1 E14.2 E14.3 E14.4 E14.5 E14.6 E14.7 E14.8 E14.9 E15"
+      },
+      {
+        "gestiones": "2020",
+        "formulario": "302b",
+        "variable": "Diabetes Tipo 2",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "E10 E11 E12 E13 E14 E15",
+        "cie10_codigos": "E10 E10.0 E10.1 E10.2 E10.3 E10.4 E10.5 E10.6 E10.7 E10.8 E10.9 E11 E11.0 E11.1 E11.2 E11.3 E11.4 E11.5 E11.6 E11.7 E11.8 E11.9 E12 E12.0 E12.1 E12.2 E12.3 E12.4 E12.5 E12.6 E12.7 E12.8 E12.9 E13 E13.0 E13.1 E13.2 E13.3 E13.4 E13.5 E13.6 E13.7 E13.8 E13.9 E14 E14.0 E14.1 E14.2 E14.3 E14.4 E14.5 E14.6 E14.7 E14.8 E14.9 E15"
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "302b",
+        "variable": "Diabetes Tipo 2",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "E10 E11 E12 E13 E14 E15",
+        "cie10_codigos": "E10 E10.0 E10.1 E10.2 E10.3 E10.4 E10.5 E10.6 E10.7 E10.8 E10.9 E11 E11.0 E11.1 E11.2 E11.3 E11.4 E11.5 E11.6 E11.7 E11.8 E11.9 E12 E12.0 E12.1 E12.2 E12.3 E12.4 E12.5 E12.6 E12.7 E12.8 E12.9 E13 E13.0 E13.1 E13.2 E13.3 E13.4 E13.5 E13.6 E13.7 E13.8 E13.9 E14 E14.0 E14.1 E14.2 E14.3 E14.4 E14.5 E14.6 E14.7 E14.8 E14.9 E15"
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "302b",
+        "variable": "Diabetes Tipo 2",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "E10 E11 E12 E13 E14 E15",
+        "cie10_codigos": "E10 E10.0 E10.1 E10.2 E10.3 E10.4 E10.5 E10.6 E10.7 E10.8 E10.9 E11 E11.0 E11.1 E11.2 E11.3 E11.4 E11.5 E11.6 E11.7 E11.8 E11.9 E12 E12.0 E12.1 E12.2 E12.3 E12.4 E12.5 E12.6 E12.7 E12.8 E12.9 E13 E13.0 E13.1 E13.2 E13.3 E13.4 E13.5 E13.6 E13.7 E13.8 E13.9 E14 E14.0 E14.1 E14.2 E14.3 E14.4 E14.5 E14.6 E14.7 E14.8 E14.9 E15"
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "302b",
+        "variable": "Diabetes Tipo 2",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "E11 E12 E13 E14 O24",
+        "cie10_codigos": "E11 E11.0 E11.1 E11.2 E11.3 E11.4 E11.5 E11.6 E11.7 E11.8 E11.9 E12 E12.0 E12.1 E12.2 E12.3 E12.4 E12.5 E12.6 E12.7 E12.8 E12.9 E13 E13.0 E13.1 E13.2 E13.3 E13.4 E13.5 E13.6 E13.7 E13.8 E13.9 E14 E14.0 E14.1 E14.2 E14.3 E14.4 E14.5 E14.6 E14.7 E14.8 E14.9 O24.1 O24.2 O24.3"
+      }
+    ]
+  }
+}

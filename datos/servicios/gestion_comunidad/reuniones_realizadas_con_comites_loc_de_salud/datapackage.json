@@ -1,0 +1,181 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "reuniones_realizadas_con_comites_loc_de_salud",
+  "title": "Reuniones realizadas con comités loc. de salud",
+  "description": "Actividades registradas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2015-2025. Fuente: SNIS, formularios 301a.",
+  "keywords": [
+    "servicios",
+    "gestion_comunidad"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 343
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "gestion_comunidad",
+    "tema": null,
+    "filas": 22471,
+    "totales": {
+      "2015": 14920,
+      "2016": 13662,
+      "2017": 13008,
+      "2018": 9686,
+      "2019": 9257,
+      "2020": 8325,
+      "2021": 8780,
+      "2022": 9594,
+      "2023": 10039,
+      "2024": 9820,
+      "2025": 9327
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/gestion_comunidad/reuniones_realizadas_con_comites_loc_de_salud_consejo_mun_de",
+          "servicios/gestion_comunidad/reuniones_realizadas_con_comites_loc_de_salud"
+        ],
+        "supuesto": "Hasta 2014 la variable cuenta reuniones con comités locales de salud o con el consejo municipal de salud; desde 2015, sólo con comités locales de salud. Consultarlos juntos como una serie supone que las reuniones con el consejo municipal no cambian la serie.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2015",
+        "formulario": "301a",
+        "variable": "Nº de reuniones realizadas con Comités Loc. de Salud",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "301a",
+        "variable": "Nº de reuniones realizadas con Comités Loc. de Salud",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "301a",
+        "variable": "Nº de reuniones realizadas con Comités Loc. de Salud",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "301a",
+        "variable": "Nº de reuniones realizadas con Comités Loc. de Salud",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "301a",
+        "variable": "Nº de reuniones realizadas con Comités Loc. de Salud",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "301a",
+        "variable": "Nº de reuniones realizadas con Comités Loc. de Salud",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "301a",
+        "variable": "Nº de reuniones realizadas con Comités Loc. de Salud",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "301a",
+        "variable": "Nº de reuniones realizadas con Comités Loc. de Salud",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

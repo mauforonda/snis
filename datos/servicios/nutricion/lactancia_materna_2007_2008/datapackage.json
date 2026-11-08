@@ -1,0 +1,147 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "lactancia_materna_2007_2008",
+  "title": "Lactancia materna (2007-2008)",
+  "description": "Atenciones registradas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2007-2008. Fuente: SNIS, formularios 301.",
+  "keywords": [
+    "servicios",
+    "nutricion"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2008.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2007,
+      2008
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 324
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "tipo",
+            "type": "string",
+            "description": "Tipo.",
+            "categories": [
+              "exclusiva"
+            ]
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "nutricion",
+    "tema": null,
+    "filas": 5060,
+    "totales": {
+      "2007": 275129,
+      "2008": 324403
+    },
+    "edades": [
+      {
+        "gestiones": "2007",
+        "bandas": "<7m"
+      },
+      {
+        "gestiones": "2008",
+        "bandas": "6m-1"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/nutricion/lactancia_materna_2007_2008",
+          "servicios/nutricion/lactancia_materna_2015_2025"
+        ],
+        "supuesto": "Las categorías de `tipo` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2007",
+        "formulario": "301",
+        "variable": "Niños de 0 a 6 meses que reciben Lactancia Mat. Ex",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2008",
+        "formulario": "301",
+        "variable": "Niños (as) 6 a 23 meses que reciben Alimento compl",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

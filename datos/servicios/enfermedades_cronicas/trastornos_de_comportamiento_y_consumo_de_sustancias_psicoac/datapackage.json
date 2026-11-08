@@ -1,0 +1,135 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "trastornos_de_comportamiento_y_consumo_de_sustancias_psicoac",
+  "title": "Trastornos de comportamiento y consumo de sustancias psicoactivas",
+  "description": "Atenciones registradas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2010-2014. Fuente: SNIS, formularios 301.",
+  "keywords": [
+    "servicios",
+    "enfermedades_cronicas"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 169
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "enfermedades_cronicas",
+    "tema": null,
+    "filas": 1582,
+    "totales": {
+      "2010": 2109,
+      "2011": 2825,
+      "2012": 3074,
+      "2013": 4026,
+      "2014": 2233
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2010-2011",
+        "formulario": "301",
+        "variable": "Trastornos de comportamiento y consumo de sustancias psicoactivas",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "F10 F11 F12 F13 F14 F15 F16 F17 F18 F19",
+        "cie10_codigos": "F10 F10.0 F10.1 F10.2 F10.3 F10.4 F10.5 F10.6 F10.7 F10.8 F10.9 F11 F11.3 F11.4 F11.5 F11.6 F11.7 F11.8 F12 F12.0 F12.1 F13 F13.0 F13.1 F14 F14.0 F14.1 F14.2 F15 F15.0 F15.1 F16 F16.0 F16.1 F17 F17.0 F17.1 F18 F18.0 F19 F19.0"
+      },
+      {
+        "gestiones": "2012",
+        "formulario": "301",
+        "variable": "l 1612 Trastornos de comportamiento y consumo de sustancias psicoactivas",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "F10 F11 F12 F13 F14 F15 F16 F17 F18 F19",
+        "cie10_codigos": "F10 F10.0 F10.1 F10.2 F10.3 F10.4 F10.5 F10.6 F10.7 F10.8 F10.9 F11 F11.3 F11.4 F11.5 F11.6 F11.7 F11.8 F12 F12.0 F12.1 F13 F13.0 F13.1 F14 F14.0 F14.1 F14.2 F15 F15.0 F15.1 F16 F16.0 F16.1 F17 F17.0 F17.1 F18 F18.0 F19 F19.0"
+      },
+      {
+        "gestiones": "2013",
+        "formulario": "301",
+        "variable": "Trastornos de comportamiento y consumo de sustancias psicoactivas",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "F10 F11 F12 F13 F14 F15 F16 F17 F18 F19",
+        "cie10_codigos": "F10 F10.0 F10.1 F10.2 F10.3 F10.4 F10.5 F10.6 F10.7 F10.8 F10.9 F11 F11.3 F11.4 F11.5 F11.6 F11.7 F11.8 F12 F12.0 F12.1 F13 F13.0 F13.1 F14 F14.0 F14.1 F14.2 F15 F15.0 F15.1 F16 F16.0 F16.1 F17 F17.0 F17.1 F18 F18.0 F19 F19.0"
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "1612 Trastornos de comportamiento y consumo de sustancias psicoactivas",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "F10 F11 F12 F13 F14 F15 F16 F17 F18 F19",
+        "cie10_codigos": "F10 F10.0 F10.1 F10.2 F10.3 F10.4 F10.5 F10.6 F10.7 F10.8 F10.9 F11 F11.3 F11.4 F11.5 F11.6 F11.7 F11.8 F12 F12.0 F12.1 F13 F13.0 F13.1 F14 F14.0 F14.1 F14.2 F15 F15.0 F15.1 F16 F16.0 F16.1 F17 F17.0 F17.1 F18 F18.0 F19 F19.0"
+      }
+    ]
+  }
+}

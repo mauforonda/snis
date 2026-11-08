@@ -1,0 +1,171 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "visitas_familiares_realizadas",
+  "title": "Visitas familiares realizadas",
+  "description": "Actividades registradas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2015-2023. Fuente: SNIS, formularios 301a.",
+  "keywords": [
+    "servicios",
+    "gestion_comunidad"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2023.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 342
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "gestion_comunidad",
+    "tema": null,
+    "filas": 32664,
+    "totales": {
+      "2015": 629974,
+      "2016": 895954,
+      "2017": 956800,
+      "2018": 1034350,
+      "2019": 1005108,
+      "2020": 978144,
+      "2021": 876868,
+      "2022": 898794,
+      "2023": 1048654
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/gestion_comunidad/visitas_familiares_realizadas",
+          "servicios/gestion_comunidad/primeras_visitas_familares_realizadas",
+          "servicios/gestion_comunidad/segundas_visitas_familiares_realizadas",
+          "servicios/gestion_comunidad/terceras_visitas_familiares"
+        ],
+        "supuesto": "Hasta 2023 el formulario cuenta las visitas familiares realizadas; desde 2024, la primera, la segunda y la tercera visita. Consultarlos juntos como una serie supone que las tres suman lo mismo que \"visitas realizadas\"; el formulario no lo dice.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2015",
+        "formulario": "301a",
+        "variable": "Nº de visitas familiares realizadas",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "301a",
+        "variable": "Nº de visitas familiares realizadas",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "301a",
+        "variable": "Nº de visitas familiares realizadas",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "301a",
+        "variable": "Nº de visitas familiares realizadas",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "301a",
+        "variable": "Nº de visitas familiares realizadas",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "301a",
+        "variable": "Nº de visitas familiares realizadas",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "301a",
+        "variable": "Nº de visitas familiares realizadas",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

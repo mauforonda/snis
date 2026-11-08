@@ -1,0 +1,232 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "sifilis_embarazada",
+  "title": "Sífilis en la mujer embarazada",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2011-2025. Fuente: SNIS, formularios 302, 302a.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "transmisión sexual"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2025_302a.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 286
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "transmisión sexual",
+    "filas": 9239,
+    "totales": {
+      "2011": 959,
+      "2012": 930,
+      "2013": 1023,
+      "2014": 1571,
+      "2015": 1697,
+      "2016": 1519,
+      "2017": 1662,
+      "2018": 1245,
+      "2019": 1261,
+      "2020": 804,
+      "2021": 856,
+      "2022": 849,
+      "2023": 800,
+      "2024": 955,
+      "2025": 1237
+    },
+    "edades": [
+      {
+        "gestiones": "2011-2014",
+        "bandas": "10-20, 21-59, 60+"
+      },
+      {
+        "gestiones": "2015-2025",
+        "bandas": "10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      }
+    ],
+    "advertencias": [
+      "Registros implausibles: hay filas con una población que la definición excluye. Se publican tal como se registraron; pueden ser errores de registro o de codificación. Están en la tabla \"Registros implausibles\"."
+    ],
+    "correcciones": [],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2011-2013",
+        "formulario": "302",
+        "variable": "Sifilis en la mujer embarazada",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "O98",
+        "cie10_codigos": "O98.1"
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "302",
+        "variable": "Sifilis en la mujer embarazada",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "O98",
+        "cie10_codigos": "O98.1"
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "302a",
+        "variable": "Sífilis en la mujer embarazada*",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "O98",
+        "cie10_codigos": "O98.1"
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "302a",
+        "variable": "Sífilis en la mujer embarazada*",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "O98",
+        "cie10_codigos": "O98.1"
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "302a",
+        "variable": "Sífilis en la mujer embarazada*",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "O98",
+        "cie10_codigos": "O98.1"
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "302a",
+        "variable": "Sífilis en la mujer embarazada*",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "O98",
+        "cie10_codigos": "O98.1"
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "302a",
+        "variable": "Sífilis en la mujer embarazada*",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "O98",
+        "cie10_codigos": "O98.1"
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "302a",
+        "variable": "Sífilis en la mujer embarazada*",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "O98",
+        "cie10_codigos": "O98.1"
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "302a",
+        "variable": "Sífilis en la mujer embarazada*",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "O98",
+        "cie10_codigos": "O98.1"
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "302a",
+        "variable": "3. Sífilis en la mujer embarazada (confirmado por laboratorio)*",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "O98",
+        "cie10_codigos": "O98.1"
+      }
+    ]
+  }
+}

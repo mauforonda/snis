@@ -1,0 +1,218 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "malaria_2015_2025",
+  "title": "Malaria (2015-2025)",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2015-2025. Fuente: SNIS, formularios 302a.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "vectorial"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2025_302a.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 147
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "vectorial",
+    "filas": 95015,
+    "totales": {
+      "2015": 59394,
+      "2016": 52870,
+      "2017": 53335,
+      "2018": 54656,
+      "2019": 37417,
+      "2020": 32724,
+      "2021": 26353,
+      "2022": 25867,
+      "2023": 44629,
+      "2024": 47998,
+      "2025": 31794
+    },
+    "edades": [
+      {
+        "gestiones": "2015-2025",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "vigilancia/casos/malaria_2001_2009",
+          "vigilancia/casos/malaria_2010_2014",
+          "vigilancia/casos/malaria_2015_2025"
+        ],
+        "supuesto": "En 2010-2014 la variable es \"Malaria confirmados\" y el formulario notifica los casos sospechosos aparte; antes y después, \"Malaria\". Consultarlos juntos como una serie supone que las definiciones cuentan lo mismo.",
+        "unir": true
+      },
+      {
+        "datasets": [
+          "vigilancia/casos/malaria_2001_2009",
+          "vigilancia/casos/malaria_2010_2014",
+          "vigilancia/casos/malaria_sospecha",
+          "vigilancia/casos/malaria_2015_2025"
+        ],
+        "supuesto": "En 2010-2014 el formulario notifica por separado los casos de malaria confirmados y los sospechosos; antes y después, una sola variable, \"Malaria\". Consultarlos juntos como una serie supone que \"Malaria\" equivale a los confirmados, o a confirmados más sospechosos; el formulario no dice cuál.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2015",
+        "formulario": "302a",
+        "variable": "Malaria",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "B50 B51 B52 B53 B54",
+        "cie10_codigos": "B50 B50.0 B50.8 B50.9 B51 B51.0 B51.8 B51.9 B52 B52.0 B52.8 B52.9 B53 B53.0 B53.1 B53.8 B54"
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "302a",
+        "variable": "Malaria",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "B50 B51 B52 B53 B54",
+        "cie10_codigos": "B50 B50.0 B50.8 B50.9 B51 B51.0 B51.8 B51.9 B52 B52.0 B52.8 B52.9 B53 B53.0 B53.1 B53.8 B54"
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "302a",
+        "variable": "Malaria",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "B50 B51 B52 B53 B54",
+        "cie10_codigos": "B50 B50.0 B50.8 B50.9 B51 B51.0 B51.8 B51.9 B52 B52.0 B52.8 B52.9 B53 B53.0 B53.1 B53.8 B54"
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "302a",
+        "variable": "Malaria",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "B50 B51 B52 B53 B54",
+        "cie10_codigos": "B50 B50.0 B50.8 B50.9 B51 B51.0 B51.8 B51.9 B52 B52.0 B52.8 B52.9 B53 B53.0 B53.1 B53.8 B54"
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "302a",
+        "variable": "Malaria",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "B50 B51 B52 B53 B54",
+        "cie10_codigos": "B50 B50.0 B50.8 B50.9 B51 B51.0 B51.8 B51.9 B52 B52.0 B52.8 B52.9 B53 B53.0 B53.1 B53.8 B54"
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "302a",
+        "variable": "Malaria",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "B50 B51 B52 B53 B54",
+        "cie10_codigos": "B50 B50.0 B50.8 B50.9 B51 B51.0 B51.8 B51.9 B52 B52.0 B52.8 B52.9 B53 B53.0 B53.1 B53.8 B54"
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "302a",
+        "variable": "Malaria",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "B50 B51 B52 B53 B54",
+        "cie10_codigos": "B50 B50.0 B50.8 B50.9 B51 B51.0 B51.8 B51.9 B52 B52.0 B52.8 B52.9 B53 B53.0 B53.1 B53.8 B54"
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "302a",
+        "variable": "6. Malaria",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "B50 B51 B52 B53 B54",
+        "cie10_codigos": "B50 B50.0 B50.8 B50.9 B51 B51.0 B51.8 B51.9 B52 B52.0 B52.8 B52.9 B53 B53.0 B53.1 B53.8 B54"
+      }
+    ]
+  }
+}

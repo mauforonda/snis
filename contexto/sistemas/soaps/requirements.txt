@@ -1,0 +1,5 @@
+binary-refinery==0.11.3
+pefile==2024.8.26
+duckdb==1.5.1
+pandas==2.3.3
+pyarrow==26.0.0

@@ -1,0 +1,135 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "episodios_depresivos_ansiedad",
+  "title": "Episodios depresivos / ansiedad",
+  "description": "Atenciones registradas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2010-2014. Fuente: SNIS, formularios 301.",
+  "keywords": [
+    "servicios",
+    "enfermedades_cronicas"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 274
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "enfermedades_cronicas",
+    "tema": null,
+    "filas": 5491,
+    "totales": {
+      "2010": 13831,
+      "2011": 18356,
+      "2012": 19552,
+      "2013": 20333,
+      "2014": 15436
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2010-2011",
+        "formulario": "301",
+        "variable": "Episodios depresivos / ansiedad",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "F32 F33",
+        "cie10_codigos": "F32 F32.0 F32.1 F32.2 F32.3 F32.8 F32.9 F33 F33.0 F33.1 F33.2 F33.3 F33.4 F33.8 F33.9"
+      },
+      {
+        "gestiones": "2012",
+        "formulario": "301",
+        "variable": "l 1610 Episodios depresivos / ansiedad",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "F32 F33",
+        "cie10_codigos": "F32 F32.0 F32.1 F32.2 F32.3 F32.8 F32.9 F33 F33.0 F33.1 F33.2 F33.3 F33.4 F33.8 F33.9"
+      },
+      {
+        "gestiones": "2013",
+        "formulario": "301",
+        "variable": "Episodios depresivos / ansiedad",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "F32 F33",
+        "cie10_codigos": "F32 F32.0 F32.1 F32.2 F32.3 F32.8 F32.9 F33 F33.0 F33.1 F33.2 F33.3 F33.4 F33.8 F33.9"
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "1610 Episodios depresivos / ansiedad",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "F32 F33",
+        "cie10_codigos": "F32 F32.0 F32.1 F32.2 F32.3 F32.8 F32.9 F33 F33.0 F33.1 F33.2 F33.3 F33.4 F33.8 F33.9"
+      }
+    ]
+  }
+}

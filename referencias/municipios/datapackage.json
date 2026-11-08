@@ -1,0 +1,52 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "municipios",
+  "title": "Municipios",
+  "description": "Código y nombre de los 344 municipios del SNIS.",
+  "sources": [
+    {
+      "title": "SNIS, padrón de establecimientos de salud",
+      "path": "../../descarga/dimensiones/establecimientos/"
+    }
+  ],
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre más reciente del municipio."
+          },
+          {
+            "name": "provincia_codigo",
+            "type": "string",
+            "description": "Código de la provincia, 4 dígitos."
+          },
+          {
+            "name": "departamento_codigo",
+            "type": "string",
+            "description": "Código del departamento, 2 dígitos."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          }
+        ],
+        "primaryKey": [
+          "municipio_codigo"
+        ]
+      }
+    }
+  ]
+}

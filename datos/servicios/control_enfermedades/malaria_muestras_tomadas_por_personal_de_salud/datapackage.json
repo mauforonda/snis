@@ -1,0 +1,108 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "malaria_muestras_tomadas_por_personal_de_salud",
+  "title": "Malaria: muestras tomadas por personal de salud",
+  "description": "Registros en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2005-2006. Fuente: SNIS, formularios 301.",
+  "keywords": [
+    "servicios",
+    "control_enfermedades"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2007.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2005,
+      2006
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 132
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "control_enfermedades",
+    "tema": null,
+    "filas": 1303,
+    "totales": {
+      "2005": 135207,
+      "2006": 131996
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/control_enfermedades/malaria_muestras_tomadas_por_agente_comunario",
+          "servicios/control_enfermedades/malaria_muestras_tomadas_por_personal_de_salud",
+          "servicios/control_enfermedades/malaria_muestras_hematicas_tomadas"
+        ],
+        "supuesto": "Las muestras de malaria se cuentan por quién las toma (2005-2006) y después en total (2007-2014). Consultarlos juntos como una serie supone que las dos categorías de 2005-2006 suman todas las muestras.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2005-2006",
+        "formulario": "301",
+        "variable": "Muestras tomadas por personal de salud",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

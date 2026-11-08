@@ -1,0 +1,149 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "morbilidad_por_capitulo",
+  "title": "Morbilidad por capítulo de la CIE-10",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2001-2003. Fuente: SNIS, formularios 302.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "grupo de enfermedades"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2001.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 312
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "capitulo",
+            "type": "string",
+            "description": "Capítulo de la CIE-10.",
+            "categories": [
+              "Embarazo, parto y puerperio",
+              "Endocrinas, nutricionales y metabólicas",
+              "Malformaciones congénitas",
+              "Ojo y anexos",
+              "Otras causas",
+              "Oído y apófisis mastoides",
+              "Piel y tejido subcutáneo",
+              "Sangre y trastornos inmunitarios",
+              "Sistema circulatorio",
+              "Sistema digestivo",
+              "Sistema genitourinario",
+              "Sistema nervioso",
+              "Sistema osteomuscular",
+              "Sistema respiratorio",
+              "Trastornos mentales",
+              "Traumatismos y envenenamientos",
+              "Tumores"
+            ]
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "grupo de enfermedades",
+    "filas": 802929,
+    "totales": {
+      "2001": 4880187,
+      "2002": 3289997,
+      "2003": 1705113
+    },
+    "edades": [
+      {
+        "gestiones": "2001-2003",
+        "bandas": "<1, 1-4, 5-14, 15-59, 60+"
+      }
+    ],
+    "advertencias": [
+      "Clasificación general por sistema del formulario 2001-2003; puede incluir casos que también se notifican como enfermedades específicas."
+    ],
+    "correcciones": [
+      "302, 2001-2007: en las variables cuyas columnas \"-M\" siempre valen 0, \"TOTAL-H\" es igual a \"TOTAL\": \"-H\" contiene a ambos sexos. Esas variables no tienen sexo. En 2004 el grupo 09 (mortalidad) tampoco tiene sexo: hay 79 muertes maternas en \"-H\" y 94 en \"-M\"."
+    ],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2001-2003",
+        "formulario": "302",
+        "variable": "1.- Enfermedades del Sistema Nervioso; 10.- Enfermedades sistema osteomuscular y tejido conjuntivo; 11.- Enfermedades de la sangre y transtornos inmunitarios; 12.- Enfermedades tumorales; 13.- Complicaciones embarazo, parto y púerperio; 14.- Malformaciones congénitas; 15.- Traumatismos y envenenamiento; 16.- Transtornos mentales y del comportamiento; 17.- Otras causas; 2.- Enfermedades del ojo y anexos; 3.- Enfermedades del oido y apofisis mastoides; 4.- Enfermedades del sistema cardio circulatorio; 5.- Enfermedades del sistema respiratorio; 6.- Enfermedades del sistema digestivo; 7.- Enfermedades del sistema genitourinario; 8.- Enfermedades de piel y celular subcutánea; 9.- Enfermedades endocrinas - nutricionales - metabolicas",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

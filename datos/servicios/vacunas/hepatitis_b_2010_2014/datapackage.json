@@ -1,0 +1,167 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "hepatitis_b_2010_2014",
+  "title": "Vacuna Hepatitis B (2010-2014)",
+  "description": "Dosis aplicadas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2010-2014. Fuente: SNIS, formularios 301.",
+  "keywords": [
+    "servicios",
+    "vacunas"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 315
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "dosis",
+            "type": "string",
+            "description": "Dosis: número (1 a 5), inicial, única, anual o refuerzo.",
+            "categories": [
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          {
+            "name": "grupo",
+            "type": "string",
+            "description": "Grupo de población al que se dirige la vacuna.",
+            "categories": [
+              "personal de salud"
+            ]
+          },
+          {
+            "name": "lugar",
+            "type": "string",
+            "description": "Dónde ocurrió la atención o el evento: dentro o fuera del establecimiento; servicio o domicilio.",
+            "categories": [
+              "dentro",
+              "fuera"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "vacunas",
+    "tema": null,
+    "filas": 8059,
+    "totales": {
+      "2010": 26553,
+      "2011": 14913,
+      "2012": 15613,
+      "2013": 43949,
+      "2014": 60255
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/vacunas/hepatitis_b_2010_2014",
+          "servicios/vacunas/hepatitis_b_2015_2020",
+          "servicios/vacunas/hepatitis_b_2021_2025"
+        ],
+        "supuesto": "Las categorías de `dosis` y `grupo` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2010-2011",
+        "formulario": "301",
+        "variable": "Trabajador de Salud Hepatitis B 1ra dosis; Trabajador de Salud Hepatitis B 2da dosis; Trabajador de Salud Hepatitis B 3ra dosis",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2012",
+        "formulario": "301",
+        "variable": "l 21.6 Trabajador de Salud Hepatitis B 1ra dosis; l 21.7 Trabajador de Salud Hepatitis B 2da dosis; l 21.8 Trabajador de Salud Hepatitis B 3ra dosis",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2013",
+        "formulario": "301",
+        "variable": "Trabajador de Salud Hepatitis B 1ra dosis; Trabajador de Salud Hepatitis B 2da dosis; Trabajador de Salud Hepatitis B 3ra dosis",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "21.6 Trabajador de Salud Hepatitis B 1ra dosis; 21.7 Trabajador de Salud Hepatitis B 2da dosis; 21.8 Trabajador de Salud Hepatitis B 3ra dosis",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

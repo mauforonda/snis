@@ -1,0 +1,229 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "malaria_tratamientos_especificos",
+  "title": "Malaria: tratamientos específicos entregados",
+  "description": "Registros en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2015-2025. Fuente: SNIS, formularios 301a.",
+  "keywords": [
+    "servicios",
+    "control_enfermedades"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 123
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "condicion",
+            "type": "string",
+            "description": "embarazada o puerpera.",
+            "categories": [
+              "embarazada"
+            ]
+          },
+          {
+            "name": "especie",
+            "type": "string",
+            "description": "Especie de Plasmodium.",
+            "categories": [
+              "P. falciparum",
+              "P. vivax"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "control_enfermedades",
+    "tema": null,
+    "filas": 8583,
+    "totales": {
+      "2015": 8580,
+      "2016": 8234,
+      "2017": 5387,
+      "2018": 6590,
+      "2019": 9948,
+      "2020": 12059,
+      "2021": 9965,
+      "2022": 10601,
+      "2023": 10693,
+      "2024": 16169,
+      "2025": 10378
+    },
+    "edades": [
+      {
+        "gestiones": "2015",
+        "bandas": "<1, 5+"
+      },
+      {
+        "gestiones": "2016-2025",
+        "bandas": "<1, 1-4, 5+"
+      }
+    ],
+    "advertencias": [
+      "El tablero no nombra estas variables: son columnas por edad del grupo \"Malaria\" del 301a. Según el instructivo del 301a (2024), cuentan los tratamientos específicos entregados a pacientes confirmados."
+    ],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/control_enfermedades/malaria_tratamientos_especificos_dispensados",
+          "servicios/control_enfermedades/malaria_tratamientos_especificos"
+        ],
+        "supuesto": "Hasta 2014 el formulario 301 cuenta los tratamientos específicos de malaria dispensados; desde 2015 el 301a cuenta, por edad, los tratamientos específicos entregados a pacientes confirmados. Consultarlos juntos como una serie supone que las dos variables cuentan lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2015",
+        "formulario": "301a",
+        "variable": "Total De 1 a menores de 5 años; Total De 5 años y más; Total Menores de 1 año; Total Mujer embarazada",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "301a",
+        "variable": "De 1 a menores de 5 años; De 5 años y más; Menores de 1 año; Mujer embarazada",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "301a",
+        "variable": "De 1 a menores de 5 años; De 5 años y más; Menores de 1 año; Mujer embarazada",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "301a",
+        "variable": "De 1 a menores de 5 años; De 5 años y más; Menores de 1 año; Mujer embarazada",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "301a",
+        "variable": "De 1 a menores de 5 años; De 5 años y más; Menores de 1 año; Mujer embarazada",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "301a",
+        "variable": "De 1 a menores de 5 años; De 5 años y más; Menores de 1 año; Mujer embarazada",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "301a",
+        "variable": "De 1 a menores de 5 años; De 5 años y más; Menores de 1 año; Mujer embarazada",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "301a",
+        "variable": "De 1 a menores de 5 años; De 5 años y más; Menores de 1 año; Mujer embarazada",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

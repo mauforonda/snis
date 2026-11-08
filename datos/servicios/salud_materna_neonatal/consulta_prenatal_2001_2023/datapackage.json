@@ -1,0 +1,218 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "consulta_prenatal_2001_2023",
+  "title": "Consultas prenatales (2001-2023)",
+  "description": "Atenciones y nacimientos registrados en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2001-2023. Fuente: SNIS, formularios 301, 301a.",
+  "keywords": [
+    "servicios",
+    "salud_materna_neonatal"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2023.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 343
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "momento",
+            "type": "string",
+            "description": "Momento de la consulta prenatal.",
+            "categories": [
+              "nueva antes del 5.º mes",
+              "nueva desde el 5.º mes",
+              "repetida"
+            ]
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "lugar",
+            "type": "string",
+            "description": "Dónde ocurrió la atención o el evento: dentro o fuera del establecimiento; servicio o domicilio.",
+            "categories": [
+              "dentro",
+              "fuera"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "salud_materna_neonatal",
+    "tema": null,
+    "filas": 534361,
+    "totales": {
+      "2001": 785547,
+      "2002": 850348,
+      "2003": 904948,
+      "2004": 945130,
+      "2005": 996419,
+      "2006": 1072984,
+      "2007": 1070755,
+      "2008": 1091458,
+      "2009": 1222455,
+      "2010": 1266809,
+      "2011": 1260008,
+      "2012": 1176389,
+      "2013": 1271159,
+      "2014": 1286632,
+      "2015": 1332575,
+      "2016": 1323305,
+      "2017": 1262716,
+      "2018": 1254508,
+      "2019": 1168294,
+      "2020": 899899,
+      "2021": 1017396,
+      "2022": 1021344,
+      "2023": 998242
+    },
+    "edades": [
+      {
+        "gestiones": "2015-2023",
+        "bandas": "<15, 15-19, 20-34, 35-49, 50+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/salud_materna_neonatal/consulta_prenatal_2001_2023",
+          "servicios/salud_materna_neonatal/consulta_prenatal_2024_2025"
+        ],
+        "supuesto": "Las categorías de `momento` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2001-2007",
+        "formulario": "301",
+        "variable": "Nuevas a partir del 5to mes de embarazo; Nuevas antes del 5to mes de embarazo; Repetidas",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2008-2013",
+        "formulario": "301",
+        "variable": "Nuevas a partir del 5to mes de embarazo; Nuevas antes del 5to mes de embarazo; Repetidas",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "4.1 Nuevas antes del 5to mes de embarazo; 4.2 Nuevas a partir del 5to mes de embarazo; 4.3 Repetidas",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2015-2023",
+        "formulario": "301a",
+        "variable": "Nuevas a partir del 5to mes de embarazo; Nuevas antes del 5to mes de embarazo; Repetidas",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

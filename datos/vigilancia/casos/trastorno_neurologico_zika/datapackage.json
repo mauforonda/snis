@@ -1,0 +1,132 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "trastorno_neurologico_zika",
+  "title": "Trastorno neurológico (vigilancia de zika)",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2017-2018. Fuente: SNIS, formularios 302a.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "vectorial"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2018_302a.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2017,
+      2018
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 31
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "vectorial",
+    "filas": 455,
+    "totales": {
+      "2017": 271,
+      "2018": 289
+    },
+    "edades": [
+      {
+        "gestiones": "2017-2018",
+        "bandas": "15-19, 20-39, 40-49, 50-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2017",
+        "formulario": "302a",
+        "variable": "Trastorno neurológico",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "G60 G61 G62 G63 G64",
+        "cie10_codigos": "G60 G60.0 G60.1 G60.2 G60.3 G60.8 G60.9 G61 G61.1 G61.8 G61.9 G62 G62.0 G62.1 G62.2 G62.8 G62.9 G63 G63.0 G63.1 G63.2 G63.3 G63.4 G63.5 G63.6 G63.8 G64"
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "302a",
+        "variable": "Trastorno nuerológico Asociado al Zika",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "U06",
+        "cie10_codigos": "U06.2"
+      }
+    ]
+  }
+}

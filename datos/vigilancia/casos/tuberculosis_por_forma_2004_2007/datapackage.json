@@ -1,0 +1,165 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "tuberculosis_por_forma_2004_2007",
+  "title": "Tuberculosis por forma (2004-2007)",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2004-2007. Fuente: SNIS, formularios 302.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "tuberculosis y lepra"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2007.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2004,
+      2005,
+      2006,
+      2007
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 305
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "forma",
+            "type": "string",
+            "description": "Forma de la tuberculosis.",
+            "categories": [
+              "extrapulmonar",
+              "pulmonar BAAR negativo, nuevo",
+              "pulmonar BAAR positivo, nuevo"
+            ]
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "tuberculosis y lepra",
+    "filas": 17194,
+    "totales": {
+      "2004": 7713,
+      "2005": 8176,
+      "2006": 7650,
+      "2007": 7487
+    },
+    "edades": [
+      {
+        "gestiones": "2004-2007",
+        "bandas": "<1, 1-4, 5-14, 15-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [
+      "302, 2001-2007: en las variables cuyas columnas \"-M\" siempre valen 0, \"TOTAL-H\" es igual a \"TOTAL\": \"-H\" contiene a ambos sexos. Esas variables no tienen sexo. En 2004 el grupo 09 (mortalidad) tampoco tiene sexo: hay 79 muertes maternas en \"-H\" y 94 en \"-M\"."
+    ],
+    "relacionados": [
+      {
+        "datasets": [
+          "vigilancia/casos/tuberculosis_por_forma_2001_2003",
+          "vigilancia/casos/tuberculosis_por_forma_2004_2007"
+        ],
+        "supuesto": "Las categorías de `forma` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2004",
+        "formulario": "302",
+        "variable": "32 Tuberculosis pulmonar BAAR + nuevos; 33 Tuberculosis pulmonar BAAR - nuevos; 34 Tuberculosis extrapulmonar",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2005-2006",
+        "formulario": "302",
+        "variable": "30 Tuberculosis pulmonar BAAR + nuevos; 31 Tuberculosis pulmonar BAAR - nuevos; 32 Tuberculosis extrapulmonar",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2007",
+        "formulario": "302",
+        "variable": "29 Tuberculosis pulmonar BAAR + nuevos; 30 Tuberculosis pulmonar BAAR - nuevos; 31 Tuberculosis extrapulmonar",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

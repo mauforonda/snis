@@ -1,0 +1,123 @@
+# Personas que recibieron orientación en anticoncepción
+
+Atenciones registradas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2001-2020. Fuente: SNIS, formularios 301, 301a.
+
+## Qué es
+
+| | |
+| --- | --- |
+| Gestiones | 2001-2020 |
+| Periodicidad | mensual |
+| Municipios con registros | 341 |
+| Desagregación | edad |
+| Filas | 134.725 |
+
+Bandas de edad (`edad_grupo`) por gestión:
+
+| Gestiones | Bandas |
+| --- | --- |
+| 2015-2020 | <15, 15-19, 20-34, 35-49, 50+ |
+
+Total por gestión:
+
+| Gestión | Cantidad |
+| ---: | ---: |
+| 2001 | 447.389 |
+| 2002 | 517.283 |
+| 2003 | 554.102 |
+| 2004 | 574.882 |
+| 2005 | 633.076 |
+| 2006 | 648.496 |
+| 2007 | 716.564 |
+| 2008 | 754.793 |
+| 2009 | 725.258 |
+| 2010 | 663.638 |
+| 2011 | 693.183 |
+| 2012 | 731.091 |
+| 2013 | 787.830 |
+| 2014 | 703.752 |
+| 2015 | 626.307 |
+| 2016 | 699.566 |
+| 2017 | 640.181 |
+| 2018 | 648.541 |
+| 2019 | 612.551 |
+| 2020 | 399.742 |
+
+## Cómo utilizar
+
+Cada fila da el número de cantidad de un periodo, un municipio y una población. Para obtener un total, sume las filas: el dataset no tiene filas de total. Una combinación sin fila significa que no hubo registros. Las convenciones de tiempo, territorio y población están en el [catálogo](../../../README.md#cómo-leer-los-datos).
+
+| Columna | Tipo | Descripción |
+| --- | --- | --- |
+| `gestion` | integer | Año calendario (gestión) del registro. |
+| `mes` | integer | Mes, de 1 a 12. |
+| `fecha_inicio` | date | Primer día de la semana o del mes. |
+| `departamento` | string | Nombre del departamento. |
+| `municipio` | string | Nombre del municipio. |
+| `municipio_codigo` | string | Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2). |
+| `edad_desde` | number | Edad mínima de la banda, en años (6 meses = 0,5). |
+| `edad_hasta` | number | Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite. |
+| `edad_grupo` | string | Banda de edad en texto corto: "<6m" (menos de 6 meses), "1-4", "60+". |
+| `cantidad` | integer | Número de cantidad en la fila. |
+
+Consultas con [duckdb](https://duckdb.org), desde la raíz del repositorio:
+
+```sql
+-- Total por gestión
+select gestion, sum(cantidad) as cantidad
+from 'datos/servicios/anticoncepcion_prevencion_cancer/personas_que_recibieron_orientacion_en_anticoncepcion/datos.parquet'
+group by gestion order by gestion;
+
+-- Por gestión y edad_grupo
+select gestion, edad_grupo, sum(cantidad) as cantidad
+from 'datos/servicios/anticoncepcion_prevencion_cancer/personas_que_recibieron_orientacion_en_anticoncepcion/datos.parquet'
+group by all order by all;
+
+-- Por departamento en la última gestión
+select departamento, sum(cantidad) as cantidad
+from 'datos/servicios/anticoncepcion_prevencion_cancer/personas_que_recibieron_orientacion_en_anticoncepcion/datos.parquet'
+where gestion = 2020 group by all order by cantidad desc;
+```
+
+## Datasets relacionados
+
+Estos datasets cuentan algo parecido con otras categorías, otra definición, otro nombre u otro formulario. El repositorio no los une.
+
+- Personas que recibieron orientación en anticoncepción (este dataset): 2001-2020, formulario 301, 301a.
+- [Mujeres que recibieron orientación en anticoncepción](../../../servicios/anticoncepcion_prevencion_cancer/mujeres_que_recibieron_orientacion_en_anticoncepcion/readme.md): 2021-2025, formulario 301a.
+- [Varones que recibieron orientación en anticoncepción](../../../servicios/anticoncepcion_prevencion_cancer/varones_que_recibieron_orientacion_en_anticoncepcion/readme.md): 2021-2025, formulario 301a.
+
+Hasta 2020 el formulario cuenta personas que recibieron orientación en anticoncepción; desde 2021, mujeres y varones por separado. Consultarlos juntos como una serie supone que mujeres y varones suman lo mismo que "personas".
+
+Para consultarlos juntos, con ese supuesto:
+
+```sql
+select gestion, sum(cantidad) as cantidad
+from read_parquet([
+    'datos/servicios/anticoncepcion_prevencion_cancer/personas_que_recibieron_orientacion_en_anticoncepcion/datos.parquet',
+    'datos/servicios/anticoncepcion_prevencion_cancer/mujeres_que_recibieron_orientacion_en_anticoncepcion/datos.parquet',
+    'datos/servicios/anticoncepcion_prevencion_cancer/varones_que_recibieron_orientacion_en_anticoncepcion/datos.parquet'
+], union_by_name = true)
+group by gestion order by gestion;
+```
+
+## De dónde viene
+
+Los datos vienen de los tableros del Sistema Nacional de Información en Salud (SNIS) del Ministerio de Salud y Deportes. Fueron descargados en [`descarga/`](../../../../descarga/) y procesados con el código de [`construccion/`](../../../../construccion/). La versión de SOAPS es la del software del SNIS cuyas reglas describen la variable, con el año de su instalador.
+
+| Gestiones | Formulario | Variable del tablero | SOAPS |
+| --- | --- | --- | --- |
+| 2001-2004 | 301 | Número de personas que recibieron orientación en |  |
+| 2005-2007 | 301 | Número de personas que recibieron orientación |  |
+| 2008 | 301 | Número de personas que recibieron orientación en | 1.0.4 (2013) |
+| 2009-2013 | 301 | Número de personas que recibieron orientación en Anticoncepción | 1.0.4 (2013) |
+| 2014 | 301 | 5.17 Número de personas que recibieron orientación en Anticoncepción | 2.0.0 (2014) |
+| 2015-2016 | 301a | Número de personas que recibieron orientación en Anticoncepción |  |
+| 2017 | 301a | Número de personas que recibieron orientación en Anticoncepción | 4.0.0 (2018) |
+| 2018 | 301a | Número de personas que recibieron orientación en Anticoncepción | 4.0.1 (2018) |
+| 2019-2020 | 301a | Número de personas que recibieron orientación en Anticoncepción | 5.0.1 (2020) |
+
+Correcciones de rótulos aplicadas (el encabezado del tablero no describía sus columnas):
+
+- 301a, anticoncepción y prevención del cáncer (2015-2016) e interrupción legal del embarazo (2021): las variables tienen cinco columnas sin rótulo ("Número de condones entregados", "...1" a "...4"). Son las bandas de edad <15, 15-19, 20-34, 35-49 y 50+, en ese orden. En anticoncepción las proporciones coinciden con las de 2017 (muestras de PAP 2016: 0,3 %, 7,1 %, 48,5 %, 32,0 % y 12,2 %; 2017: 0,3 %, 7,1 %, 48,4 %, 31,7 % y 12,5 %). En la interrupción legal del embarazo, el encabezado de 2022 une cada columna numerada con su banda ("A. < 15", "B. 15 A 19 ... 1"). En 2022 la segunda banda de las causales riesgo de salud de la madre y malformación dice "15 A 49"; es 15-19.
+- Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación.

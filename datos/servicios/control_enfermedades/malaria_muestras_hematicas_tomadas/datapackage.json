@@ -1,0 +1,168 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "malaria_muestras_hematicas_tomadas",
+  "title": "Malaria: muestras hemáticas tomadas",
+  "description": "Registros en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2007-2014. Fuente: SNIS, formularios 301.",
+  "keywords": [
+    "servicios",
+    "control_enfermedades"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 184
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "especie",
+            "type": "string",
+            "description": "Especie de Plasmodium.",
+            "categories": [
+              "P. falciparum",
+              "P. vivax"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "control_enfermedades",
+    "tema": null,
+    "filas": 11258,
+    "totales": {
+      "2007": 136512,
+      "2008": 122261,
+      "2009": 95396,
+      "2010": 95615,
+      "2011": 106927,
+      "2012": 90655,
+      "2013": 90827,
+      "2014": 68454
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/control_enfermedades/malaria_muestras_tomadas_por_agente_comunario",
+          "servicios/control_enfermedades/malaria_muestras_tomadas_por_personal_de_salud",
+          "servicios/control_enfermedades/malaria_muestras_hematicas_tomadas"
+        ],
+        "supuesto": "Las muestras de malaria se cuentan por quién las toma (2005-2006) y después en total (2007-2014). Consultarlos juntos como una serie supone que las dos categorías de 2005-2006 suman todas las muestras.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2007-2009",
+        "formulario": "301",
+        "variable": "Número de Muestras hemáticas tomadas",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2010-2011",
+        "formulario": "301",
+        "variable": "Número de Muestras hemáticas tomadas",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2012",
+        "formulario": "301",
+        "variable": "l 21.1 Número de Muestras hemáticas tomadas",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2013",
+        "formulario": "301",
+        "variable": "Número de Muestras hemáticas tomadas",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "21.1 Número de Muestras hemáticas tomadas",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

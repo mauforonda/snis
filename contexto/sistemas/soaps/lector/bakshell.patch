@@ -1,0 +1,240 @@
+diff --git a/Mdf/Database.cs b/Mdf/Database.cs
+index 7242d6f..2a01042 100644
+--- a/Mdf/Database.cs
++++ b/Mdf/Database.cs
+@@ -10,7 +10,7 @@ public class BootPage
+ 
+     public static BootPage Parse(RawPage page)
+     {
+-        var record = page.GetRecord(0);
++        var record = Record.Parse(page.Data[96..],false,0);
+         if (record == null)
+             throw new InvalidDataException("Boot page has no records");
+ 
+@@ -83,13 +83,21 @@ public class MdfDatabase
+         Console.WriteLine($"    {ScalarTypes.Count} scalar types");
+     }
+ 
++    private RawPage? Leftmost(PagePointer ptr)
++    {
++        var page=PageProvider.GetPage(ptr);
++        while(page!=null && page.Header.Type==PageType.Index && page.Header.Level>0){
++            var d=page.Data.Span;int slot=System.Buffers.Binary.BinaryPrimitives.ReadUInt16LittleEndian(d[8190..]);
++            var child=PagePointer.Parse(d[(slot+page.Header.PMinLen-6)..]);
++            if(child==null) return null;
++            page=PageProvider.GetPage(child.Value);
++        }
++        return page;
++    }
++
+     private List<T> ReadSystemTable<T>(int idMajor, Func<Record, T> parser)
+     {
+-        var au = FindAllocUnitByRowSet(idMajor, 1);
+-        if (au?.PgFirst == null) return new List<T>();
+-        var page = PageProvider.GetPage(au.PgFirst.Value);
+-        if (page == null) return new List<T>();
+-        return page.Records().Select(parser).ToList();
++        return ((BakShell.Mtf.MtfPageProvider)PageProvider).ObjectPages(idMajor).SelectMany(p=>p.Records(true)).Select(parser).ToList();
+     }
+ 
+     private SysAllocUnit? FindAllocUnitById(long auId, AllocUnitType type)
+@@ -151,16 +159,22 @@ public class MdfDatabase
+             .Select(c => c!)
+             .ToList();
+ 
++        var primarySet=RowSets.FirstOrDefault(rs=>rs.IdMajor==obj.Id && rs.IdMinor<=1);
++        if(primarySet!=null){
++            foreach(var pg in ((BakShell.Mtf.MtfPageProvider)PageProvider).ObjectPages(3))foreach(var rc in pg.Records(true)){
++                var b=rc.FixedData.Span;if(b.Length<50 || System.Buffers.Binary.BinaryPrimitives.ReadInt64LittleEndian(b)!=primarySet.RowSetId)continue;
++                int cid=System.Buffers.Binary.BinaryPrimitives.ReadInt32LittleEndian(b[8..]);
++                var col=columns.FirstOrDefault(c=>c.Idx==cid);if(col==null)continue;
++                col.PhysicalOffset=(short)System.Buffers.Binary.BinaryPrimitives.ReadInt32LittleEndian(b[40..]);
++                col.PhysicalNullBit=(short)System.Buffers.Binary.BinaryPrimitives.ReadInt32LittleEndian(b[44..])-1;
++                col.PhysicalBitPos=System.Buffers.Binary.BinaryPrimitives.ReadInt16LittleEndian(b[48..])&255;
++            }
++        }
+         var schema = new Schema(columns);
+ 
+         // Get partition page pointers
+-        var partitions = RowSets
+-            .Where(rs => rs.IdMajor == obj.Id && rs.IdMinor <= 1)
+-            .Select(rs => AllocUnits.FirstOrDefault(au => au.OwnerId == rs.RowSetId && au.Type == AllocUnitType.InRowData))
+-            .Where(au => au?.PgFirst != null)
+-            .Select(au => au!.PgFirst!.Value)
+-            .ToList();
+-
++        var units = RowSets.Where(rs=>rs.IdMajor==obj.Id && rs.IdMinor<=1).SelectMany(rs=>AllocUnits.Where(au=>au.OwnerId==rs.RowSetId && au.Type==AllocUnitType.InRowData));
++        var partitions=units.SelectMany(au=>((BakShell.Mtf.MtfPageProvider)PageProvider).ObjectPages((int)((au.AuId>>16)&0xffffffff),(int)(au.AuId>>48))).Select(p=>p.Header.Ptr).Distinct().ToList();
+         return new MdfTable(obj.Name, PageProvider, schema, partitions);
+     }
+ }
+@@ -187,7 +201,7 @@ public class MdfTable
+             var page = PageProvider.GetPage(partPtr);
+             if (page == null) continue;
+ 
+-            foreach (var record in page.Records())
++            foreach (var record in page.Records(true))
+             {
+                 SqlValue?[] row;
+                 try
+diff --git a/Mdf/RawPage.cs b/Mdf/RawPage.cs
+index 007b358..acbf63a 100644
+--- a/Mdf/RawPage.cs
++++ b/Mdf/RawPage.cs
+@@ -77,6 +77,7 @@ public class RawPage
+ 
+         int slotArrayPos = PAGE_SIZE - 2 * idx - 2;
+         ushort offset = BinaryPrimitives.ReadUInt16LittleEndian(Data.Span[slotArrayPos..]);
++        if(Header.Type==PageType.Data && ((Data.Span[offset]&0x0f)>>1)>1)return null;
+         return Record.Parse(
+             Data[offset..],
+             Header.Type == PageType.Index,
+diff --git a/Mdf/Record.cs b/Mdf/Record.cs
+index 31eafa6..f3f9f45 100644
+--- a/Mdf/Record.cs
++++ b/Mdf/Record.cs
+@@ -89,7 +89,7 @@ public class Record
+         int recordType = (span[0] & 0x0F) >> 1;
+ 
+         // Only support Primary(0), Index(3), Blob(4)
+-        if (recordType != 0 && recordType != 3 && recordType != 4)
++        if (recordType != 0 && recordType != 1 && recordType != 3 && recordType != 4)
+             return null;
+ 
+         int fixedDataLength;
+diff --git a/Mdf/Schema.cs b/Mdf/Schema.cs
+index 063e1ba..be52a7c 100644
+--- a/Mdf/Schema.cs
++++ b/Mdf/Schema.cs
+@@ -2,6 +2,9 @@ namespace BakShell.Mdf;
+ 
+ public class ColumnType
+ {
++    public int? PhysicalOffset {get; set;}
++    public int? PhysicalNullBit {get; set;}
++    public int PhysicalBitPos {get; set;}
+     public int Idx { get; init; }
+     public SqlType DataType { get; init; } = null!;
+     public string Name { get; init; } = "";
+@@ -31,6 +34,19 @@ public class Schema
+         {
+             var col = Columns[i];
+ 
++            if(col.PhysicalOffset.HasValue){
++                int ni=col.PhysicalNullBit??i;
++                if(ni>=record.ColumnCount || record.IsColumnNull(ni))continue;
++                int po=col.PhysicalOffset.Value;
++                if(po<0){
++                    if(record.VarColumns!=null){var (cx,dt)=record.VarColumns.Get((ushort)(-po-1));values[i]=SqlTypeParser.ParseVarLength(col.DataType,cx,dt);}
++                }else{
++                    int cursor=po-4;
++                    if(col.DataType.Kind==SqlTypeKind.Bit)values[i]=SqlValue.FromBit((record.FixedData.Span[cursor]&(1<<col.PhysicalBitPos))!=0);
++                    else values[i]=SqlTypeParser.ParseFixed(col.DataType,new BitParser(),record.FixedData.Span,ref cursor);
++                }
++                continue;
++            }
+             if (col.Computed)
+                 continue;
+ 
+@@ -38,7 +54,7 @@ public class Schema
+             {
+                 // Past the record's column count — treat as null
+             }
+-            else if (!record.IsColumnNull(nullBitIdx))
++            else
+             {
+                 if (col.DataType.IsVarLength)
+                 {
+@@ -77,6 +93,7 @@ public class Schema
+                 }
+             }
+ 
++            if(record.IsColumnNull(nullBitIdx)) values[i]=null;
+             nullBitIdx++;
+         }
+ 
+diff --git a/Mdf/SqlType.cs b/Mdf/SqlType.cs
+index 7319ac1..83dfef7 100644
+--- a/Mdf/SqlType.cs
++++ b/Mdf/SqlType.cs
+@@ -12,7 +12,7 @@ public enum SqlTypeKind
+     NVarChar, SysName,
+     DateTime, SmallDateTime,
+     UniqueIdentifier,
+-    Image, NText, Float,
++    Image, NText, Float, Real,
+ }
+ 
+ public class SqlType
+@@ -49,10 +49,10 @@ public class SqlType
+             "image" => new SqlType(SqlTypeKind.Image),
+             "ntext" => new SqlType(SqlTypeKind.NText),
+             "float" => new SqlType(SqlTypeKind.Float),
+-            "real" => new SqlType(SqlTypeKind.Float),
++            "real" => new SqlType(SqlTypeKind.Real),
+             "money" => new SqlType(SqlTypeKind.BigInt), // Store as bigint (cents)
+             "smallmoney" => new SqlType(SqlTypeKind.Int),
+-            "numeric" or "decimal" => new SqlType(SqlTypeKind.VarBinary, col.Length), // Fallback
++            "numeric" or "decimal" => new SqlType(SqlTypeKind.Binary, col.Length), // Fallback
+             "date" => new SqlType(SqlTypeKind.DateTime),
+             "time" => new SqlType(SqlTypeKind.DateTime),
+             "datetime2" => new SqlType(SqlTypeKind.DateTime),
+@@ -151,6 +151,12 @@ public static class SqlTypeParser
+             }
+             case SqlTypeKind.Bit:
+                 return SqlValue.FromBit(bitParser.ReadBit(fixedData, ref cursor));
++            case SqlTypeKind.Real:
++            {
++                double val = BitConverter.ToSingle(fixedData[cursor..(cursor+4)]);
++                cursor+=4;
++                return SqlValue.FromFloat(val);
++            }
+             case SqlTypeKind.Float:
+             {
+                 var val = BinaryPrimitives.ReadDoubleLittleEndian(fixedData[cursor..]);
+@@ -190,7 +196,7 @@ public static class SqlTypeParser
+             }
+             case SqlTypeKind.Char:
+             {
+-                var str = Encoding.UTF8.GetString(fixedData[cursor..(cursor + type.Size)]);
++                var str = Encoding.GetEncoding(1252).GetString(fixedData[cursor..(cursor + type.Size)]);
+                 cursor += type.Size;
+                 return SqlValue.FromString(SqlTypeKind.Char, str);
+             }
+@@ -220,7 +226,7 @@ public static class SqlTypeParser
+                 // Try UTF-8, fall back to Windows-1252
+                 try
+                 {
+-                    var str = Encoding.UTF8.GetString(span);
++                    var str = Encoding.GetEncoding(1252).GetString(span);
+                     return SqlValue.FromString(SqlTypeKind.VarChar, str);
+                 }
+                 catch
+diff --git a/Mtf/MtfPageProvider.cs b/Mtf/MtfPageProvider.cs
+index 761eef4..aaf93d9 100644
+--- a/Mtf/MtfPageProvider.cs
++++ b/Mtf/MtfPageProvider.cs
+@@ -77,9 +77,23 @@ public class MtfPageProvider : IPageProvider, IDisposable
+         var pageData = new byte[8192];
+         accessor.ReadArray(0, pageData, 0, 8192);
+ 
++        ushort flags=BinaryPrimitives.ReadUInt16LittleEndian(pageData.AsSpan(4,2));
++        if((flags & 0x100)!=0){
++            uint bits=BinaryPrimitives.ReadUInt32LittleEndian(pageData.AsSpan(60,4));
++            for(int sector=1;sector<16;sector++){
++                int pos=(sector+1)*512-1;
++                pageData[pos]=(byte)((pageData[pos]&0xfc)|((bits>>(2*sector))&3));
++            }
++        }
+         return new RawPage(pageData, this);
+     }
+ 
++    public IEnumerable<RawPage> ObjectPages(int objectId, int indexId=1){
++        foreach(var k in _pageOffsets.Keys){
++            var p=GetPage(new PagePointer(k.pageId,k.fileId));
++            if(p!=null && p.Header.ObjectId==(uint)objectId && p.Header.Type==PageType.Data && (p.Header.IndexId==indexId || (indexId==1 && p.Header.IndexId==0)))yield return p;
++        }
++    }
+     public void Dispose()
+     {
+         _mmf?.Dispose();

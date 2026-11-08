@@ -1,0 +1,137 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "linfomas",
+  "title": "Linfomas",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2024-2025. Fuente: SNIS, formularios 302b.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "cáncer"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302b",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2025_302b.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 27
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "caso",
+            "type": "string",
+            "description": "nuevo, repetido, seguimiento o primera, como lo registra el formulario.",
+            "categories": [
+              "nuevo",
+              "repetido"
+            ]
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "cáncer",
+    "filas": 1685,
+    "totales": {
+      "2024": 3829,
+      "2025": 4689
+    },
+    "edades": [
+      {
+        "gestiones": "2024",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      },
+      {
+        "gestiones": "2025",
+        "bandas": "1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2024-2025",
+        "formulario": "302b",
+        "variable": "Linfomas",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "C81 C82 C83 C84 C85 C86 C88 C96",
+        "cie10_codigos": "C81 C81.0 C81.1 C81.2 C81.3 C81.4 C81.7 C81.9 C82 C82.0 C82.1 C82.2 C82.3 C82.4 C82.5 C82.6 C82.7 C82.9 C83 C83.0 C83.1 C83.2 C83.3 C83.4 C83.5 C83.6 C83.7 C83.8 C83.9 C84 C84.0 C84.1 C84.2 C84.3 C84.4 C84.5 C84.6 C84.7 C84.8 C84.9 C85 C85.0 C85.1 C85.2 C85.7 C85.9 C86 C86.0 C86.1 C86.2 C86.3 C86.4 C86.5 C86.6 C88 C88.0 C88.1 C88.2 C88.3 C88.4 C88.7 C88.9 C96.0 C96.3"
+      }
+    ]
+  }
+}

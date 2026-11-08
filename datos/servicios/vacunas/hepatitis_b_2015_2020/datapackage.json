@@ -1,0 +1,181 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "hepatitis_b_2015_2020",
+  "title": "Vacuna Hepatitis B (2015-2020)",
+  "description": "Dosis aplicadas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2015-2020. Fuente: SNIS, formularios 301a.",
+  "keywords": [
+    "servicios",
+    "vacunas"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2020.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 338
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "dosis",
+            "type": "string",
+            "description": "Dosis: número (1 a 5), inicial, única, anual o refuerzo.",
+            "categories": [
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          {
+            "name": "grupo",
+            "type": "string",
+            "description": "Grupo de población al que se dirige la vacuna.",
+            "categories": [
+              "personal de salud",
+              "personas con VIH"
+            ]
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "lugar",
+            "type": "string",
+            "description": "Dónde ocurrió la atención o el evento: dentro o fuera del establecimiento; servicio o domicilio.",
+            "categories": [
+              "dentro",
+              "fuera"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "vacunas",
+    "tema": null,
+    "filas": 36002,
+    "totales": {
+      "2015": 29158,
+      "2016": 33904,
+      "2017": 38684,
+      "2018": 92677,
+      "2019": 59890,
+      "2020": 34606
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/vacunas/hepatitis_b_2010_2014",
+          "servicios/vacunas/hepatitis_b_2015_2020",
+          "servicios/vacunas/hepatitis_b_2021_2025"
+        ],
+        "supuesto": "Las categorías de `dosis` y `grupo` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2015",
+        "formulario": "301a",
+        "variable": "Total Hepatitis B 1ra. dosis población vulnerable (VIH); Total Hepatitis B 1ra. dosis trabajadores de Salud; Total Hepatitis B 2da. dosis población vulnerable (VIH); Total Hepatitis B 2da. dosis trabajadores de Salud; Total Hepatitis B 3ra. dosis población vulnerable (VIH); Total Hepatitis B 3ra. dosis trabajadores de Salud",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "301a",
+        "variable": "Hepatitis B 1ra. dosis población vulnerable (VIH); Hepatitis B 1ra. dosis trabajadores de Salud; Hepatitis B 2da. dosis población vulnerable (VIH); Hepatitis B 2da. dosis trabajadores de Salud; Hepatitis B 3ra. dosis población vulnerable (VIH); Hepatitis B 3ra. dosis trabajadores de Salud",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "301a",
+        "variable": "Hepatitis B 1ra. dosis población vulnerable (VIH); Hepatitis B 1ra. dosis trabajadores de Salud; Hepatitis B 2da. dosis población vulnerable (VIH); Hepatitis B 2da. dosis trabajadores de Salud; Hepatitis B 3ra. dosis población vulnerable (VIH); Hepatitis B 3ra. dosis trabajadores de Salud",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "301a",
+        "variable": "Hepatitis B 1ra. dosis población vulnerable (VIH); Hepatitis B 1ra. dosis trabajadores de Salud; Hepatitis B 2da. dosis población vulnerable (VIH); Hepatitis B 2da. dosis trabajadores de Salud; Hepatitis B 3ra. dosis población vulnerable (VIH); Hepatitis B 3ra. dosis trabajadores de Salud",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "301a",
+        "variable": "Hepatitis B 1ra. dosis población vulnerable (VIH); Hepatitis B 1ra. dosis trabajadores de Salud; Hepatitis B 2da. dosis población vulnerable (VIH); Hepatitis B 2da. dosis trabajadores de Salud; Hepatitis B 3ra. dosis población vulnerable (VIH); Hepatitis B 3ra. dosis trabajadores de Salud",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

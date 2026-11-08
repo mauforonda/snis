@@ -1,0 +1,202 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "mujeres_con_ivaa_positivos",
+  "title": "Mujeres con IVAA positivos",
+  "description": "Atenciones registradas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2015-2025. Fuente: SNIS, formularios 301a.",
+  "keywords": [
+    "servicios",
+    "anticoncepcion_prevencion_cancer"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 203
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "anticoncepcion_prevencion_cancer",
+    "tema": null,
+    "filas": 6431,
+    "totales": {
+      "2015": 3812,
+      "2016": 3112,
+      "2017": 2627,
+      "2018": 4352,
+      "2019": 5366,
+      "2020": 2486,
+      "2021": 5441,
+      "2022": 3986,
+      "2023": 4054,
+      "2024": 5066,
+      "2025": 4845
+    },
+    "edades": [
+      {
+        "gestiones": "2015-2016",
+        "bandas": "<15, 15-19, 20-34, 35-49, 50+"
+      },
+      {
+        "gestiones": "2017",
+        "bandas": "15-19, 20-34, 35-49, 50+"
+      },
+      {
+        "gestiones": "2018-2023",
+        "bandas": "<15, 15-19, 20-34, 35-49, 50+"
+      },
+      {
+        "gestiones": "2024",
+        "bandas": "<10, 10-14, 15-19, 20-34, 35-49, 50+"
+      },
+      {
+        "gestiones": "2025",
+        "bandas": "10-14, 15-19, 20-34, 35-49, 50+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [
+      "301a, anticoncepción y prevención del cáncer (2015-2016) e interrupción legal del embarazo (2021): las variables tienen cinco columnas sin rótulo (\"Número de condones entregados\", \"...1\" a \"...4\"). Son las bandas de edad <15, 15-19, 20-34, 35-49 y 50+, en ese orden. En anticoncepción las proporciones coinciden con las de 2017 (muestras de PAP 2016: 0,3 %, 7,1 %, 48,5 %, 32,0 % y 12,2 %; 2017: 0,3 %, 7,1 %, 48,4 %, 31,7 % y 12,5 %). En la interrupción legal del embarazo, el encabezado de 2022 une cada columna numerada con su banda (\"A. < 15\", \"B. 15 A 19 ... 1\"). En 2022 la segunda banda de las causales riesgo de salud de la madre y malformación dice \"15 A 49\"; es 15-19."
+    ],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2015-2016",
+        "formulario": "301a",
+        "variable": "Número de mujeres con IVAA positivos",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "301a",
+        "variable": "Número de mujeres con IVAA positivos",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "301a",
+        "variable": "Número de mujeres con IVAA positivos",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "301a",
+        "variable": "Número de mujeres con IVAA positivos",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "301a",
+        "variable": "Número de mujeres con IVAA positivos",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "301a",
+        "variable": "Número de mujeres con IVAA positivos",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "301a",
+        "variable": "Número de mujeres con IVAA positivos",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

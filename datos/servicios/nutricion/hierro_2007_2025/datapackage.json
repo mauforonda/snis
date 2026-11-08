@@ -1,0 +1,285 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "hierro_2007_2025",
+  "title": "Personas que recibieron hierro (2007-2025)",
+  "description": "Atenciones registradas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2007-2025. Fuente: SNIS, formularios 301, 301a.",
+  "keywords": [
+    "servicios",
+    "nutricion"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 344
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "condicion",
+            "type": "string",
+            "description": "embarazada o puerpera.",
+            "categories": [
+              "embarazada",
+              "puerpera"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "nutricion",
+    "tema": null,
+    "filas": 333309,
+    "totales": {
+      "2007": 844792,
+      "2008": 999559,
+      "2009": 861984,
+      "2010": 922909,
+      "2011": 997092,
+      "2012": 1049057,
+      "2013": 1166391,
+      "2014": 1152630,
+      "2015": 1134767,
+      "2016": 1086717,
+      "2017": 1053419,
+      "2018": 1089999,
+      "2019": 1036295,
+      "2020": 818558,
+      "2021": 817939,
+      "2022": 859677,
+      "2023": 869838,
+      "2024": 833554,
+      "2025": 747219
+    },
+    "edades": [
+      {
+        "gestiones": "2007-2014",
+        "bandas": "6m-1, 2-4"
+      },
+      {
+        "gestiones": "2015-2020",
+        "bandas": "<1, 1, 2-4"
+      },
+      {
+        "gestiones": "2021-2025",
+        "bandas": "<1, <6m, 1, 2-4"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/nutricion/hierro_2001_2006",
+          "servicios/nutricion/hierro_2007_2025"
+        ],
+        "supuesto": "Las categorías de `dosis` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2007",
+        "formulario": "301",
+        "variable": "Mujeres embarazadas que recibieron 90 tabletas de; Mujeres puérperas que recibieron 90 tabletas de hi; Niños de 2 años a menores de 5 años con dosis comp; Niños de 6 meses a menores de 2 años con dosis com",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2008",
+        "formulario": "301",
+        "variable": "Mujeres embarazadas con dosis completa de hierro; Mujeres puérperas con dosis completa de hierro; Niños de 2 años a menores de 5 años con dosis comp; Niños de 6 meses a menores de 2 años con dosis com",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2009",
+        "formulario": "301",
+        "variable": "Mujeres embarazadas con dosis completa de hierro; Mujeres puérperas con dosis completa de hierro; Niños de 2 años a menores de 5 años con dosis completa de hierro; Niños de 6 meses a menores de 2 años con dosis completa de hierro",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2010-2013",
+        "formulario": "301",
+        "variable": "Mujeres embarazadas con dosis completa de hierro; Mujeres puérperas con dosis completa de hierro; Niños (as) de 2 años a menores de 5 años con dosis completa de hierro; Niños (as) de 6 meses a menores de 2 años con dosis completa de hierro",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "8.1 Mujeres embarazadas con dosis completa de hierro; 8.2 Mujeres puérperas con dosis completa de hierro; 8.3 Niños (as) de 6 meses a menores de 2 años con dosis completa de hierro; 8.4 Niños (as) de 2 años a menores de 5 años con dosis completa de hierro",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "301a",
+        "variable": "Mujeres embarazadas con dosis completa de hierro; Mujeres puérperas con dosis completa de hierro; Niñas(os) de 1 año con dosis completa de hierro; Niñas(os) menores de 1 año con dosis completa de hierro; Niños (as) de 2 años a menores de 5 años con dosis completa de hierro",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "301a",
+        "variable": "Mujeres embarazadas con dosis completa de hierro; Mujeres puérperas con dosis completa de hierro; Niñas(os) de 1 año con dosis completa de hierro; Niñas(os) menores de 1 año con dosis completa de hierro; Niños (as) de 2 años a menores de 5 años con dosis completa de hierro",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "301a",
+        "variable": "Mujeres embarazadas con dosis completa de hierro; Mujeres puérperas con dosis completa de hierro; Niñas(os) de 1 año con dosis completa de hierro; Niñas(os) menores de 1 año con dosis completa de hierro; Niños (as) de 2 años a menores de 5 años con dosis completa de hierro",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "301a",
+        "variable": "Mujeres embarazadas con dosis completa de hierro; Mujeres puérperas con dosis completa de hierro; Niñas(os) de 1 año con dosis completa de hierro; Niñas(os) menores de 1 año con dosis completa de hierro; Niños (as) de 2 años a menores de 5 años con dosis completa de hierro",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "301a",
+        "variable": "Mujeres embarazadas con dosis completa de hierro; Mujeres puérperas con dosis completa de hierro; Niñas(os) de 1 año con dosis completa de hierro; Niñas(os) menores de 1 año con dosis completa de hierro; Niños (as) de 2 años a menores de 5 años con dosis completa de hierro",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "301a",
+        "variable": "Mujeres embarazadas con dosis completa de hierro; Mujeres puérperas con dosis completa de hierro; Niñas(os) de 1 año con dosis completa de hierro; Niñas(os) menores de 1 año con dosis completa de hierro; Niñas(os) menores de 6 meses con dosis completa de hierro; Niños (as) de 2 años a menores de 5 años con dosis completa de hierro",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "301a",
+        "variable": "Mujeres embarazadas con dosis completa de hierro; Mujeres puérperas con dosis completa de hierro; Niñas(os) de 1 año con dosis completa de hierro; Niñas(os) menores de 1 año con dosis completa de hierro; Niñas(os) menores de 6 meses con dosis completa de hierro; Niños (as) de 2 años a menores de 5 años con dosis completa de hierro",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "301a",
+        "variable": "3. Niñas(os) menores de 6 meses con dosis completa de hierro (a partir de los 4 m); Mujeres embarazadas con dosis completa de hierro; Mujeres puérperas con dosis completa de hierro; Niñas (os) de 2 años a menores de 5 años con dosis completa de hierro; Niñas(os) de 1 año con dosis completa de hierro; Niñas(os) menores de 1 año con dosis completa de hierro",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

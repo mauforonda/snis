@@ -1,0 +1,262 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "intoxicacion_plaguicidas_2004_2020",
+  "title": "Intoxicación por plaguicidas (2004-2020)",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2004-2020. Fuente: SNIS, formularios 302, 302a.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "intoxicación"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2020_302a.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 297
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "agente",
+            "type": "string",
+            "description": "Agente de la intoxicación.",
+            "categories": [
+              "no especificado"
+            ]
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "intoxicación",
+    "filas": 17974,
+    "totales": {
+      "2004": 2170,
+      "2005": 2077,
+      "2006": 1540,
+      "2007": 1532,
+      "2008": 1803,
+      "2009": 1999,
+      "2010": 2080,
+      "2011": 1947,
+      "2012": 1648,
+      "2013": 1549,
+      "2014": 1349,
+      "2015": 1144,
+      "2016": 1066,
+      "2017": 976,
+      "2018": 1084,
+      "2019": 1222,
+      "2020": 1148
+    },
+    "edades": [
+      {
+        "gestiones": "2008-2014",
+        "bandas": "<1, 1-4, 5-9, 10-20, 21-59, 60+"
+      },
+      {
+        "gestiones": "2016-2020",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [
+      {
+        "datasets": [
+          "vigilancia/casos/intoxicacion_plaguicidas_2001_2003",
+          "vigilancia/casos/intoxicacion_plaguicidas_2004_2020",
+          "vigilancia/casos/intoxicacion_plaguicidas_2021_2025"
+        ],
+        "supuesto": "Las categorías de `agente` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2004",
+        "formulario": "302",
+        "variable": "53 Plaguicidas",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2005-2006",
+        "formulario": "302",
+        "variable": "11.1 Plaguicidas",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2007",
+        "formulario": "302",
+        "variable": "56 Plaguicidas",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2008-2009",
+        "formulario": "302",
+        "variable": "35 Plaguicidas",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "T60",
+        "cie10_codigos": "T60 T60.0 T60.1 T60.2 T60.3 T60.4 T60.8 T60.9"
+      },
+      {
+        "gestiones": "2010-2013",
+        "formulario": "302",
+        "variable": "Plaguicidas",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "T60",
+        "cie10_codigos": "T60 T60.0 T60.1 T60.2 T60.3 T60.4 T60.8 T60.9"
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "302",
+        "variable": "Plaguicidas",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "T60",
+        "cie10_codigos": "T60 T60.0 T60.1 T60.2 T60.3 T60.4 T60.8 T60.9"
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "302a",
+        "variable": "Plaguicidas",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "T60",
+        "cie10_codigos": "T60 T60.0 T60.1 T60.2 T60.3 T60.4 T60.8 T60.9"
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "302a",
+        "variable": "Plaguicidas",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "T60",
+        "cie10_codigos": "T60 T60.0 T60.1 T60.2 T60.3 T60.4 T60.8 T60.9"
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "302a",
+        "variable": "Plaguicidas",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "T60",
+        "cie10_codigos": "T60 T60.0 T60.1 T60.2 T60.3 T60.4 T60.8 T60.9"
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "302a",
+        "variable": "Plaguicidas",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "T60",
+        "cie10_codigos": "T60 T60.0 T60.1 T60.2 T60.3 T60.4 T60.8 T60.9"
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "302a",
+        "variable": "Plaguicidas",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "T60",
+        "cie10_codigos": "T60 T60.0 T60.1 T60.2 T60.3 T60.4 T60.8 T60.9"
+      }
+    ]
+  }
+}

@@ -1,0 +1,302 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "control_crecimiento",
+  "title": "Control de crecimiento infantil",
+  "description": "Atenciones registradas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2001-2025. Fuente: SNIS, formularios 301, 301a.",
+  "keywords": [
+    "servicios",
+    "nutricion"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 344
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "caso",
+            "type": "string",
+            "description": "nuevo, repetido, seguimiento o primera, como lo registra el formulario.",
+            "categories": [
+              "nuevo",
+              "repetido"
+            ]
+          },
+          {
+            "name": "lugar",
+            "type": "string",
+            "description": "Dónde ocurrió la atención o el evento: dentro o fuera del establecimiento; servicio o domicilio.",
+            "categories": [
+              "dentro",
+              "fuera"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "nutricion",
+    "tema": null,
+    "filas": 1149138,
+    "totales": {
+      "2001": 1085347,
+      "2002": 1170620,
+      "2003": 1334289,
+      "2004": 1416144,
+      "2005": 1476875,
+      "2006": 1510463,
+      "2007": 2475757,
+      "2008": 3013866,
+      "2009": 3445693,
+      "2010": 3964001,
+      "2011": 4257426,
+      "2012": 4248286,
+      "2013": 4592296,
+      "2014": 4946368,
+      "2015": 5057427,
+      "2016": 5029003,
+      "2017": 4804067,
+      "2018": 4780585,
+      "2019": 4239261,
+      "2020": 2672926,
+      "2021": 3150966,
+      "2022": 3451144,
+      "2023": 3713879,
+      "2024": 3498672,
+      "2025": 3264342
+    },
+    "edades": [
+      {
+        "gestiones": "2001-2006",
+        "bandas": "<2, 2-4"
+      },
+      {
+        "gestiones": "2007-2025",
+        "bandas": "<1, 1, 2-4"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [
+      "301, control de crecimiento, 2008-2009: el primer nivel dice siempre NUEVO; el segundo dice NUEVO/REPETIDO y sus totales coinciden con \"TOTAL NUEVO\" y \"TOTAL REPETIDO\": vale el segundo.",
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2001-2003",
+        "formulario": "301",
+        "variable": "Controles nuevos en niños de 2 años a < de 5 años; Controles nuevos en niños menores de 2 años; Controles repetidos en niños de 2 años a < de 5 añ; Controles repetidos en niños menores de 2 años",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2004",
+        "formulario": "301",
+        "variable": "Controles nuevos en niños de 2 años a < de 5 años; Controles nuevos en niños menores de 2 años; Controles repetidos en niños de 2 años de < 5 años; Controles repetidos en niños menores de 2 años",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2005-2006",
+        "formulario": "301",
+        "variable": "Controles nuevos en niños de 2 años a < de 5 a; Controles nuevos en niños menores de 2 años; Controles repetidos en niños de 2 años de < 5; Controles repetidos en niños menores de 2 años",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2007",
+        "formulario": "301",
+        "variable": "Control del niño de 1 año a menor de 2 años; Control del niño de 2 años a menor de 5 años; Control del niño menor de 1 año",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2008-2013",
+        "formulario": "301",
+        "variable": "Control del niño (a) de 1 año a menor de 2 años; Control del niño (a) de 2 años a menor de 5 años; Control del niño menor de 1 año",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "6.1 Control del niño menor de 1 año; 6.2 Control del niño (a) de 1 año a menor de 2 años; 6.3 Control del niño (a) de 2 años a menor de 5 años",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "301a",
+        "variable": "Control del niño(a) de 1 año a menor de 2 años dentro del establecimiento; Control del niño(a) de 1 año a menor de 2 años fuera del establecimiento; Control del niño(a) de 2 años a menor de 5 años dentro del establecimiento; Control del niño(a) de 2 años a menor de 5 años fuera del establecimiento; Control del niño(a) menor de 1 año dentro del establecimiento; Control del niño(a) menor de 1 año fuera del establecimiento",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "301a",
+        "variable": "Control del niño(a) de 1 año a menor de 2 años dentro del establecimiento; Control del niño(a) de 1 año a menor de 2 años fuera del establecimiento; Control del niño(a) de 2 años a menor de 5 años dentro del establecimiento; Control del niño(a) de 2 años a menor de 5 años fuera del establecimiento; Control del niño(a) menor de 1 año dentro del establecimiento; Control del niño(a) menor de 1 año fuera del establecimiento",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "301a",
+        "variable": "Control del niño(a) de 1 año a menor de 2 años dentro del establecimiento; Control del niño(a) de 1 año a menor de 2 años fuera del establecimiento; Control del niño(a) de 2 años a menor de 5 años dentro del establecimiento; Control del niño(a) de 2 años a menor de 5 años fuera del establecimiento; Control del niño(a) menor de 1 año dentro del establecimiento; Control del niño(a) menor de 1 año fuera del establecimiento",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "301a",
+        "variable": "Control del niño(a) de 1 año a menor de 2 años dentro del establecimiento; Control del niño(a) de 1 año a menor de 2 años fuera del establecimiento; Control del niño(a) de 2 años a menor de 5 años dentro del establecimiento; Control del niño(a) de 2 años a menor de 5 años fuera del establecimiento; Control del niño(a) menor de 1 año dentro del establecimiento; Control del niño(a) menor de 1 año fuera del establecimiento",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "301a",
+        "variable": "Control del niño(a) de 1 año a menor de 2 años dentro del establecimiento; Control del niño(a) de 1 año a menor de 2 años fuera del establecimiento; Control del niño(a) de 2 años a menor de 5 años dentro del establecimiento; Control del niño(a) de 2 años a menor de 5 años fuera del establecimiento; Control del niño(a) menor de 1 año dentro del establecimiento; Control del niño(a) menor de 1 año fuera del establecimiento",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "301a",
+        "variable": "Control del niño(a) de 1 año a menor de 2 años dentro del establecimiento; Control del niño(a) de 1 año a menor de 2 años fuera del establecimiento; Control del niño(a) de 2 años a menor de 5 años dentro del establecimiento; Control del niño(a) de 2 años a menor de 5 años fuera del establecimiento; Control del niño(a) menor de 1 año dentro del establecimiento; Control del niño(a) menor de 1 año fuera del establecimiento",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "301a",
+        "variable": "Control del niño(a) de 1 año a menor de 2 años dentro del establecimiento; Control del niño(a) de 1 año a menor de 2 años fuera del establecimiento; Control del niño(a) de 2 años a menor de 5 años dentro del establecimiento; Control del niño(a) de 2 años a menor de 5 años fuera del establecimiento; Control del niño(a) menor de 1 año dentro del establecimiento; Control del niño(a) menor de 1 año fuera del establecimiento",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "301a",
+        "variable": "Control del niño(a) de 1 año a menor de 2 años dentro del establecimiento; Control del niño(a) de 1 año a menor de 2 años fuera del establecimiento; Control del niño(a) de 2 años a menor de 5 años dentro del establecimiento; Control del niño(a) de 2 años a menor de 5 años fuera del establecimiento; Control del niño(a) menor de 1 año dentro del establecimiento; Control del niño(a) menor de 1 año fuera del establecimiento",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

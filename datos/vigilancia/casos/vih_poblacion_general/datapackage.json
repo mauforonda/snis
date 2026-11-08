@@ -1,0 +1,256 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "vih_poblacion_general",
+  "title": "VIH reactivo en la población general",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2010-2025. Fuente: SNIS, formularios 302, 302a.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "transmisión sexual"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2025_302a.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 243
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "transmisión sexual",
+    "filas": 21246,
+    "totales": {
+      "2010": 649,
+      "2011": 1019,
+      "2012": 621,
+      "2013": 957,
+      "2014": 2192,
+      "2015": 4195,
+      "2016": 5916,
+      "2017": 3817,
+      "2018": 4677,
+      "2019": 4471,
+      "2020": 2228,
+      "2021": 4681,
+      "2022": 4049,
+      "2023": 5720,
+      "2024": 4819,
+      "2025": 3791
+    },
+    "edades": [
+      {
+        "gestiones": "2010-2014",
+        "bandas": "<1, 1-4, 5-9, 10-20, 21-59, 60+"
+      },
+      {
+        "gestiones": "2015",
+        "bandas": "6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      },
+      {
+        "gestiones": "2016",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      },
+      {
+        "gestiones": "2017",
+        "bandas": "<6m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      },
+      {
+        "gestiones": "2018",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      },
+      {
+        "gestiones": "2019",
+        "bandas": "6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      },
+      {
+        "gestiones": "2020",
+        "bandas": "<6m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      },
+      {
+        "gestiones": "2021-2025",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2010-2013",
+        "formulario": "302",
+        "variable": "VIH Población en General",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "B20 B21 B22 B23 B24",
+        "cie10_codigos": "B20 B20.0 B20.1 B20.2 B20.3 B20.4 B20.5 B20.6 B20.7 B20.8 B20.9 B21 B21.0 B21.1 B21.2 B21.3 B21.7 B21.8 B21.9 B22 B22.0 B22.1 B22.2 B22.7 B23 B23.0 B23.1 B23.2 B23.8 B24"
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "302",
+        "variable": "VIH Población en General",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "B20 B21 B22 B23 B24",
+        "cie10_codigos": "B20 B20.0 B20.1 B20.2 B20.3 B20.4 B20.5 B20.6 B20.7 B20.8 B20.9 B21 B21.0 B21.1 B21.2 B21.3 B21.7 B21.8 B21.9 B22 B22.0 B22.1 B22.2 B22.7 B23 B23.0 B23.1 B23.2 B23.8 B24"
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "302a",
+        "variable": "Prueba rápida reactiva de VIH en Población en General",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "R75",
+        "cie10_codigos": "R75"
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "302a",
+        "variable": "Prueba rápida reactiva de VIH en Población en General",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "R75",
+        "cie10_codigos": "R75"
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "302a",
+        "variable": "Prueba rápida reactiva de VIH en Población en General",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "R75",
+        "cie10_codigos": "R75"
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "302a",
+        "variable": "Prueba rápida reactiva de VIH en Población en General",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "R75",
+        "cie10_codigos": "R75"
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "302a",
+        "variable": "Prueba rápida reactiva de VIH en Población en General",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "R75",
+        "cie10_codigos": "R75"
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "302a",
+        "variable": "Prueba rápida reactiva de VIH en Población en General",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "R75",
+        "cie10_codigos": "R75"
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "302a",
+        "variable": "Prueba rápida reactiva de VIH en Población en General",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "R75",
+        "cie10_codigos": "R75"
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "302a",
+        "variable": "8. Prueba rápida reactiva de VIH en Población en General",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "R75",
+        "cie10_codigos": "R75"
+      }
+    ]
+  }
+}

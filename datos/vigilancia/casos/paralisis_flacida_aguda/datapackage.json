@@ -1,0 +1,360 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "paralisis_flacida_aguda",
+  "title": "Parálisis flácida aguda",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2001-2025. Fuente: SNIS, formularios 302, 302a.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "inmunoprevenible"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2025_302a.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 93
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "inmunoprevenible",
+    "filas": 805,
+    "totales": {
+      "2001": 143,
+      "2002": 42,
+      "2003": 37,
+      "2004": 35,
+      "2005": 40,
+      "2006": 27,
+      "2007": 15,
+      "2008": 20,
+      "2009": 23,
+      "2010": 24,
+      "2011": 30,
+      "2012": 34,
+      "2013": 44,
+      "2014": 42,
+      "2015": 27,
+      "2016": 26,
+      "2017": 20,
+      "2018": 43,
+      "2019": 23,
+      "2020": 14,
+      "2021": 16,
+      "2022": 45,
+      "2023": 39,
+      "2024": 54,
+      "2025": 41
+    },
+    "edades": [
+      {
+        "gestiones": "2001",
+        "bandas": "1-4, 5-14, 15-59, 60+"
+      },
+      {
+        "gestiones": "2002",
+        "bandas": "<1, 1-4, 5-14, 15-59"
+      },
+      {
+        "gestiones": "2003",
+        "bandas": "1-4, 5-14"
+      },
+      {
+        "gestiones": "2004-2005",
+        "bandas": "<1, 1-4, 5-14, 15-59, 60+"
+      },
+      {
+        "gestiones": "2006-2007",
+        "bandas": "<1, 1-4, 5-14, 15-59"
+      },
+      {
+        "gestiones": "2008-2009",
+        "bandas": "<1, 1-4, 5-9, 10-20, 21-59"
+      },
+      {
+        "gestiones": "2010",
+        "bandas": "1-4, 5-9, 10-20"
+      },
+      {
+        "gestiones": "2011",
+        "bandas": "<1, 1-4, 5-9, 10-20, 21-59"
+      },
+      {
+        "gestiones": "2012",
+        "bandas": "<1, 1-4, 5-9, 10-20, 21-59, 60+"
+      },
+      {
+        "gestiones": "2013-2014",
+        "bandas": "<1, 1-4, 5-9, 10-20, 21-59"
+      },
+      {
+        "gestiones": "2015",
+        "bandas": "1-4, 5-9, 10-14, 20-39"
+      },
+      {
+        "gestiones": "2016",
+        "bandas": "<6m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      },
+      {
+        "gestiones": "2017",
+        "bandas": "1-4, 5-9, 10-14, 20-39, 40-49, 60+"
+      },
+      {
+        "gestiones": "2018",
+        "bandas": "6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      },
+      {
+        "gestiones": "2019",
+        "bandas": "1-4, 5-9, 10-14, 20-39, 40-49, 50-59, 60+"
+      },
+      {
+        "gestiones": "2020",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14"
+      },
+      {
+        "gestiones": "2021",
+        "bandas": "6-11m, 1-4, 5-9, 10-14, 20-39, 40-49"
+      },
+      {
+        "gestiones": "2022",
+        "bandas": "6-11m, 1-4, 5-9, 10-14, 20-39, 40-49, 50-59, 60+"
+      },
+      {
+        "gestiones": "2023",
+        "bandas": "1-4, 5-9, 10-14, 20-39, 40-49, 50-59, 60+"
+      },
+      {
+        "gestiones": "2024",
+        "bandas": "1-4, 5-9, 10-14, 20-39, 40-49"
+      },
+      {
+        "gestiones": "2025",
+        "bandas": "6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [
+      "302, 2001-2007: en las variables cuyas columnas \"-M\" siempre valen 0, \"TOTAL-H\" es igual a \"TOTAL\": \"-H\" contiene a ambos sexos. Esas variables no tienen sexo. En 2004 el grupo 09 (mortalidad) tampoco tiene sexo: hay 79 muertes maternas en \"-H\" y 94 en \"-M\"."
+    ],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2001-2003",
+        "formulario": "302",
+        "variable": "40.- Parálisis Flácida",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2004",
+        "formulario": "302",
+        "variable": "5 Parálisis flácida aguda",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "A80",
+        "cie10_codigos": "A80 A80.0 A80.1 A80.2 A80.3 A80.4 A80.9"
+      },
+      {
+        "gestiones": "2005-2009",
+        "formulario": "302",
+        "variable": "4 Parálisis flácida aguda",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "A80",
+        "cie10_codigos": "A80 A80.0 A80.1 A80.2 A80.3 A80.4 A80.9"
+      },
+      {
+        "gestiones": "2010-2013",
+        "formulario": "302",
+        "variable": "Parálisis flácida aguda (Polio)",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "A80",
+        "cie10_codigos": "A80 A80.0 A80.1 A80.2 A80.3 A80.4 A80.9"
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "302",
+        "variable": "Parálisis flácida aguda (Polio)",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "A80",
+        "cie10_codigos": "A80 A80.0 A80.1 A80.2 A80.3 A80.4 A80.9"
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "302a",
+        "variable": "Parálisis flácida aguda (Polio)",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "A80",
+        "cie10_codigos": "A80 A80.0 A80.1 A80.2 A80.3 A80.4 A80.9"
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "302a",
+        "variable": "Parálisis flácida aguda (Polio)",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "A80",
+        "cie10_codigos": "A80 A80.0 A80.1 A80.2 A80.3 A80.4 A80.9"
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "302a",
+        "variable": "Parálisis flácida aguda (Polio)",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "A80",
+        "cie10_codigos": "A80 A80.0 A80.1 A80.2 A80.3 A80.4 A80.9"
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "302a",
+        "variable": "Parálisis flácida aguda (Polio)",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "A80",
+        "cie10_codigos": "A80 A80.0 A80.1 A80.2 A80.3 A80.4 A80.9"
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "302a",
+        "variable": "Parálisis flácida aguda (Polio)",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "A80",
+        "cie10_codigos": "A80 A80.0 A80.1 A80.2 A80.3 A80.4 A80.9"
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "302a",
+        "variable": "Parálisis flácida aguda (Polio)",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "A80",
+        "cie10_codigos": "A80 A80.0 A80.1 A80.2 A80.3 A80.4 A80.9"
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "302a",
+        "variable": "Parálisis flácida aguda (Polio)",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "A80",
+        "cie10_codigos": "A80 A80.0 A80.1 A80.2 A80.3 A80.4 A80.9"
+      },
+      {
+        "gestiones": "2024",
+        "formulario": "302a",
+        "variable": "Parálisis flácida aguda (Polio)",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "A80",
+        "cie10_codigos": "A80 A80.0 A80.1 A80.2 A80.3 A80.4 A80.9"
+      },
+      {
+        "gestiones": "2025",
+        "formulario": "302a",
+        "variable": "05. Parálisis flácida aguda (Polio)",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "A80",
+        "cie10_codigos": "A80 A80.0 A80.1 A80.2 A80.3 A80.4 A80.9"
+      }
+    ]
+  }
+}

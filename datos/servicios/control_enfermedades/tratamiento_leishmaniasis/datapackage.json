@@ -1,0 +1,246 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "tratamiento_leishmaniasis",
+  "title": "Tratamientos de leishmaniasis",
+  "description": "Registros en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2010-2025. Fuente: SNIS, formularios 301, 301a.",
+  "keywords": [
+    "servicios",
+    "control_enfermedades"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2025.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 177
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "forma_clinica",
+            "type": "string",
+            "description": "Forma clínica.",
+            "categories": [
+              "cutanea",
+              "mucosa",
+              "mucosa y cutanea",
+              "visceral"
+            ]
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "tratamiento",
+            "type": "string",
+            "description": "Estado del tratamiento: iniciado o concluido.",
+            "categories": [
+              "concluido",
+              "iniciado"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "control_enfermedades",
+    "tema": null,
+    "filas": 18750,
+    "totales": {
+      "2010": 2073,
+      "2011": 2346,
+      "2012": 2982,
+      "2013": 3482,
+      "2014": 3558,
+      "2015": 2955,
+      "2016": 2846,
+      "2017": 4004,
+      "2018": 4425,
+      "2019": 4054,
+      "2020": 3520,
+      "2021": 3866,
+      "2022": 3760,
+      "2023": 6188,
+      "2024": 2580,
+      "2025": 2417
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [
+      "301 y 301a, tratamientos de chagas, leishmaniasis y en mujeres posparto: el tablero repite las columnas de sexo (\"FEMENINO\" y \"FEMENINO.1\"). En 2020 los totales dicen \"TOTAL Iniciado\" y \"TOTAL Concluido\", y coinciden con la primera y la segunda columna: la primera es tratamiento iniciado y la repetida, concluido.",
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [],
+    "procedencia": [
+      {
+        "gestiones": "2010-2011",
+        "formulario": "301",
+        "variable": "Tratamientos de Leishmania cutánea; Tratamientos de Leishmania mucosa; Tratamientos de Leishmania mucosa y cutánea; Tratamientos de Leishmania visceral",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2012",
+        "formulario": "301",
+        "variable": "l 23.1 Tratamientos de Leishmania cutánea; l 23.2 Tratamientos de Leishmania mucosa; l 23.3 Tratamientos de Leishmania mucosa y cutánea; l 23.4 Tratamientos de Leishmania visceral",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2013",
+        "formulario": "301",
+        "variable": "Tratamientos de Leishmania cutánea; Tratamientos de Leishmania mucosa; Tratamientos de Leishmania mucosa y cutánea; Tratamientos de Leishmania visceral",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "301",
+        "variable": "23.1 Tratamientos de Leishmania cutánea; 23.2 Tratamientos de Leishmania mucosa; 23.3 Tratamientos de Leishmania mucosa y cutánea; 23.4 Tratamientos de Leishmania visceral",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "301a",
+        "variable": "Total Tratamientos de Leishmania cutánea; Total Tratamientos de Leishmania mucosa; Total Tratamientos de Leishmania mucosa y cutánea; Total Tratamientos de Leishmania visceral",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "301a",
+        "variable": "Tratamientos de Leishmania cutánea; Tratamientos de Leishmania mucosa; Tratamientos de Leishmania mucosa y cutánea; Tratamientos de Leishmania visceral",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "301a",
+        "variable": "Tratamientos de Leishmania cutánea; Tratamientos de Leishmania mucosa; Tratamientos de Leishmania mucosa y cutánea; Tratamientos de Leishmania visceral",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "301a",
+        "variable": "Tratamientos de Leishmania cutánea; Tratamientos de Leishmania mucosa; Tratamientos de Leishmania mucosa y cutánea; Tratamientos de Leishmania visceral",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "301a",
+        "variable": "Tratamientos de Leishmania cutánea; Tratamientos de Leishmania mucosa; Tratamientos de Leishmania mucosa y cutánea; Tratamientos de Leishmania visceral",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "301a",
+        "variable": "Tratamientos de Leishmania cutánea; Tratamientos de Leishmania mucosa; Tratamientos de Leishmania mucosa y cutánea; Tratamientos de Leishmania visceral",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "301a",
+        "variable": "Tratamientos de Leishmania cutánea; Tratamientos de Leishmania mucosa; Tratamientos de Leishmania mucosa y cutánea; Tratamientos de Leishmania visceral",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2024-2025",
+        "formulario": "301a",
+        "variable": "Tratamientos de Leishmania cutánea; Tratamientos de Leishmania mucosa; Tratamientos de Leishmania mucosa y cutánea (mucosa); Tratamientos de Leishmania visceral",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

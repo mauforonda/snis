@@ -1,0 +1,144 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "cancer_otros_2024_2025",
+  "title": "Cáncer de otras localizaciones (2024-2025)",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2024-2025. Fuente: SNIS, formularios 302b.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "cáncer"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302b",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2025_302b.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2024,
+      2025
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 188
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "caso",
+            "type": "string",
+            "description": "nuevo, repetido, seguimiento o primera, como lo registra el formulario.",
+            "categories": [
+              "nuevo",
+              "repetido"
+            ]
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "cáncer",
+    "filas": 14459,
+    "totales": {
+      "2024": 91136,
+      "2025": 99836
+    },
+    "edades": [
+      {
+        "gestiones": "2024-2025",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      }
+    ],
+    "advertencias": [
+      "Excluye las localizaciones que el formulario notifica aparte."
+    ],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "vigilancia/casos/cancer_otros_2015_2023",
+          "vigilancia/casos/cancer_otros_2024_2025"
+        ],
+        "supuesto": "En 2024 el formulario notifica aparte tiroides, pulmón, estómago, colon y recto, piel y linfomas: desde entonces esta variable excluye esas localizaciones. Consultarlos juntos como una serie supone que las definiciones cuentan lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2024-2025",
+        "formulario": "302b",
+        "variable": "Cáncer en sus distintas formas",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "C00 C01 C02 C03 C04 C05 C06 C07 C08 C09 C10 C11 C12 C13 C14 C15 C17 C18 C19 C22 C23 C24 C25 C26 C30 C31 C32 C33 C34 C37 C38 C39 C40 C41 C42 C45 C46 C47 C48 C49 C51 C52 C56 C57 C58 C60 C62 C63 C64 C65 C66 C67 C68 C69 C70 C71 C72 C74 C75 C76 C77 C78 C79 C80 C96 C97 D00 D01 D02 D04 D05 D07 D09",
+        "cie10_codigos": "C00 C00.0 C00.1 C00.2 C00.3 C00.4 C00.5 C00.6 C00.9 C01 C01.9 C02 C02.0 C02.1 C02.2 C02.3 C02.4 C02.9 C03 C03.0 C03.1 C03.9 C04 C04.0 C04.1 C04.9 C05 C05.0 C05.1 C05.2 C05.9 C06 C06.0 C06.1 C06.2 C06.9 C07 C07.9 C08 C08.0 C08.1 C08.3 C08.9 C09 C09.0 C09.1 C09.9 C10 C10.0 C10.1 C10.2 C10.3 C10.4 C10.9 C11 C11.0 C11.1 C11.2 C11.3 C11.9 C12 C12.9 C13 C13.0 C13.1 C13.2 C13.9 C14 C14.0 C14.2 C15 C15.0 C15.1 C15.2 C15.3 C15.4 C15.5 C15.9 C17 C17.0 C17.1 C17.2 C17.3 C17.9 C18.0 C18.1 C18.3 C18.5 C19.9 C22 C22.0 C22.1 C22.2 C22.3 C22.4 C22.7 C22.9 C23 C23.9 C24 C24.0 C24.1 C24.9 C25 C25.0 C25.1 C25.2 C25.3 C25.4 C25.7 C25.9 C26 C26.0 C26.1 C26.9 C30 C30.0 C30.1 C31 C31.0 C31.1 C31.2 C31.3 C31.9 C32 C32.0 C32.1 C32.2 C32.3 C32.9 C33 C33.9 C34.0 C37 C37.9 C38 C38.0 C38.1 C38.2 C38.3 C38.4 C39 C39.0 C39.9 C40 C40.0 C40.1 C40.2 C40.3 C40.9 C41 C41.0 C41.1 C41.2 C41.3 C41.4 C41.9 C42.0 C42.1 C42.2 C42.3 C42.4 C45 C45.0 C45.1 C45.2 C45.7 C45.9 C46 C46.0 C46.1 C46.2 C46.3 C46.7 C46.8 C46.9 C47 C47.0 C47.1 C47.2 C47.3 C47.4 C47.5 C47.6 C47.9 C48 C48.0 C48.1 C48.2 C49 C49.0 C49.1 C49.2 C49.3 C49.4 C49.5 C49.6 C49.9 C51 C51.0 C51.1 C51.2 C51.9 C52 C52.9 C56 C56.9 C57 C57.0 C57.1 C57.2 C57.3 C57.4 C57.7 C57.9 C58 C58.9 C60 C60.0 C60.1 C60.2 C60.9 C62 C62.0 C62.1 C62.2 C62.9 C63 C63.0 C63.1 C63.2 C63.7 C63.9 C64 C64.9 C65 C65.9 C66 C66.9 C67 C67.0 C67.1 C67.2 C67.3 C67.4 C67.5 C67.6 C67.7 C67.9 C68 C68.0 C68.1 C68.9 C69 C69.0 C69.1 C69.2 C69.3 C69.4 C69.5 C69.6 C69.9 C70 C70.0 C70.1 C70.9 C71 C71.0 C71.1 C71.2 C71.3 C71.4 C71.5 C71.6 C71.7 C71.9 C72 C72.0 C72.1 C72.2 C72.3 C72.4 C72.5 C72.9 C74 C74.0 C74.1 C74.9 C75 C75.1 C75.2 C75.3 C75.4 C75.5 C75.8 C75.9 C76 C76.0 C76.1 C76.2 C76.3 C76.4 C76.5 C76.7 C77 C77.0 C77.1 C77.2 C77.3 C77.4 C77.5 C77.8 C77.9 C78 C78.1 C78.3 C78.4 C78.6 C78.7 C78.8 C79 C79.0 C79.1 C79.3 C79.4 C79.5 C79.6 C79.7 C79.8 C79.9 C80 C80.0 C80.9 C96.2 C96.4 C96.7 C96.8 C96.9 C97 D00.0 D00.1 D01 D01.0 D01.4 D01.5 D01.7 D01.9 D02 D02.0 D02.1 D02.3 D02.4 D04 D05.0 D05.1 D07 D07.1 D07.2 D07.3 D07.4 D07.6 D09 D09.0 D09.1 D09.2 D09.7 D09.9"
+      }
+    ]
+  }
+}

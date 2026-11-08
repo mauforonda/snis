@@ -1,0 +1,132 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "covid_19_2021",
+  "title": "Vacuna COVID-19 (2021)",
+  "description": "Dosis aplicadas en los establecimientos de salud de Bolivia, por mes y municipio, en las gestiones 2021. Fuente: SNIS, formularios 301a.",
+  "keywords": [
+    "servicios",
+    "vacunas"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 301a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes/Form_301_2021.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2021
+    ],
+    "periodicidad": "mensual"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 341
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "mes",
+            "type": "integer",
+            "description": "Mes, de 1 a 12."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "dosis",
+            "type": "string",
+            "description": "Dosis: número (1 a 5), inicial, única, anual o refuerzo.",
+            "categories": [
+              "1",
+              "2",
+              "refuerzo",
+              "única"
+            ]
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "lugar",
+            "type": "string",
+            "description": "Dónde ocurrió la atención o el evento: dentro o fuera del establecimiento; servicio o domicilio.",
+            "categories": [
+              "dentro",
+              "fuera"
+            ]
+          },
+          {
+            "name": "cantidad",
+            "type": "integer",
+            "description": "Número de cantidad en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "servicios",
+    "clasificacion": "vacunas",
+    "tema": null,
+    "filas": 24748,
+    "totales": {
+      "2021": 8639202
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "servicios/vacunas/covid_19_2021",
+          "servicios/vacunas/covid_19_2022",
+          "servicios/vacunas/covid_19_2023",
+          "servicios/vacunas/covid_19_2024_2025"
+        ],
+        "supuesto": "Las categorías de `dosis` y `grupo` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2021",
+        "formulario": "301a",
+        "variable": "17.23 COVID 1ra Dosis; 17.24 COVID 2da Dosis; 17.25 COVID Dosis Unica; 17.26 COVID Dosis de Refuerzo",
+        "soaps": "6.0.0 (2021), 6.0.1 (2022)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}

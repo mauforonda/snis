@@ -1,0 +1,195 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "lesiones_autoinfligidas_violencia_colectiva_2015_2023",
+  "title": "Lesiones autoinfligidas y violencia colectiva (2015-2023)",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2015-2023. Fuente: SNIS, formularios 302a.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "violencia"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2023_302a.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 304
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "violencia",
+    "filas": 36860,
+    "totales": {
+      "2015": 8954,
+      "2016": 8477,
+      "2017": 10439,
+      "2018": 11048,
+      "2019": 10490,
+      "2020": 5038,
+      "2021": 4951,
+      "2022": 6869,
+      "2023": 6469
+    },
+    "edades": [
+      {
+        "gestiones": "2015-2023",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "vigilancia/casos/lesiones_autoinfligidas_violencia_colectiva_2015_2023",
+          "vigilancia/casos/lesiones_autoinfligidas_violencia_colectiva_2024_2025"
+        ],
+        "supuesto": "Las categorías de `tipo` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2015",
+        "formulario": "302a",
+        "variable": "Otras violencias por lesiones autoinflingidas y colectivas",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "T74 Y07",
+        "cie10_codigos": "T74.3 Y07 Y07.0 Y07.1 Y07.2 Y07.3 Y07.8 Y07.9"
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "302a",
+        "variable": "Otras violencias por lesiones autoinflingidas y colectivas",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "T74 Y07",
+        "cie10_codigos": "T74.3 Y07 Y07.0 Y07.1 Y07.2 Y07.3 Y07.8 Y07.9"
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "302a",
+        "variable": "Otras violencias por lesiones autoinflingidas y colectivas",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "T74 Y07",
+        "cie10_codigos": "T74.3 Y07 Y07.0 Y07.1 Y07.2 Y07.3 Y07.8 Y07.9"
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "302a",
+        "variable": "Otras violencias por lesiones autoinflingidas y colectivas",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "T74 Y01 Y02 Y03 Y04 Y07 Y08",
+        "cie10_codigos": "T74.3 Y01.7 Y01.8 Y01.9 Y02 Y02.0 Y02.1 Y02.2 Y02.3 Y02.4 Y02.5 Y02.6 Y02.7 Y02.8 Y02.9 Y03 Y03.0 Y03.1 Y03.2 Y03.3 Y04 Y04.0 Y04.1 Y07 Y07.0 Y07.1 Y07.2 Y07.3 Y07.8 Y07.9 Y08 Y08.0 Y08.1"
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "302a",
+        "variable": "Otras violencias por lesiones autoinflingidas y colectivas",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "T74 Y01 Y02 Y03 Y04 Y07 Y08",
+        "cie10_codigos": "T74.3 Y01.7 Y01.8 Y01.9 Y02 Y02.0 Y02.1 Y02.2 Y02.3 Y02.4 Y02.5 Y02.6 Y02.7 Y02.8 Y02.9 Y03 Y03.0 Y03.1 Y03.2 Y03.3 Y04 Y04.0 Y04.1 Y07 Y07.0 Y07.1 Y07.2 Y07.3 Y07.8 Y07.9 Y08 Y08.0 Y08.1"
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "302a",
+        "variable": "Otras violencias por lesiones autoinflingidas y colectivas",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "T74 Y01 Y02 Y03 Y04 Y07 Y08",
+        "cie10_codigos": "T74.3 Y01.7 Y01.8 Y01.9 Y02 Y02.0 Y02.1 Y02.2 Y02.3 Y02.4 Y02.5 Y02.6 Y02.7 Y02.8 Y02.9 Y03 Y03.0 Y03.1 Y03.2 Y03.3 Y04 Y04.0 Y04.1 Y07 Y07.0 Y07.1 Y07.2 Y07.3 Y07.8 Y07.9 Y08 Y08.0 Y08.1"
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "302a",
+        "variable": "Otras violencias por lesiones autoinflingidas y colectivas",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "Y01 Y02 Y03 Y04 Y08",
+        "cie10_codigos": "Y01.7 Y01.8 Y01.9 Y02 Y02.0 Y02.1 Y02.2 Y02.3 Y02.4 Y02.5 Y02.6 Y02.7 Y02.8 Y02.9 Y03 Y03.0 Y03.1 Y03.2 Y03.3 Y04 Y04.0 Y04.1 Y08 Y08.0 Y08.1"
+      }
+    ]
+  }
+}

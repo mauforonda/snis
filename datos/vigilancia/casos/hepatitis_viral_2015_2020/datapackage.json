@@ -1,0 +1,184 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "hepatitis_viral_2015_2020",
+  "title": "Hepatitis viral (2015-2020)",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2015-2020. Fuente: SNIS, formularios 302a.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "inmunoprevenible"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2020_302a.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 257
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "tipo",
+            "type": "string",
+            "description": "Tipo.",
+            "categories": [
+              "A",
+              "B o C"
+            ]
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "inmunoprevenible",
+    "filas": 21857,
+    "totales": {
+      "2015": 7020,
+      "2016": 5464,
+      "2017": 6600,
+      "2018": 6549,
+      "2019": 5077,
+      "2020": 2535
+    },
+    "edades": [
+      {
+        "gestiones": "2015-2020",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 10-14, 15-19, 20-39, 40-49, 50-59, 60+"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "vigilancia/casos/hepatitis_viral_2001_2014",
+          "vigilancia/casos/hepatitis_viral_2015_2020",
+          "vigilancia/casos/hepatitis_viral_2021_2023",
+          "vigilancia/casos/hepatitis_viral_2024_2025"
+        ],
+        "supuesto": "Las categorías de `tipo` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2015",
+        "formulario": "302a",
+        "variable": "Hepatitis viral A*; Hepatitis viral B o C*",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "B15 B16 B17 B18",
+        "cie10_codigos": "B15 B15.0 B15.9 B16 B16.0 B16.1 B16.2 B16.9 B17 B17.0 B17.1 B17.8 B18 B18.0 B18.1 B18.2 B18.8"
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "302a",
+        "variable": "Hepatitis viral A*; Hepatitis viral B o C*",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "B15 B16 B17 B18",
+        "cie10_codigos": "B15 B15.0 B15.9 B16 B16.0 B16.1 B16.2 B16.9 B17 B17.0 B17.1 B17.8 B18 B18.0 B18.1 B18.2 B18.8"
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "302a",
+        "variable": "Hepatitis viral A*; Hepatitis viral B o C*",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "B15 B16 B17 B18",
+        "cie10_codigos": "B15 B15.0 B15.9 B16 B16.0 B16.1 B16.2 B16.9 B17 B17.0 B17.1 B17.8 B18 B18.0 B18.1 B18.2 B18.8"
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "302a",
+        "variable": "Hepatitis viral A*; Hepatitis viral B o C*",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "B15 B16 B17 B18",
+        "cie10_codigos": "B15 B15.0 B15.9 B16 B16.0 B16.1 B16.2 B16.9 B17 B17.0 B17.1 B17.8 B18 B18.0 B18.1 B18.2 B18.8"
+      },
+      {
+        "gestiones": "2019-2020",
+        "formulario": "302a",
+        "variable": "Hepatitis viral A*; Hepatitis viral B o C*",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "B15 B16 B17 B18",
+        "cie10_codigos": "B15 B15.0 B15.9 B16 B16.0 B16.1 B16.2 B16.9 B17 B17.0 B17.1 B17.8 B18 B18.0 B18.1 B18.2 B18.8"
+      }
+    ]
+  }
+}

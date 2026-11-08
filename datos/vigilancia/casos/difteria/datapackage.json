@@ -1,0 +1,365 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "difteria",
+  "title": "Difteria",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2001-2007, 2010-2019, 2021-2025. Fuente: SNIS, formularios 302, 302a.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "inmunoprevenible"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2014_2.aspx"
+    },
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302a",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2025_302a.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 26
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "edad_desde",
+            "type": "number",
+            "description": "Edad mínima de la banda, en años (6 meses = 0,5)."
+          },
+          {
+            "name": "edad_hasta",
+            "type": "number",
+            "description": "Edad máxima de la banda, en años, sin incluir. Vacía si la banda no tiene límite."
+          },
+          {
+            "name": "edad_grupo",
+            "type": "string",
+            "description": "Banda de edad en texto corto: \"<6m\" (menos de 6 meses), \"1-4\", \"60+\"."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "inmunoprevenible",
+    "filas": 125,
+    "totales": {
+      "2001": 3,
+      "2002": 5,
+      "2003": 3,
+      "2004": 1,
+      "2005": 5,
+      "2006": 5,
+      "2007": 1,
+      "2010": 55,
+      "2011": 13,
+      "2012": 2,
+      "2013": 6,
+      "2014": 4,
+      "2015": 5,
+      "2016": 2,
+      "2017": 2,
+      "2018": 5,
+      "2019": 6,
+      "2021": 3,
+      "2022": 2,
+      "2023": 8,
+      "2024": 1,
+      "2025": 5
+    },
+    "edades": [
+      {
+        "gestiones": "2001",
+        "bandas": "15-59"
+      },
+      {
+        "gestiones": "2002",
+        "bandas": "<1, 1-4"
+      },
+      {
+        "gestiones": "2003",
+        "bandas": "<1"
+      },
+      {
+        "gestiones": "2004",
+        "bandas": "1-4"
+      },
+      {
+        "gestiones": "2005",
+        "bandas": "1-4, 15-59"
+      },
+      {
+        "gestiones": "2006",
+        "bandas": "<1, 1-4"
+      },
+      {
+        "gestiones": "2007",
+        "bandas": "60+"
+      },
+      {
+        "gestiones": "2010",
+        "bandas": "<1, 1-4, 5-9, 10-20, 21-59"
+      },
+      {
+        "gestiones": "2011",
+        "bandas": "1-4, 5-9, 10-20, 21-59"
+      },
+      {
+        "gestiones": "2012",
+        "bandas": "10-20, 21-59"
+      },
+      {
+        "gestiones": "2013",
+        "bandas": "<1, 1-4, 5-9, 10-20, 21-59"
+      },
+      {
+        "gestiones": "2014",
+        "bandas": "<1, 1-4, 21-59"
+      },
+      {
+        "gestiones": "2015",
+        "bandas": "6-11m, 1-4, 15-19, 40-49"
+      },
+      {
+        "gestiones": "2016",
+        "bandas": "6-11m, 15-19"
+      },
+      {
+        "gestiones": "2017",
+        "bandas": "1-4"
+      },
+      {
+        "gestiones": "2018",
+        "bandas": "1-4, 20-39, 60+"
+      },
+      {
+        "gestiones": "2019",
+        "bandas": "1-4, 5-9, 20-39, 50-59"
+      },
+      {
+        "gestiones": "2021",
+        "bandas": "1-4, 10-14"
+      },
+      {
+        "gestiones": "2022",
+        "bandas": "20-39, 50-59"
+      },
+      {
+        "gestiones": "2023",
+        "bandas": "<6m, 6-11m, 1-4, 5-9, 20-39, 40-49"
+      },
+      {
+        "gestiones": "2024",
+        "bandas": "20-39"
+      },
+      {
+        "gestiones": "2025",
+        "bandas": "6-11m, 1-4, 20-39"
+      }
+    ],
+    "advertencias": [],
+    "correcciones": [],
+    "relacionados": [
+      {
+        "datasets": [
+          "vigilancia/casos/difteria",
+          "vigilancia/casos/difteria_seccion_inmunoprevenibles"
+        ],
+        "supuesto": "En 2001-2003 el formulario registra esta enfermedad en dos secciones, con cifras distintas: \"Sospecha diagnóstica\" y otra sección. No sabemos qué cuenta cada una. La de sospecha continúa desde 2004: para una serie larga, use esa. No las sume: un caso puede estar en ambas.",
+        "unir": false
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2001-2003",
+        "formulario": "302",
+        "variable": "21.- Difteria",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "A36",
+        "cie10_codigos": "A36 A36.0 A36.1 A36.2 A36.3 A36.8 A36.9"
+      },
+      {
+        "gestiones": "2004",
+        "formulario": "302",
+        "variable": "4 Difteria",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "A36",
+        "cie10_codigos": "A36 A36.0 A36.1 A36.2 A36.3 A36.8 A36.9"
+      },
+      {
+        "gestiones": "2005-2007",
+        "formulario": "302",
+        "variable": "3 Difteria",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "A36",
+        "cie10_codigos": "A36 A36.0 A36.1 A36.2 A36.3 A36.8 A36.9"
+      },
+      {
+        "gestiones": "2010-2013",
+        "formulario": "302",
+        "variable": "Difteria",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "A36",
+        "cie10_codigos": "A36 A36.0 A36.1 A36.2 A36.3 A36.8 A36.9"
+      },
+      {
+        "gestiones": "2014",
+        "formulario": "302",
+        "variable": "Difteria",
+        "soaps": "2.0.0 (2014)",
+        "cie10": "A36",
+        "cie10_codigos": "A36 A36.0 A36.1 A36.2 A36.3 A36.8 A36.9"
+      },
+      {
+        "gestiones": "2015",
+        "formulario": "302a",
+        "variable": "Difteria",
+        "soaps": "3.0.1 (2016)",
+        "cie10": "A36",
+        "cie10_codigos": "A36 A36.0 A36.1 A36.2 A36.3 A36.8 A36.9"
+      },
+      {
+        "gestiones": "2016",
+        "formulario": "302a",
+        "variable": "Difteria",
+        "soaps": "3.0.2 (2016)",
+        "cie10": "A36",
+        "cie10_codigos": "A36 A36.0 A36.1 A36.2 A36.3 A36.8 A36.9"
+      },
+      {
+        "gestiones": "2017",
+        "formulario": "302a",
+        "variable": "Difteria",
+        "soaps": "4.0.0 (2018)",
+        "cie10": "A36",
+        "cie10_codigos": "A36 A36.0 A36.1 A36.2 A36.3 A36.8 A36.9"
+      },
+      {
+        "gestiones": "2018",
+        "formulario": "302a",
+        "variable": "Difteria",
+        "soaps": "4.0.1 (2018)",
+        "cie10": "A36",
+        "cie10_codigos": "A36 A36.0 A36.1 A36.2 A36.3 A36.8 A36.9"
+      },
+      {
+        "gestiones": "2019",
+        "formulario": "302a",
+        "variable": "Difteria",
+        "soaps": "5.0.1 (2020)",
+        "cie10": "A36",
+        "cie10_codigos": "A36 A36.0 A36.1 A36.2 A36.3 A36.8 A36.9"
+      },
+      {
+        "gestiones": "2021",
+        "formulario": "302a",
+        "variable": "Difteria",
+        "soaps": "6.0.0 (2021)",
+        "cie10": "A36",
+        "cie10_codigos": "A36 A36.0 A36.1 A36.2 A36.3 A36.8 A36.9"
+      },
+      {
+        "gestiones": "2022-2023",
+        "formulario": "302a",
+        "variable": "Difteria",
+        "soaps": "6.0.1 (2022)",
+        "cie10": "A36",
+        "cie10_codigos": "A36 A36.0 A36.1 A36.2 A36.3 A36.8 A36.9"
+      },
+      {
+        "gestiones": "2024",
+        "formulario": "302a",
+        "variable": "Difteria",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "A36",
+        "cie10_codigos": "A36 A36.0 A36.1 A36.2 A36.3 A36.8 A36.9"
+      },
+      {
+        "gestiones": "2025",
+        "formulario": "302a",
+        "variable": "04. Difteria",
+        "soaps": "7.0.1 (2026)",
+        "cie10": "A36",
+        "cie10_codigos": "A36 A36.0 A36.1 A36.2 A36.3 A36.8 A36.9"
+      }
+    ]
+  }
+}

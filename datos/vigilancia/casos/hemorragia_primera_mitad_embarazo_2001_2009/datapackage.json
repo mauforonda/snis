@@ -1,0 +1,153 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "hemorragia_primera_mitad_embarazo_2001_2009",
+  "title": "Hemorragia de la primera mitad del embarazo (2001-2009)",
+  "description": "Personas atendidas con este diagnóstico en los establecimientos de salud de Bolivia, por semana y municipio, en las gestiones 2001-2003, 2005-2009. Fuente: SNIS, formularios 302.",
+  "keywords": [
+    "vigilancia",
+    "casos",
+    "salud materna"
+  ],
+  "sources": [
+    {
+      "title": "SNIS, Ministerio de Salud y Deportes de Bolivia, formulario 302",
+      "path": "https://estadisticas.minsalud.gob.bo/Reportes_Vigilancia/Form_Vigi_2009.aspx"
+    }
+  ],
+  "temporal": {
+    "gestiones": [
+      2001,
+      2002,
+      2003,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009
+    ],
+    "periodicidad": "semanal"
+  },
+  "spatial": {
+    "unidad": "municipio",
+    "municipios": 314
+  },
+  "resources": [
+    {
+      "name": "datos",
+      "path": "datos.parquet",
+      "format": "parquet",
+      "mediatype": "application/vnd.apache.parquet",
+      "schema": {
+        "fields": [
+          {
+            "name": "gestion",
+            "type": "integer",
+            "description": "Año calendario (gestión) del registro."
+          },
+          {
+            "name": "semana",
+            "type": "integer",
+            "description": "Semana epidemiológica, de 1 a 53. Va de domingo a sábado."
+          },
+          {
+            "name": "fecha_inicio",
+            "type": "date",
+            "description": "Primer día de la semana o del mes."
+          },
+          {
+            "name": "departamento",
+            "type": "string",
+            "description": "Nombre del departamento."
+          },
+          {
+            "name": "municipio",
+            "type": "string",
+            "description": "Nombre del municipio."
+          },
+          {
+            "name": "municipio_codigo",
+            "type": "string",
+            "description": "Código del municipio, 6 dígitos: departamento (2), provincia (2) y municipio (2)."
+          },
+          {
+            "name": "desenlace",
+            "type": "string",
+            "description": "Desenlace.",
+            "categories": [
+              "no especificado"
+            ]
+          },
+          {
+            "name": "sexo",
+            "type": "string",
+            "description": "mujer u hombre."
+          },
+          {
+            "name": "casos",
+            "type": "integer",
+            "description": "Número de casos en la fila."
+          }
+        ]
+      }
+    }
+  ],
+  "snis": {
+    "dominio": "vigilancia",
+    "clasificacion": "casos",
+    "tema": "salud materna",
+    "filas": 23567,
+    "totales": {
+      "2001": 14196,
+      "2002": 14091,
+      "2003": 12696,
+      "2005": 15100,
+      "2006": 14920,
+      "2007": 16870,
+      "2008": 20275,
+      "2009": 21905
+    },
+    "edades": [],
+    "advertencias": [],
+    "correcciones": [
+      "Algunas variables no tienen columnas de detalle con valores, sólo el total: se publica el total, sin desagregación."
+    ],
+    "relacionados": [
+      {
+        "datasets": [
+          "vigilancia/casos/hemorragia_primera_mitad_embarazo_2001_2009",
+          "vigilancia/casos/hemorragia_primera_mitad_embarazo_2010_2014",
+          "vigilancia/casos/hemorragia_primera_mitad_embarazo_2015_2023",
+          "vigilancia/casos/hemorragia_primera_mitad_embarazo_2024_2025"
+        ],
+        "supuesto": "Las categorías de `desenlace` cambian entre estos periodos; el readme de cada uno las lista. Consultarlos juntos como una serie supone que los conjuntos de categorías de cada periodo cuentan, en total, lo mismo. En 2024 las dos partes suman lo mismo que la variable única de 2023 (20.570 y 19.761). En 2010-2014 suman unos 32 mil, más que la variable única de 2009 (21.905) y de 2015 (20.426): pueden superponerse.",
+        "unir": true
+      }
+    ],
+    "procedencia": [
+      {
+        "gestiones": "2001-2003",
+        "formulario": "302",
+        "variable": "77.- Hemorragia de la primera mitad del embarazo",
+        "soaps": "",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2005-2007",
+        "formulario": "302",
+        "variable": "45 Hemorragia de la primera mitad del embarazo (<22 sem)",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      },
+      {
+        "gestiones": "2008-2009",
+        "formulario": "302",
+        "variable": "44 Hemorragia de la primera mitad del embarazo (<22 sem)",
+        "soaps": "1.0.4 (2013)",
+        "cie10": "",
+        "cie10_codigos": ""
+      }
+    ]
+  }
+}
